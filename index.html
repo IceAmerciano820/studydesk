@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script>/* DEMO_SEED_MARK */
+(function(){var K="wb_kaoyan_";try{
+if(!/[?&]demo(=1)?(&|$)/.test(location.search))return;
+if(localStorage.getItem(K+"tasks")||localStorage.getItem(K+"settings"))return;
+var DATA={"v3Migrated": true, "settings": {"examDate": "2026-12-19", "boardStart": "2026-10-09", "phase1End": "", "phase2End": "", "phase3End": "", "phase4End": "", "demoCleared": true, "reviewEnabled": false, "reviewTime": "22:30", "reviewMessage": "", "wallpaperMode": false, "wallpaperOpacity": 72, "focusGoal": 360, "breakInterval": 50, "breakEnabled": true}, "subjects": [{"name": "政治", "color": "#FF8A65"}, {"name": "英语一", "color": "#71D6BE"}, {"name": "口腔综合", "color": "#B39DDB"}], "tasks": [{"id": "d1", "text": "口解 第三章 错题重做", "subject": "口腔综合", "deadline": "2026-10-08", "priority": "high", "done": false, "created": "2026-10-09"}, {"id": "d2", "text": "真题 2019 阅读精读", "subject": "英语一", "deadline": "2026-10-09", "priority": "mid", "done": false, "created": "2026-10-09"}, {"id": "d3", "text": "马原 第一章 刷题 40 道", "subject": "政治", "deadline": "2026-10-11", "priority": "mid", "done": false, "created": "2026-10-09"}, {"id": "d4", "text": "修复学 笔记整理", "subject": "口腔综合", "deadline": "2026-10-14", "priority": "low", "done": true, "created": "2026-10-09"}], "stats": {"2026-10-09": {"政治": {"count": 40, "correct": 32}, "英语一": {"count": 20, "correct": 16}, "口腔综合": {"count": 30, "correct": 24}}, "2026-10-08": {"政治": {"count": 30, "correct": 24}, "英语一": {"count": 25, "correct": 19}}, "2026-10-07": {"口腔综合": {"count": 45, "correct": 36}, "英语一": {"count": 30, "correct": 24}}, "2026-10-06": {"政治": {"count": 35, "correct": 27}, "口腔综合": {"count": 20, "correct": 15}}, "2026-10-05": {"英语一": {"count": 28, "correct": 22}}, "2026-10-04": {"政治": {"count": 25, "correct": 20}}, "2026-10-03": {"口腔综合": {"count": 40, "correct": 31}}}, "scheduleCheck": {"2026-10-09": {"s0": true, "s1": true}}};
+for(var k in DATA){if(Object.prototype.hasOwnProperty.call(DATA,k))localStorage.setItem(K+k,JSON.stringify(DATA[k]));}
+}catch(e){}})();
+</script>
+
+<script src="/page/page_comm/inject.js"></script>
+<!-- 本工作台通过 WorkBuddy 资料库能力（library skill）搭建、存储和部署；数据存储于 6 张在线底表：任务/专注/刷题/时政/作息/设置 -->
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta content="#71D6BE" name="theme-color">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+<meta content="考研土豆" name="apple-mobile-web-app-title">
+<link href="data:image/png;base64,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" rel="apple-touch-icon"><link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link href="data:application/json;base64,eyJuYW1lIjoi6ICD56CU5Zyf6LGG5bel5L2c5Y+wIiwic2hvcnRfbmFtZSI6IuiAg+eglOWcn+ixhiIsImRlc2NyaXB0aW9uIjoi5a2f6I+y5pav6aOO5qC86ICD56CU5peg57q45YyW5a2m5Lmg5bel5L2c5Y+wIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNGRkYxNzYiLCJ0aGVtZV9jb2xvciI6IiM3MUQ2QkUiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzR3dIQUFBS0xVbEVRVlI0bk8yZHUyNVZSeFNHeDFFcVI1SG9IRDhCRVlXTDhBSXA2T2pTK0FWb0tNQVNKUTlBaVFRVU5MeUFHN3AwTGlLbFRvcFRvUEFFeEIwU0NxMVRtSUU1Mi9zeWwzV2QrVDhKQ1dQT25uMW0vbS9XN05ubkVnSUFBQUFBd0hBY2FKOUFyMXg5ZkhkRmVieURXM2N3Vmd5Z1V4dWdEbmt0a0tNZWRGd0JWZ0svQllUSUJ4MjFncGZBYndFaGxrSEhUT2dsOUV0QWhuM1FHYUgvMEM4QkdRWVdZTlRRTHpHcURNTTlhUVIvbmRGRUdPTEpJdlIxakNCRDEwOFF3YWVoWnhHNmZHSUlQZzg5aXREVkUwTHdaZWhKaE8rMFQ0QUtoRitPbnZyYXZjazlEWVpIdkZjRHR5ZVA0TnZDcXdndWwwQUl2ejI4am9rcmE3MTI4bWg0cWdadUtnREM3d2RQWStWQ0FFOGRDcTd4TW1hbVM1V1hUZ1RyV0Y0U21hMEFDSDgvV0I1TGt3Slk3akJRaDlVeE5TZUExWTRDN1ZnY1d6TnJNNHVkQS9pd2NsMWdvZ0lnL09OaFpjelZCYkRTRVVBZUMyT3ZLb0NGRGdDNmFHZEFUUUR0Snc3c29Ka0ZGUUVRZmpCRkt4UGlBaUQ4WUFtTmJJZ0tnUENETGFReklpWUF3Zzl5a2N5SytqWW9BSnFJQ0lEWkg1UWlsUmwyQVJCK1VJdEVkbGdGUVBoQks5d1pZaE1BNFFkVWNHWUpGOEZnYUZnRXdPd1BxT0hLRkxrQUNEL2dnaU5icEFJZy9JQWI2b3poR2dBTURaa0FtUDJCRkpSWkl4RUE0UWZTVUdVT1N5QXdOTTBDWVBZSFdsQms3M3VLRXdHMmVQVDNzOVhmdi9ybHFkQ1oyS2ZwczFrdys5dGhLL1JMOUNCRHkyY01WUytCRUg0NzFJYS85YkZXYU1saXRUa1FRQi9xOEhxdUJyVlZvS29DSVB6NmNNemNucXRCYlNheERlb1F6cUI2bHFDR1lnRXcrd09yMUdRVEZjQVpFalAwU0ZXZzZENEFadjlDM2orbU9jN3RselRIR1lDcmorK3VTaTZJaTY2Y0ljQU1WQ0hQNE5GL1A0bTFGWUxmWGFFU0FYQW51QlRCd0FOK3NnVVlkdlpINE4xUnNneENCWmdEb1IrR0xBR0dtUDBSK3E3SXJRS29BQWorMEdTdGs3cXJBSTVETDdVVDVIVUhLSVdrQW5RVmZzZkJCK1hrTElNMkRlbENnTTZDejEwRlh2M3c3L1ZmT3JnQnR5VkEveStGNkN6OG9nelFkNnQydUo3OU94ODhyaXJ3ZGZhZjRyZ2FyRldCL2dUb1BQZ3AxQklzaGovRm9RampDREJRK0ZOYVJjZ0tmb296Q2RZRVdMd0dRUGo5VUJ6ZzFzYzY2K3UxTEMrYTRVWUFaNE1od1ZaRmFCSG1CazZxd1ZJVjhDMEF3bThEQnhJc0NlQjNHeFRodDRQanNaZ1Z3UHpzNzdqRHU4WDRtQ3hsMmw4Rk1ON1JRK053Ykh3SjRMQ0RoOFBaR1BrUndGbkhEbzJqc2JvaGdNbjF2Nk1PQlY4d09HWnoyYjZ4TldST0FNR08vSHo1WWUvbnc2UGpyTWVkUExoYy9OM3V6VkhUT2VXMlJkME9HY2EyU0tmYm9iWUZVQXgvWkUyQ3RlQlBhUWxvU1R1dGJiRmdTQUkvQWdpWDBCSUJTZ09aVWhyTzJyWWd3VHhUQVd4ZUJCc0ovOXp2V3NKZit2aVd0bHJQa3h5RDF3UWhXQlhBS0ZTaHlqa09SVnZtSkRDSVBRR016aFRVWVZvN0htVmJwaVF3T0xaN0FxaXYvNVU2YU8xQzkvRG9tQzFFYzhmbGFBc1NmR09hY1hzVkFBQkI3SHd3bHZMTWNIaDBYSFVmWUxmYmZmMzd5Y2tKK1hscHRKWDJRKzY5a0NMZVB6YXpLNFFLa0hCNGRMejNKNFNObTF4SklPZCt6aUU5UG1kYk9jdWd6NWNmYmt3Q2MvL1dFellFTUhoeHRNVlNBR3Nrc05TV0dFYkdYRjhBSXgweE9sdXpQRXNWTUREMitnSUFvQWdFQUVPakt3QnhDWXdYYk9rZmtNZldiZy9MYmxBSTZzdWdiaXJBVXRoYkpWaDZVZG5TTm1UcDltUjZmTTYyekwwNHpnaDZBaENhcjNJQkYyNEdrSE52WHFLdGRQdDM3ZC9JVWF3Q2RtNkVWWkliN3MrWEgxZ0drdnZtbDBaYjdJRTNSRGRMSUU2NGxnOXp4K1ZvQzh1ZlpYUUVNTEQvV3dwMWlOYU9SOW1XbS9BclpRSVZvQUNxTU9VY2g2SXROK0ZYQkFJVTBocXFrc2UzdElYdzUrRmVnTndMTnNvTHU5MmJvK0tBMVR3bVBrN2lNYVBpZmhjb2hQbVhNazkvejBFTUd2ZkhvcVRIY1BleEtNYlplNGU4eUR2Q0dDOTI1aVFZYVV1dkN3VGVKNUIrTWtRWEZTQ0NzSU5TOXE0QmNyNVpHd0RQVERQZVZRVWc0Ni9mZmwvOS9kMjM5NFhPcEF5djU2MElCRWpaQ3REMC82MEVTdktUR0hZUEh4YWQ5OG5yMTZRaWVMNEFsLzlvUkt0M2dYUERQMlZHZ3BNSGwrSGUrWXZtVThyaCtSLy9WSjMzazE5L0pwUGc0dlFzaEVBa0F2TkZzUDVuZzFvVW9EYjhrUzhTeEZuZmV2Z2psQktFY0MxQ3N3VENBcmkvRVdZTnFmQmI1Tjc1QzFzZndwVUJCQ0JDY3RsakdXOFMzQkJneUszUWx0MlJ1Mi92U3cvNHhlbFp1RGc5YTF2Q01PNElXWlZnTHR1b0FKR2FRQmpZVnF5UzRNdDVQLy8walB4OHZJRnQwSlFZNk1yOTlMZ2J3clVVaXNlLzBVYkRlVC8vOUN3OCtmRXAwUm42QXdMTVVUR3ozenQvOFRXZzFDS2t3WjhlZDI4V3I2eElJMHV3dU41bjNRNjF1Qlhhd1BRQ2VCcllTSzRRdVkrblhzSlFTbEMxSmNxNEJicDBiWXNLUU1EdXpWRjRrdndjZ3pvTjhsS3d0NWdUaDJQOVBtSWxnQUNNVElPYkt3QzJVK1dBQUVUa3pKNVV3ZWJjdlJtdENpeHVndzU1UHdCMHlWcVdkZTRER1BsMkVHQUlwVXpnUmhnaEVqZVdlbW5EQ3FzQ1lCa0V2TE9WWWIwS2dHVVFpQ2htQVVzZ01EU2JBckF1Z3pxc0F0eGJsRktJdGFWdzl6Y0ZGUUFNRFFRQVE1TWxBSlpCZ0FYbDVVOElWaW9BSkJnUEkyT2VMUUR1Q1FBdmxHVFZSZ1VJd2N5TUFBUXdOTloyQkFCQWdTSUIySmRCaG1ZR3dJVHdCMTl0WWE4Q1FJSitNVGkyeFFMZ1loaFlwU2FiOWlwQUNDWm5pbHc0MzAwbCtVNHQ4cmFNam1tVkFDSlZ3R2lIZ1FxRXYvYW9CSnNWSUFJSi9HTjhES3NGRUxzV01ONkJZQVdoc1d2SllsTUZnQVQ3U0t6UmUybURpdFlNMmw0Q3BUaVJBUGlpV1FEUmJWRklBQklvc3VlbkFrU01TdUI2aTFMbzJCWWhFVUQ4NXBoUkNZQWNWSmtqcXdBalM2RHhiU2djTTdXWDJaOHlhLzZXUUNtR0pOQ0FNckJld2s4TnFRQXFyeE82L1hKb0VTaUM2eW44MUJranJ3QnFMNWFEQk9LUGxZWWpXeXhMSUVnZ1QwMlFSdzkvQ042dkFlWVllRWxVRW1oUDRlZUU3UXN5RG03ZE9XRDluckV0b2dTZGZSL1pGakhZUzUvczVqSDRuQ3NLMW0rSVVaY2doR3NSQnBNZ0JKOUJuNE43T2MyK0JETHhEcktCbDBXZWtjaU9XRGpWSzBFS1EwV1lmbFhxeUZ5Y25vWGRuK2ROeDVDYU9NZjhrcnkwR2d5NFBBTGZFRjJlbUtvQ1V3aEVRQlh3TmZ1SElDeEFDTVlsaURUSU1MSUUzc0lmZ29JQUlUaVJJRklodzJnU3hDOEE5eGIrRUpRRUNNR1pCQ21aUW1pOFFsU0wxdUNIb0xkYnFMcEY2VmFDRk8yTDZBNjJkelczeXRYMzZMdVFZQWtxT1RvSStSTGE5NG5VQlFpaGN3bkFJdHJoRDhISWkrRXNkQVNReGNxWW16aUpGRlNEdnJFUy9JaUpDcEJpcllNQUhSYkgxcHdBSWRqc0tOQ0cxVEUxS1VBSWRqc01sR041TE0yZVdBcXVDM3hpT2ZnUnN4VWd4VU5IZ24yOGpKa0xBVUx3MDZIQTExaTVPZEVVTElsczRpbjRFVGNWSU1WalIvZU8xekZ4ZWRJcHFBYTZlQTEreFBYSnAwQUVXYndIUCtKeUNUUkhMd1BpZ1o3NnVwc25rb0pxd0VOUHdZOTA5NFJTSUFJTlBRWS8wdTBUUzRFSWRmUWMvRWozVDNBS1pGaG5oTkNuRFBWa1V5RENQcU1GUHpMa2s1NHlxZ3lqaGo1bCtBNlkwcnNNQ1AwKzZJd1ZlcEVCb1Y4R0hWT0FGeUVRK0h6UVVRMVlFUUtCcndjZHh3UzFIQWc1QUFBQUFBQWc0bjhoUEdYQi9uQkw0d0FBQUFCSlJVNUVya0pnZ2c9PSIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6ImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBZ0FBQUFJQUNBWUFBQUQwZU5UNkFBQWRNa2xFUVZSNG5PM2R2YzRsV1hVRzRHcHJJbHVXSmh0ekJXTk4wSUc1QVFka1pFNjRnVWtJQUltUUN5QkVtaUZ3d2cxTVF1YU13SkpqTytnQW1TdkFreUVoT3gwSDNWL1A5M2ZPcVRxMWY5WmU2M2trU3hZMDNWWDc3TnJ2Vzd2T3o3WUJBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT084bVgwQXdQMisrOHNmdjV2NTc3LzU5QXRyQ0N6S3hRdkJ6QTcxWHBRRmlNVUZDWU5sRGZpekZBUVl5d1VIblFqNk5oUUQ2TU9GQlNjSitqa1VBempIQlFRSENQdllsQUxZejhVQ1Z3ajh0U2tFY0ptTEF4NFIrTGtwQlBBOUZ3T2xDZnphRkFJcU0va3BSZUJ6alVKQUpTWTc2UWw5N3FFTWtKMEpUa3BDbjVhVUFUSXlxVWxENkRPQ01rQVdKakpMRS9yTXBBeXdNcE9YNVFoOUlsSUdXSTBKeXhLRVBpdFJCbGlCU1Vwb2dwK1ZLUUpFWm5JU2p0QW5JMldBYUV4SXdoRDhWS0FJRUlXSnlGUkNuOHFVQVdZeStaaEM4TVAzRkFGbU1Pa1lTdkREWllvQUk1bHNkQ2YwNFRobGdONU1NTG9SL0hDZUlrQXZKaGJOQ1g1b1R4R2dOUk9LWmdRLzlLY0kwSXFKeEdtQ0g4WlRCRGpMQk9KdWdoL21Vd1M0bDRuRFlZSWY0bEVFT01xRVlUZkJEL0VwQXV4bG9uQ1Q0SWYxS0FMYzhqZXpENERZaEQrc3liWExMUm9pcjdKNFFCNTJBM2lOU2NFVGdoL3lVZ1I0ekNNQVBoTCtrSnRybk1lMFFTd0tVSkRkQUV5QXdnUS9vQWpVNVJGQVVjSWYyRFpyUVdXYVh6RXVkdUFTdXdHMWVMR0xFUHpBWG9wQURSNEJGQ0Q4Z1NPc0dUVm9lWW01aUlHejdBYmtaUWNnS2VFUHRHQXR5VXV6UzhiRkN2UmlOeUFYT3dDSkNIK2dKMnRNTGdwQUVpNU1ZQVJyVFI2MmN4Ym5ZZ1JtOFVoZ2JYWUFGaWI4Z1ptc1FXdFRBQmJsd2dNaXNCYXR5L2JOWWx4c1FGUWVDYXpGRHNCQ2hEOFFtVFZxTFFyQUlseFl3QXFzVmV1d1hST2Npd2xZbFVjQ3Nka0JDRXo0QXl1emhzV21BQVRsd2dFeXNKYkZwUUFFNUlJQk1yR214ZVQ1VENBdUVpQTc3d3VJd3c1QUVNSWZxTUJhRjRjQ0VJQUxBcWpFbWhlREFqQ1pDd0dveU5vM253SXdrUXNBcU13YU9KYzNZMHhnMGdNODVjMkI0OWtCR0V6NEE3eGtiUnhQQVJqSUJBZTR6Qm81bGdJd2lJa05jSnUxY2h3RllBQVRHbUEvYStZWUNrQm5KakxBY2RiTy9oU0Fqa3hnZ1B0WlEvdFNBRG94Y1FIT3M1YjJvd0IwWU1JQ3RHTk43VU1CYU14RUJXalAydHFlQXRDUUNRclFqelcyTFFXZ0VSTVRvRDlyYlRzS1FBTW1KTUE0MXR3MkZJQ1RURVNBOGF5OTV5a0FKNWlBQVBOWWc4OVJBTzVrNGdITVp5Mitud0p3QnhNT0lBNXI4bjBVZ0lOTU5JQjRyTTNIS1FBSG1HQUFjVm1qajFFQWRqS3hBT0t6VnUrbkFPeGdRZ0dzdzVxOWp3SndnNGtFc0I1cjkyMEt3QlVtRU1DNnJPSFhLUUFBVUpBQ2NJSG1DTEErYS9sbENzQXJUQmlBUEt6cHIxTUFuakZSQVBLeHRyK2tBRHhpZ2dEa1pZMS9TZ0g0d01RQXlNOWEvejBGQUFBS1VnQTJqUkNnRW12K2UrVUxnSWtBVUkrMXYzZ0JNQUVBNnFxZUFXVUxRUFVYSG9EYVdWQzJBQUJBWlNVTFFPWEdCOEJUVlRPaFhBR28ra0lEY0ZuRmJDaFZBQ3Erd0FEc1V5MGpTaFVBQU9DOU1nV2dXck1ENExoS1dWR2lBRlI2UVFFNHAwcG1wQzhBVlY1SUFOcXBrQjNwQ3dBQThGTHFBbENod1FIUVIvWU1TVnNBc3I5d0FQU1hPVXRTRm9ETUx4Z0FZMlhObEpRRkFBQzRMbDBCeU5yVUFKZ25ZN2FrS2dBWlh5QUFZc2lXTWFrS0FBQ3dUNW9Da0syWkFSQlBwcXhKVVFBeXZTQUF4SllsYzFJVUFBRGdtT1VMUUpZbUJzQTZNbVRQOGdVQUFEaHU2UUtRb1lFQnNLYlZNMmpaQXJENndBT3d2cFd6YU5rQ0FBRGNiOGtDc0hMakFpQ1hWVE5weVFJQUFKeXpYQUZZdFdrQmtOZUsyYlJVQVZoeGdBR29ZYldNK21UMkFRQ004clAvK3ZYaC84MXYvK2xYSFk0RTVuc3ord0QyV3ExWkFYUGRFL1o3S1FWYzgrYlRMNWJJMWlVT2N0c1VBT0MybnFGL2lUTEFjd3BBUThJZnVHWkc4RCtuQ1BEWUNpVWcvQUVLZitDU0NNSC9uQ0xBZytnbElQVEJiWnNDQUx3VU1maWZVd1JRQUU0US9zQmpLd1QvYzRwQWJaRkx3RkxmQXdEVXRXTDRiOXU2eDAxK1lRdUF1My9nd2VvaHV2cnhjNy9JV1JaMmF5THlvQUZqWkF4T2p3VHFpZm9ZSU9RT2dQQUhNb2IvdHVVOUx5NkxtbWtoQ3dCUVcvYVF6SDUrckNGY0FZamFsSUF4cW9SamxmUGt2WWpaRnE0QUFBRDloU29BRVJzU01FNjF1K0pxNTF0ZHRJd0xWUUNBdXFxR1lkWHpacjR3QlNCYU13TEdxUjZDMWMrL2traFpGNllBQUFEamhDZ0FrUm9STUphNzMvZU1ReDFSTWk5RUFRQUF4cHIrOVlSUm1oQXM2MDgvbi9QdmZ2NzE2Yi9DWGU5THZpcTRqdGxmRWZ6SnpIOGN1R0JXcUI5eDVCZ2JsQVdnTFRzQU1NTUtBZC9aei83M0gyWWZRbGgyQVdvb3ZRTWcvRWxQMEFNWGZQZVhQMzQzc3dSNEJBQ3RDSHRnSWRNS2dMdC9saWJzZ1FabTdnSk0yM3BRQUZpS3dHL0s4Ly9idkErZ2psa0ZZTW9PZ1BBblBJRVBEREpyRjhCN0FPQ0IwQWNLVVFDb1MrQURoUTB2QUxiL21Vcm9Bd0hOZUF4Z0I0RDhoRDdBQzBNTGdMdC9oaEg2d0dKRzd3TFlBU0FQb1Erd213TEErZ1Evd0dIRENvRHRmNW9TK2tCQ0l4OERESHZXb0FEUWhPQlB3N2NCWHVaYkFHc2JWUUNHN0FBSWYwNFIra0FobzNZQnZBZUF1QVEvUURjS0FQRUlmb0R1dW04eDJQNW5OOEZmanZjQnZPVDVQdzk2UHdhd0E4QjhnaDlnT0RzQXpDUDQyZXdDUE9idW44ZVczZ0VRL3J4SzhBUGMxUHZUQUYzYmhRTEFFNEtmQyt3Q2JOdHYvKzUvM3Y4L24zODk5MEFJcFdjQjhCNEEraFA4c04vRDlhSUkwRm0zWnVIdUg4SFBFWlYzQVQ3ZS9iOUdFU2l2MXk3QTMvVDRTMEg0YzlUVkVFenM1bm03bHVqRURnQnRXYXc0cWRKT3dPSFNZemVncEY0N0FGM2VBeUQ4Q3hMODBKLzNCNVRVNjlNQUhnRndudkNub1NxUEFrNmRwMnVPQnJwc0s5Z0JLTUlpUkVlWkh3VTBMVGwyQTByb3NRUFEvQzhVL2dVSWZnYkpXQUs2N1hBb0F1bTFMZ0VLQU1jSWZ5YklVQVNHUE5wUUFsSlRBSmhEOERQWnlpVmcrUHNhRklHVVdoZUFwbThDRlA1SkNYOENXUFhOZ1ZPTzJ6V2JVdXVNYmRvbUZJQmtMQ0lFdGNKdVFKakNZamNnbFphN0FBb0FyeFArTENCaUVRZ1QvSThwQVdrb0FQUWwvRmxNaENJUU12Z2ZVd0pTQ0ZrQWhIOENncC9GelNnQzRZUC9PVVZnZWExS2dBTEFlOEtmWkhxV2dlVkMvemtsWUdrS0FPMElmNHE0cHhRc0gvYVhLQUhMVWdCb1EvaERYVXJBa2tJVkFPRy9JTUVQUEZBRWx0T2lCUGcxd0lxRVAvQ1lOYUVrQmFBYUZ6cndHbXRET1FwQUpTNXc0QnByUkNtbkM0RG4vNHR3WVFON1dDdVcwQ0o3N1FCVTRJSUdqckJtbEhENlhZUjJBQUp6RVFObitZUkFXR2MvQ1dBSElDdmhEN1JnTFVuclZBRnc5eCtVQ3hab3lab1MwdGtNdGdPUWpRc1Y2TUhha280Q2tJa0xGT2pKR3BPS0FwQ0ZDeE1Zd1ZxVGhnS1FnUXNTR01tYWs4TGRCY0FiQUlOd0lRSXpXSHRDT0pQRmRnQlc1Z0lFWnJJR0xVMEJXSlVMRDRqQVdyUXNCV0JGTGpnZ0VtdlNraFFBQUNoSUFWaU5wZzFFWkcxYXpsMC9KT0FUQUpPNHdIYjV2Mi8vZlBHLys5dlBmakR3U0Y1NisrVzN1Ly9zdTk5OTF2RklZdG83UGhYSFpobCtQR2lLZTM0WVNBRlloZkMvNlZyd1B6ZXFDQndKL0ZzeWhsNnI4Y2s0Tmt0VEFvWlRBTElTL2pjZENmOEh2VXBBeTlDL1pPWEE2ejArSzQ5TktrckFVQXBBUnNML3BudkMvMEhMRWpBaStKOWJLZXhHajg5S1k1T1dFakRNUFFYZ2t4NEhBcU9jQ2YrSC8vM1pFakFqK0ovLzI1SERidGI0ckRBMk1KTlBBVVRtN3YrcXMrSGY0dStaR2Y2UFJUbU81eUljVjRSaktNc2FGdHJoTFFQYi80TzRjRzVxVlFDMjdmaWpnTWloRXVHT04rcjRSQmlia2p3S0dPTG9Zd0E3QUJFSi81dGFodi9Sdnk5cXVEMllmWHl6Ly8xckloOWJhdGEwa0JTQWFGd29vYTBTSUxPZnUwZTJ3akdtWkcwTFJ3R0FuVllManRISHU5TDRySFNzMElzQ0VJbUdITmFxZ1RIcXVGY2NueFdQZVhuV3VGQVVnQ2hjR0dHdEhoUzlqMy9sOFZuNTJKZGxyUXREQVlBcnNnUkVyL1BJTUQ0WnpnSHVvUUJFb0JFRGxWanpRamhVQUh3SFFBY3VoTHUwL2g3LzEvNitiSGVHcmM4bjAvaGtPcGRsV1B1YU81clJkZ0RnRlZrRG9kVjVaUnlmak9jRTF5Z0FNMm5BcDdUYUJSajEwOERBTTliQXFSU0FXVXo4SnM2R2Q0V3QvK2ZPbmwvbThjbDhibUZaQzZkUkFGamV2U1hBblQ5UW1RSXdnOGJiM05Fd3YvVG5xOXdCM251ZUZjYW53am1HWTAyYzRwUFpCMUNPaWQ3TlE2aGYrMkdma1hmOTc5NjllL0dmdlgzN2R0aS9IOTN6OGFrK05sSG03VFIvK3JsZkRSeE1BU0NkMll2bGE4SC8vTCtySEhhWHhxZnEyT3o1SmNxSFB6TjdicE9MUndBanVmc1ByY1hXNzdYd3YrZlA5WFQwZkVlTno0cGpjNitqUDJ2ZCttZXd3N0ZHRHFVQVFDTkhneXRDMEkxMDVId3JqTTI5WVo2K0JEQ01BakNLWmd0OGNEYkVVNWNBYStVd3V3dUFyd0dHeSs2OVk2MXdwN3R0OTUxbjFyRnBGZDZwU3dCM081TFZkZ0JHMEdqRHEvclJyNzNuWFhGOEtwNXpHTmJNSVJRQU9PbnNuV3JXTzkwSFo4NHYrOWpBVEFwQWI1b3M4RUhyYmZ2VWp3R3NuZDBwQUFCUWtBTFFrd1lMY0Q5cmFGY0tBQUFVcEFEMG9ya0NuR2N0N1VZQkFJQ0NGSUFlTkZiZ0ZhMS96S2ZNandOWlU3dFFBT0Nrczc5ZWwvM1g3ODZjWC9heGdaa1VBTmkyN2QzdlBwdDlDRlBzUGUrSzQxUHhuS2xGQVdndCtWYlYvMzM3NTR2L1Y5bTlkNnBWN25Edk9jK3NZOU5xMjc3TTl2K0Q1R3ZyREFvQXUrd0plVVVBOWprYjN1WENueTRVZ0pZU050UjdRcjFxRVRoNng1cjFEdmVTSStkYllXenVEZkhTNFo5d2paMUpBZUNpYXI5WjN1S1o3OTdnaWhCd1I4OTMxUGlzT0RiM09ocm1wY09mNWo2WmZRREUxUEkzeTZzdFdnOEI5dG92MlVVSXQ5a3VqVS9Wc1htNFBxNWRjOVd1SWNaUUFGcEp0RFhWNHhmTEtpNWdWUU50TCtQelZNVnI1QzUvK3ZtMmZmNzE3S05Jd1NNQW51aTFiYi9LNDRBcUgvMjY5endyakUrRmM0UnRVd0FBb0NRRm9JVWsyLys5NzlMdEFzUnc5dnd5ajAvbWMwc2x5Wm83bXdJQUFBVXBBR3piTnU3dTNDN0FYSzNPSytQNFpEd251RVlCT010V1ZGclpBcUgxK1dRYW4wem5Vb2ExOXpRRkFBQUtVZ0RnaWl4M2hyM09JOFA0WkRnSHVJY0NBRGVzSGhDOWozL2w4Vm41Mk9Fc0JlQU16NkRLV0RVb1JoMzNpdU96NGpIempEWDRGQVVBZGxvdE1FWWY3MHJqczlLeFFpOEtBQnl3U25ETU9zNFZ4bWVGWTRRUkZBQzJiUnYzUXlRWmZ2QWtlb0RNUHI3Wi8vNDFrWThOUm51ejl3OSs5NWMvZnRmelFKYVQ4Tm5UaUMvcHlWQUFIbnY3NWJlekQrR2ppT0VXWlh3aWpnME4rWFhBSjk1OCtzV3ViTis5QTdEM0wyUmR2Y001Vy9odlc1eGdpWEljejBVNHJnakhBS01jeWVwUGVoNElWUEFRTURQdWRsY0l0MW5qczhMWXdFd0tBRS84N1djLzZQSW9JT1BkLzNNamcyN0ZjQnMxUGl1T0RjeWdBUEJDNnhKUUlmd2ZleHhBTGNNdVM3RDFHSjhzWXdNakhYcXU3NDJBSHlSOEErQnJXcFNBYXVGL3k1SEFxeGhxZThlbjR0aHdnemNDYnR2bVBRQTBjblluUVBpL0pMaXVNejR3amdMQVZROGhmcVFJQ0g2QStCUUFkdGxUQkFRL3dEb1VBQTRSOGdBNStDcGdBQ2hJQVFDQWdnNFZBRjhIREFBeEhjMW9Pd0JIRmZrT0FJQ2xXSnNQVXdBQW9DQ2ZBcUNlLy95WGZ6djA1My80K3g5M09oSjY4anJEVlFvQXVSME5nYjEveDRDd21QSHJncXQ2OTlPZmRubWQzLzdydjZZdUJiNTVzYmJEYitvci8zc0Fuak90b1VYdzc5RzRDQWo5WTVvRS93N1ppOEMySlNrRHhYOFA0T2liQUJXQW94U0EyRVlGLzNNbmk0RGdQMlpVOEQrbkNBU25BQ2dBWFNrQU1jMEsvdWNPRmdIQmY4eXM0SDlPRVFoS0FlajdNVURmQlVBNFVjSi8ydzRkaS9BL0prcjRiMXVzWStuRi9GekxQZGw4VjVpWDNnV3dBeEJMcFBCLzdNWk93TjdGOVVmZmZOWGtjRmIzbTMvLzc1Q3Y4eS8vK1IrWDNRbjR3MDkrc2V2UExiVVRVSGdIUUFFWVFRR0lJMnI0UDdoUUFtNkZ2OUIvS21yNFAxaTVCRHk0VlFhV0tRRUt3Q0UrQmdnRFhRdC93YzhzRDNQdlVoRjQrK1czNjVRQWR2Tk5nS3dwK3QzL3RyMDRSdUYvWFBTNy8yMWI0eGozdWpZUHZTY2dId1VBQnJpMGVQN29tNitFUDZFb0FYWGNWUUI4RWdBZ0w2VjBMZmRtc2gwQTZPemEzVDlFZFdsKzJnWElRd0ZnVFN2OGNNdVZZeFQrTC8zaEo3OTQ4U2EwRmQ1aHY4SXgzc3M4emMybkFLQWpkMHY3UEE3K3gvKy9BSXJKcHdKeXNBUEF1aUx2QXR3NHRyMWZ3bExCcmJFSWZZZjl3OS8vK0RkLy9mWHNvK2hLQ2N0TEFXQnRFVXRBeEdOYVhNZ1M4T2gxemw0Q3lPbnVBdUNUQUlRUktYQWZIY3V0N1grN0FOZkg0UG1kWjZnUzhNcWNxMVlDUE42SzRVd1dud3J4a2w4SjdLdUFZd3YwYzhCSEZzaHEyNnkzeXMrdDhaajI1VHM3eXVZdi8vNVhJNDVrdU5kZXMzRHZBeWo0VmNCbkNvQkhBRWNWbkdCTCtlSHZmengwUjZEUnYxZHBOK0JzK0cvYmg5MkFvSzl6dFoyQU1Lek5oL2tVQURrOUxOYTlkZ1E2aE05RE1HYmREZGhUY3ZhZSs4ZVFEZm82LythdnYwNjdFMEFlQ2dDNXZiYUFIdzJMaG1IL28yKyt1aG1FMllyQTN0Mk53K0gvV0xEWGVkdVVBT0k3L1VZKzd3T0ExNzMySG9CYnY3cDJ5V3Bsb05mNXJiaTlucVVFaEg4UFFNRkhBR2Zmakc4SEFDYllzeFB3MkFwZmpuUHYreGd5aC8rMjJRa2dMZ1VBSnJsM04rRDVuNTlWQ002K2NmSEljYThhL2crVUFDSlNBR0N5bzdzQnoxMzYzN1lxQmowK29SQjFGd01xT1YwQTNuejZ4WnVTN3dPQWh1N2REYmdtNGtjTDd3bisxZS8rSDlnRm9LVVdYOGJYNU52OFNoWUFid1JraCtkdkJEd1NnQkVEL0I1bjd2YXpoUDlqcTVhQTBHOEM5QWJBdTNnRUFFSDEyQlVZeVRZL3hLWUFRRWZ2ZnZmWjZlOU1meDZrVVF0QjY4RFBlUGUvYlI0RkVFZVRBdUI5QURCT2xFTGdEaC9tYVBWamZIWUFvTE1XdXdEWFhBcmlWc1ZnUnRCbnZmdC9ZQmVBQ0pyOXBHL0pIUUJ2Qk9TQXQxOSs2NjU1aCt6aC85aEtKU0RzbXdDOUFmQnVmZzBRQUFwcVZnQmFOUklBNEhVdHM5WU9BQXdTWXJzMHVFcmIvOXRXNzN5SlJRRTRvK0N6SjRBd3JNR25LQUF3a0R1K3k2cU9UZFh6WnI2bUJjRDdBQUNnajlZWmF3Y0FBQXBTQU03eURJcURiUG0rVkgxTXFwLy9YYXk5cHpVdkFCNERBRUJiUGJMVkRnQUFGS1FBdEdBcmlvTnMrWDdQV0x4bkhBNnc1amJScFFCNERBQUFiZlRLVkRzQUFGQ1FBdENLTFNrT3N1VnJESjR6SGp0WWE1dnBWZ0E4QmdDQWMzcG1xUjBBQUNoSUFXakoxaFJBUDliWXByb1dBSThCQU9BK3ZUUFVEa0JyR2lvSFZIN1RWK1Z6djhhNFhHQnRiVTRCQUlDQ3VoY0Fqd0VBNEpnUjJXa0hvQWRiVlFEdFdGTzdVQUFBb0tBaEJhRGtZd0NORmVDOGdtdnBxTXkwQXdBQUJRMHJBSFlCNEhVVlAvWlY4WnlQTUQ0ZkZGeERSMmFsSFFBQUtFZ0I2SzFnZ3dVNHpkclozZEFDVVBJeEFBRHNNRG9qN1FDTW9Na0M3R2ZOSEdKNEFiQUxBQUJQemNoR093Q2phTFFBdDFrcmgxRUFBS0NnS1FXZzdHTUF6UmJnc3FKcjVLeE10QU1BQUFWTkt3QjJBUUQ0cU9qYU9ETUw3UURNVUhTaUE3ekttampGMUFKUWRoY0FnUEptWjZBZGdGazBYZ0JyNFVRS3dFd21QbENaTlhDcTZRVmc5aFlJQUl3V0lmdW1GNER5TkdDZ0ltdmZkQ0VLUUlRbU5KVUxBYWlrK0pvWEpmTkNGQUNvN0pkLy82dlpoekJjeFhNK3d2Z3dRcGdDRUtVUlRWTzhFUU5GRkYvckltVmRtQUxBVnY3Q0FKS3p4b1VTcWdCRWFrWUEwRkswakF0VkFOZzBaQ0FuYTFzNDRRcEF0SVkwaFFzRnlNU2FGakxid2hVQVBuREJBQmxZeThJS1dRQWlOcVVwWERqcFZmNjRWK1Z6dnliVnVGakR0bTJMbTJraEN3QUEwRmZZQWhDMU1RMm5RUU1yc25adDJ4WTd5OElXQUI1eElRRXJzV1l0SVhRQmlOeWNobk5CQVN1d1ZuMFVQY05DRndDZWNXR2xrdXJOWG5jeUJrOHRQeDdXcUtXRUx3RFJHOVJ3TGpBZ0ltdlRFeXRrVi9nQ3NHMXJEQ1FBYk5zNm1iVkVBZUFaVFh0NXkyLzFObVFzM2x0NkhLeEpTMXFtQUt6U3FJWnh3UUVSV0l1ZVdDbXJsaWtBdk1LRkI4eGtEVnJhVWdWZ3BXWTFqQXR3T1V0djlYWlNmVXlxbjM4V3EyWFVVZ1ZnMjlZYjRDR1VBSUNwVnN5bTVRb0FGeWdCQUJ5d1pBRllzV2tOb1FTRVo2djNzcXBqVS9XOE0xazFrNVlzQUZ5aEJBQ3d3N0lGWU5YR05ZUVNFTkxiTDcrZGZRamhWYnNicm5hK0dhMmNSY3NXZ0cxYmUrQzdVd0lBdWxvOWc1WXVBTnp3K2RlS0FBQ3ZXcjRBck43QWhsQUNwclA5djErVmJmRXE1NWxWaHV4WnZnQ3dreEl3amZBL0xuczRaajgvMXBDaUFHUm9Za01vQVFDblpjbWNGQVZnMi9LOElOMHBBVU81Kzc5ZjFydmtyT2RWUmFhc1NWTUFPRUFKQUNndlZRSEkxTXk2OHdtQjd0ejluNWZ0YmpuYitWU1RMV05TRllCdHkvY0NkYWNFRUZ5VzBNeHlIbFZsekpaMEJZQTdLQUVBNWFRc0FCbWJXbmRLQUlHdGZ2ZTgrdkZYbHpWVFVoYUFiY3Y3Z25YbGZRRUV0bXFJcm5yY3ZKYzVTOUlXZ0czTC9jSjFwUVFRMUdwaHV0cng4bFQyREVsZEFEaEJDU0NvVlVKMWxlT2tydlFGSUh1RDY4b2pBWUtLSHE3Umo0L2JLbVJIK2dLd2JUVmV5SzZVQUFLS0dySlJqNHY5cW1SR2lRS3diWFZlMEc3c0JoQlF0TENOZGp3Y1Z5a3J5aFFBR2xFQ0NDWks2RVk1RHRpclZBR28xT3k2c2h0QU1MUERkL2EvVHh2Vk1xSlVBZGkyZWk5d1Y0b0FnY3dLWWVHZlE4VnMrR1QyQWN6dzV0TXYzbnozbHo5K04vczQwdmo4NjIzNzA4OW5Id1Y4RE9QZi9QWFh3LzR0MWxjeC9MZXRhQUdnZzRlZEFFV0FBSG9XQWNGUEZtVUxnRjJBVGhRQkFtbFpCQVIvVGxYdi9yZXRjQUhZTmlXZ0s0OEZDT1I1ZU84cEJBSS92OHJodjIzRkM4QzJLUUZkMlEwZ0tPRk85ZkRmdG9LZkFuaU5pZENaVHdzQWdWanozMU1BR0VjUkFBaERBZmhBSXh4SUVRQW1zZFovVHdGNHhNUVlyR0FSK01OUGZqSDdFT0N3MStidHUvLzRac0tSbkdPTmYwb0JlTVlFbVNCcEVYajN1ODltSHdMd2diWDlKUVhnRlNiS0pFbUxBRENYTmYxMUNzQUZKc3hFeVl1QXh3Q3NaUFg1YWkyL1RBRWdyZ1JGd0dNQU1scngrVDh2S1FCWGFJNUJQQlNCeGN2QVk2dmZWVkhENnZQVUduNmR3ZG5CTndVR3ROaTNDNzc5OHR0WC8vTWZmZlBWNENPQmZTNkYveXAzLzhML05nTzBreElRMkFKbDRGSUIyRFlsZ0hpRWZ3MGVBZXhrUWdXMndPT0JhKzhGV0gyYmxWeFduNC9XNnYwTTFFRjJBaFlSZEZmQVRnQ1JYUXYvRmU3K2hmOHhCdXNPU3NCaWdwV0JheVZnMnhRQnhydDExeS84Y3pKZ2QxSUNGaFdrRE53cUFRK1VBWHJadTlVdi9QTXlhQ2NvQVl1YlhBYjJsZ0NZUmZqblp1Qk9VZ0lTbVZBSWxBQWlXaUg0dDAzNG4yWHdHbEFDRWhwY0JoUUJvaEQrZFJqQVJwU0E1QVlWQWtXQVdWWUovbTBUL3EwWXhJYVVnRUlHRkFKbGdKNVdDdnpIaEg4N0JySXhKYUN3SUo4d1NDLzRsejdSai9CdnkyQjJvQVR3a1ZKd2pyRG5BK0hmbmdIdFJBbmdLc1hnS1VIUEZjSy9ENFBha1JMQTNiSVZCQUhQbllSL1B3YTJNeVdBN21hVkJhRk9aOEsvTDRNN2dCSUFjSXp3NzgvUEFROWdJZ1BzWjgwY1F3RVl4SVFHdU0xYU9ZNENNSkNKRFhDWk5YSXNCV0F3RXh6Z0pXdmplQVo4SW04T0JLb1QvUFBZQVpqSXhBY3Fzd2JPcFFCTTVnSUFLckwyemFjQUJPQkNBQ3F4NXNXZ0FBVGhnZ0Fxc05iRjRZVUl5SnNEZ1d3RWZ6eDJBQUp5b1FDWldOTmlVZ0NDY3NFQUdWakw0bElBQW5QaEFDdXpoc1hteFZtRTl3VUFxeEQ4YTdBRHNBZ1hGTEFDYTlVNkZJQ0Z1TENBeUt4UmEvRmlMY29qQVNBS3diOG1Pd0NMY3NFQkVWaUwxcVVBTE15RkI4eGtEVnFiRnk4Smp3U0FVUVIvRG5ZQWtuQkJBaU5ZYS9KUUFCSnhZUUk5V1dOeThXSW01WkVBMElyZ3o4a09RRkl1V0tBRmEwbGVYdGdDN0FZQVJ3bisvT3dBRk9CQ0JvNndadFRnUlM3R2JnQndpZUN2eFl0ZGxDSUFQQkQ4TlhrRVVKUUxIdGcyYTBGbFhuanNCa0JCZ2g4VGdJOFVBY2hQOFBQQUl3QStzakJBYnE1eEhqTVplSlhkQU1oRDhQTWFrNEtyRkFGWWwrRG5HbzhBdU1vQ0FtdHk3WEtMQ2NKdWRnTWdQc0hQWGlZS2h5a0NFSS9nNXlnVGhyc3BBakNmNE9kZUpnNm5LUUl3bnVEbkxCT0laaFFCNkUvdzA0cUpSSE9LQUxRbitHbk5oS0liUlFET0UvejBZbUxSblNJQXh3bCtlalBCR0VvWmdNdUVQaU9aYkV5aENNRDNCRDh6bUhSTXBRaFFtZUJuSnBPUE1KUUJLaEQ2UkdFaUVvNGlRRWFDbjJoTVNFSlRCbGlaMENjeWs1TWxLQUtzUlBDekFwT1U1U2dEUkNUMFdZMEp5OUtVQVdZUytxek01Q1VOWllBUmhENVptTWlrcEF6UWt0QW5JNU9hOUpRQjdpSDB5YzRFcHhSbGdHdUVQcFdZN0pTbUVOUW04S25NNUlkSEZJTGNCRDU4ejhVQVZ5Z0VheFA0Y0ptTEF3NVFDR0lUK0xDZml3Vk9VZ3JtRVBad2pnc0lPbEVNMmhEMDBJY0xDd1pUREY0bjZHRXNGeHdFazdVZ0NIaUl4UVVKQzV0ZEZvUTZBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQURzOGYrM0NCVW5ESFpSY3dBQUFBQkpSVTVFcmtKZ2dnPT0iLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==" rel="manifest">
+<title>考研土豆工作台</title>
+<style>
+:root{--mint:#71D6BE;--coral:#FF8A65;--lavender:#B39DDB;--lemon:#FFF176;--pink:#F48FB1;--dark:#2D2D2D;--bg:#FFFDE7;--card-bg:#FFFFFF;--font:"Fredoka One","Nunito","Varela Round","Quicksand",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+* {margin:0;padding:0;box-sizing:border-box}
+html {font-size:16px;-webkit-tap-highlight-color:transparent}
+body {font-family:var(--font);background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden;position:relative}
+body::before {content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle 8px at 5% 10%,var(--coral) 0,transparent 9px),radial-gradient(circle 6px at 15% 30%,var(--lavender) 0,transparent 7px),radial-gradient(circle 10px at 25% 5%,var(--mint) 0,transparent 11px),radial-gradient(circle 7px at 35% 50%,var(--lemon) 0,transparent 8px),radial-gradient(circle 9px at 45% 15%,var(--pink) 0,transparent 10px),radial-gradient(circle 6px at 55% 70%,var(--coral) 0,transparent 7px),radial-gradient(circle 8px at 65% 25%,var(--lavender) 0,transparent 9px),radial-gradient(circle 10px at 75% 60%,var(--mint) 0,transparent 11px),radial-gradient(circle 7px at 85% 10%,var(--lemon) 0,transparent 8px),radial-gradient(circle 9px at 95% 40%,var(--pink) 0,transparent 10px),radial-gradient(circle 6px at 10% 80%,var(--mint) 0,transparent 7px),radial-gradient(circle 8px at 30% 90%,var(--coral) 0,transparent 9px),radial-gradient(circle 7px at 50% 85%,var(--lavender) 0,transparent 8px),radial-gradient(circle 9px at 70% 95%,var(--lemon) 0,transparent 10px),radial-gradient(circle 6px at 90% 80%,var(--pink) 0,transparent 7px);opacity:0.35}
+.wave-line {position:fixed;pointer-events:none;z-index:0;opacity:0.25}
+.wave-line svg {width:100%;height:100%}
+.memphis-card {background:var(--card-bg);border:3px solid var(--dark);border-radius:18px;box-shadow:6px 6px 0 var(--dark);padding:18px;position:relative;z-index:1;transition:transform 0.2s,box-shadow 0.2s}
+.memphis-card:hover {transform:translateY(-3px) scale(1.01);box-shadow:8px 8px 0 var(--dark)}
+.rot-1 {transform:rotate(-1.2deg)}
+.rot-2 {transform:rotate(1.5deg)}
+.rot-3 {transform:rotate(-0.8deg)}
+.rot-4 {transform:rotate(2.0deg)}
+.rot-5 {transform:rotate(-1.8deg)}
+.rot-6 {transform:rotate(0.5deg)}
+.memphis-btn {display:inline-flex;align-items:center;justify-content:center;gap:6px;border:3px solid var(--dark);border-radius:50px;padding:10px 22px;font-family:var(--font);font-size:1rem;font-weight:700;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;box-shadow:4px 4px 0 var(--dark);text-decoration:none;color:var(--dark);background:var(--lemon);-webkit-appearance:none}
+.memphis-btn:hover {transform:translateY(-2px) scale(1.03);box-shadow:5px 5px 0 var(--dark)}
+.memphis-btn:active {transform:translateY(1px);box-shadow:2px 2px 0 var(--dark)}
+.memphis-btn.mint {background:var(--mint)}
+.memphis-btn.coral {background:var(--coral);color:#fff}
+.memphis-btn.lavender {background:var(--lavender);color:#fff}
+.memphis-btn.pink {background:var(--pink);color:#fff}
+.memphis-input {border:3px solid var(--dark);border-radius:14px;padding:12px 16px;font-family:var(--font);font-size:1rem;background:#fff;box-shadow:3px 3px 0 var(--dark);width:100%;outline:none;transition:box-shadow 0.2s}
+.memphis-input:focus {box-shadow:4px 4px 0 var(--coral)}
+.memphis-select {border:3px solid var(--dark);border-radius:14px;padding:12px 16px;font-family:var(--font);font-size:1rem;background:#fff;box-shadow:3px 3px 0 var(--dark);width:100%;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none}
+.memphis-tag {display:inline-block;border:2px solid var(--dark);border-radius:50px;padding:4px 12px;font-size:0.85rem;font-weight:700;box-shadow:2px 2px 0 var(--dark)}
+.tag-mint {background:var(--mint)}
+.tag-coral {background:var(--coral);color:#fff}
+.tag-lavender {background:var(--lavender);color:#fff}
+.tag-lemon {background:var(--lemon)}
+.tag-pink {background:var(--pink);color:#fff}
+.memphis-progress {height:20px;border:3px solid var(--dark);border-radius:50px;background:#fff;overflow:hidden;box-shadow:3px 3px 0 var(--dark);position:relative}
+.memphis-progress-fill {height:100%;border-radius:50px;transition:width 0.5s ease;position:relative}
+.memphis-progress-fill::after {content:'';position:absolute;right:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.5);border-radius:50px}
+.container {max-width:900px;margin:0 auto;padding:16px;position:relative;z-index:1}
+.header {display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:20px}
+.header-logo {width:56px;height:56px;border:3px solid var(--dark);border-radius:50%;box-shadow:3px 3px 0 var(--dark);overflow:hidden;flex-shrink:0;background:var(--lemon)}
+.header-logo img {width:100%;height:100%;object-fit:cover}
+.header-info {flex:1;min-width:200px}
+.header-title {font-size:1.6rem;font-weight:800;letter-spacing:1px;line-height:1.2}
+.header-sub {font-size:0.9rem;opacity:0.8;margin-top:2px}
+.header-countdown {background:var(--coral);color:#fff;border:3px solid var(--dark);border-radius:16px;padding:10px 18px;box-shadow:4px 4px 0 var(--dark);text-align:center;flex-shrink:0}
+.countdown-num {font-size:1.8rem;font-weight:800;line-height:1}
+.countdown-label {font-size:0.75rem;margin-top:2px}
+.quote-bar {background:var(--lemon);border:3px solid var(--dark);border-radius:16px;padding:12px 18px;box-shadow:4px 4px 0 var(--dark);text-align:center;font-size:1.05rem;font-weight:700;margin-bottom:20px;position:relative;z-index:1}
+.section-title {font-size:1.3rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-title .icon {width:32px;height:32px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--card-bg);box-shadow:2px 2px 0 var(--dark)}
+.today-alert {background:var(--pink);color:#fff;border:3px solid var(--dark);border-radius:16px;padding:14px 18px;box-shadow:4px 4px 0 var(--dark);margin-bottom:16px;position:relative;z-index:1}
+.today-alert-title {font-weight:800;font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.today-list {list-style:none}
+.today-list li {display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:2px dashed rgba(255,255,255,0.3);font-size:0.95rem}
+.today-list li:last-child {border-bottom:none}
+.today-list .overdue {color:#fff;font-weight:800}
+.today-list .overdue::before {content:'\26A0';font-size:0.9rem}
+.today-list .today-normal {color:rgba(255,255,255,0.95)}
+.today-list .today-normal::before {content:'\1F4CC';font-size:0.9rem}
+.schedule-item {display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid var(--dark);border-radius:14px;margin-bottom:8px;background:var(--card-bg);box-shadow:3px 3px 0 var(--dark);transition:transform 0.15s}
+.schedule-item:hover {transform:translateX(3px)}
+.schedule-item.done {background:var(--mint);opacity:0.7}
+.schedule-item.done .schedule-text {text-decoration:line-through}
+.schedule-time {font-weight:800;font-size:0.85rem;background:var(--lemon);border:2px solid var(--dark);border-radius:10px;padding:4px 10px;flex-shrink:0;box-shadow:2px 2px 0 var(--dark)}
+.schedule-text {flex:1;font-size:0.95rem;font-weight:700}
+.schedule-check {width:36px;height:36px;border:3px solid var(--dark);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:#fff;box-shadow:2px 2px 0 var(--dark);flex-shrink:0;transition:all 0.15s}
+.schedule-check:hover {background:var(--mint)}
+.schedule-check.checked {background:var(--mint)}
+.phase-timeline {position:relative;padding-left:28px}
+.phase-timeline::before {content:'';position:absolute;left:10px;top:0;bottom:0;width:4px;background:var(--dark);border-radius:2px}
+.phase-node {position:relative;margin-bottom:14px;padding:12px 14px;border:3px solid var(--dark);border-radius:14px;background:var(--card-bg);box-shadow:4px 4px 0 var(--dark)}
+.phase-node::before {content:'';position:absolute;left:-24px;top:18px;width:16px;height:16px;border:3px solid var(--dark);border-radius:50%;background:var(--lemon);box-shadow:2px 2px 0 var(--dark)}
+.phase-node.active::before {background:var(--coral)}
+.phase-node.completed::before {background:var(--mint)}
+.phase-node.past {opacity:0.6}
+.phase-date {font-size:0.8rem;font-weight:700;background:var(--lavender);color:#fff;border:2px solid var(--dark);border-radius:10px;padding:2px 10px;display:inline-block;margin-bottom:6px;box-shadow:2px 2px 0 var(--dark)}
+.phase-title {font-weight:800;font-size:1.05rem;margin-bottom:4px}
+.phase-desc {font-size:0.9rem;opacity:0.85}
+.phase-current-badge {position:absolute;right:10px;top:10px;background:var(--coral);color:#fff;border:2px solid var(--dark);border-radius:10px;padding:2px 10px;font-size:0.75rem;font-weight:800;box-shadow:2px 2px 0 var(--dark)}
+.task-item {display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--dark);border-radius:14px;margin-bottom:8px;background:var(--card-bg);box-shadow:3px 3px 0 var(--dark)}
+.task-item.overdue {border-color:#E53935;box-shadow:3px 3px 0 #E53935}
+.task-item.overdue .task-title {color:#E53935}
+.task-check {width:28px;height:28px;border:3px solid var(--dark);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;background:#fff;box-shadow:2px 2px 0 var(--dark);flex-shrink:0;margin-top:2px}
+.task-check.checked {background:var(--mint)}
+.task-body {flex:1}
+.task-title {font-weight:700;font-size:0.95rem}
+.task-meta {font-size:0.8rem;opacity:0.7;margin-top:2px}
+.task-actions {display:flex;gap:6px;flex-shrink:0}
+.task-btn {width:32px;height:32px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--card-bg);box-shadow:2px 2px 0 var(--dark);font-size:0.85rem;flex-shrink:0}
+.stats-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.stat-card {border:3px solid var(--dark);border-radius:16px;padding:14px;text-align:center;box-shadow:4px 4px 0 var(--dark);background:var(--card-bg)}
+.stat-num {font-size:1.8rem;font-weight:800;line-height:1}
+.stat-label {font-size:0.8rem;font-weight:700;opacity:0.7;margin-top:4px}
+.ocr-dropzone {border:3px dashed var(--dark);border-radius:16px;padding:30px 20px;text-align:center;background:var(--card-bg);box-shadow:4px 4px 0 var(--dark);cursor:pointer;transition:all 0.2s}
+.ocr-dropzone:hover {border-color:var(--coral);background:#FFF3E0}
+.ocr-dropzone.dragover {border-color:var(--mint);background:#E8F5E9}
+.ocr-preview {max-width:100%;border:3px solid var(--dark);border-radius:14px;box-shadow:4px 4px 0 var(--dark);margin-top:12px;display:none}
+.ocr-result {margin-top:12px;padding:12px;border:3px solid var(--dark);border-radius:14px;background:var(--card-bg);box-shadow:3px 3px 0 var(--dark);font-size:0.9rem;white-space:pre-wrap;display:none}
+.tpl-bar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap;align-items:center}
+.tpl-bar .memphis-btn{font-size:0.85rem;padding:8px 14px}
+.memphis-btn.active{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--dark)}
+.subj-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.subj-row .memphis-input{flex:1;min-width:0}
+.subj-dot{width:28px;height:28px;border-radius:50%;border:3px solid var(--dark);flex:0 0 auto;cursor:pointer}
+.sched-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.sched-edit-row .memphis-input{flex:1;min-width:130px}
+.modal-overlay {position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.show {display:flex}
+.modal-content {background:var(--card-bg);border:3px solid var(--dark);border-radius:20px;padding:24px;max-width:480px;width:100%;box-shadow:8px 8px 0 var(--dark);position:relative;z-index:101;max-height:80vh;overflow-y:auto}
+.modal-title {font-size:1.3rem;font-weight:800;margin-bottom:16px}
+.modal-close {position:absolute;right:14px;top:14px;width:36px;height:36px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--lemon);box-shadow:2px 2px 0 var(--dark);font-size:1.1rem;font-weight:800}
+.toast {position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--dark);color:#fff;padding:12px 24px;border-radius:50px;font-weight:700;font-size:0.95rem;z-index:200;transition:transform 0.3s;box-shadow:4px 4px 0 rgba(0,0,0,0.2);white-space:nowrap}
+.toast.show {transform:translateX(-50%) translateY(0)}
+.bottom-nav {position:fixed;bottom:0;left:0;right:0;background:var(--card-bg);border-top:3px solid var(--dark);display:flex;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom));z-index:50;box-shadow:0 -4px 0 var(--dark)}
+.bottom-nav-item {display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 8px;cursor:pointer;border-radius:12px;transition:background 0.2s;min-width:60px}
+.bottom-nav-item:hover {background:var(--lemon)}
+.bottom-nav-item.active {background:var(--lemon)}
+.bottom-nav-icon {width:28px;height:28px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;background:var(--card-bg);box-shadow:2px 2px 0 var(--dark)}
+.bottom-nav-label {font-size:0.65rem;font-weight:700}
+.sidebar-nav {display:none;position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--card-bg);border-right:3px solid var(--dark);padding:20px 12px;z-index:50;box-shadow:4px 0 0 var(--dark);flex-direction:column;gap:8px}
+.sidebar-nav-item {display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:700;font-size:0.95rem;transition:background 0.2s}
+.sidebar-nav-item:hover {background:var(--lemon)}
+.sidebar-nav-item.active {background:var(--lemon);border:2px solid var(--dark);box-shadow:2px 2px 0 var(--dark)}
+.tab-content {display:none}
+.tab-content.active {display:block}
+@media (min-width:768px){.container{margin-left:240px;padding:24px;max-width:none}.sidebar-nav{display:flex}.bottom-nav{display:none}.header-title{font-size:2rem}.stats-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:767px){.container{padding-bottom:80px}.header{flex-direction:column;align-items:flex-start}.header-countdown{align-self:stretch}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pop-anim{animation:pop 0.3s ease}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.float-anim{animation:float 3s ease-in-out infinite}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--dark);border-radius:4px}
+input[type="file"]{display:none}
+
+/* ===== Feature: TXT Import ===== */
+.txt-import-area{border:3px dashed var(--dark);border-radius:14px;padding:16px;background:#FFFDE7;box-shadow:3px 3px 0 var(--dark);margin-bottom:12px}
+.txt-import-area textarea{width:100%;min-height:140px;border:2px solid var(--dark);border-radius:10px;padding:10px;font-family:var(--font);font-size:0.9rem;background:#fff;resize:vertical;outline:none}
+.txt-import-area textarea:focus{box-shadow:2px 2px 0 var(--coral)}
+.txt-format-hint{font-size:0.78rem;opacity:0.75;margin-top:8px;line-height:1.5;white-space:pre-wrap;background:#FFF3E0;border:2px solid var(--dark);border-radius:8px;padding:8px}
+
+/* ===== Feature: Widget Mode (mini floating window) ===== */
+.widget-toggle{position:fixed;right:16px;bottom:80px;width:48px;height:48px;border:3px solid var(--dark);border-radius:50%;background:var(--lavender);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:pointer;box-shadow:4px 4px 0 var(--dark);z-index:90;transition:transform 0.2s}
+@media(min-width:768px){.widget-toggle{bottom:24px}}
+.widget-toggle:hover{transform:scale(1.1)}
+.widget-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:95;display:none;align-items:center;justify-content:center;padding:16px}
+.widget-overlay.show{display:flex}
+.widget-card{background:var(--card-bg);border:3px solid var(--dark);border-radius:20px;padding:20px;max-width:340px;width:100%;box-shadow:8px 8px 0 var(--dark);text-align:center;position:relative}
+.widget-card .widget-potato{width:48px;height:48px;margin:0 auto 8px;border:2px solid var(--dark);border-radius:50%;overflow:hidden;background:var(--lemon)}
+.widget-card .widget-potato img{width:100%;height:100%;object-fit:cover}
+.widget-card .widget-close{position:absolute;right:10px;top:10px;width:30px;height:30px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--lemon);box-shadow:2px 2px 0 var(--dark);font-weight:800}
+.widget-countdown{font-size:2.4rem;font-weight:800;color:var(--coral);line-height:1}
+.widget-phase{margin:6px 0 10px}
+.widget-tasks{text-align:left;max-height:200px;overflow-y:auto;margin-top:8px}
+.widget-tasks .wt-item{padding:6px 8px;border-bottom:2px dashed #eee;font-size:0.85rem;font-weight:700}
+.widget-tasks .wt-item:last-child{border-bottom:none}
+.widget-tasks .wt-overdue{color:#E53935;font-weight:800}
+
+/* ===== Feature: Wallpaper Mode (semi-transparent) ===== */
+body.wallpaper-mode{background:transparent!important}
+body.wallpaper-mode::before{opacity:0.15}
+body.wallpaper-mode .memphis-card{background:rgba(255,255,255,0.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body.wallpaper-mode .sidebar-nav{background:rgba(255,255,255,0.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body.wallpaper-mode .bottom-nav{background:rgba(255,255,255,0.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body.wallpaper-mode .quote-bar{background:rgba(255,241,118,0.72)}
+body.wallpaper-mode .header-countdown{background:rgba(255,138,101,0.85)}
+body.wallpaper-mode .today-alert{background:rgba(244,143,177,0.85)}
+body.wallpaper-mode .wave-line{opacity:0.1}
+body.wallpaper-mode .widget-toggle{display:none}
+.wallpaper-toggle{position:fixed;left:16px;bottom:80px;width:48px;height:48px;border:3px solid var(--dark);border-radius:50%;background:var(--mint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;box-shadow:4px 4px 0 var(--dark);z-index:90;transition:transform 0.2s}
+@media(min-width:768px){.wallpaper-toggle{bottom:24px}}
+.wallpaper-toggle:hover{transform:scale(1.1)}
+.wallpaper-toggle.active{background:var(--coral)}
+
+/* ===== Feature: Review Reminder ===== */
+.reminder-card{border:3px solid var(--dark);border-radius:14px;padding:14px;background:#FFF3E0;box-shadow:3px 3px 0 var(--dark);margin-bottom:12px}
+.reminder-time-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.reminder-time-row input[type="time"]{border:2px solid var(--dark);border-radius:10px;padding:8px 10px;font-family:var(--font);font-size:1rem;background:#fff;box-shadow:2px 2px 0 var(--dark);outline:none;width:120px}
+.reminder-toggle{position:relative;width:48px;height:26px;border:3px solid var(--dark);border-radius:50px;background:#ccc;cursor:pointer;transition:background 0.2s;flex-shrink:0}
+.reminder-toggle.on{background:var(--mint)}
+.reminder-toggle::after{content:'';position:absolute;left:2px;top:1px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:1px 1px 0 var(--dark);transition:left 0.2s}
+.reminder-toggle.on::after{left:22px}
+.reminder-status{font-size:0.8rem;font-weight:700;opacity:0.8}
+
+/* ===== Feature: Autostart guide ===== */
+.autostart-card{border:3px solid var(--dark);border-radius:14px;padding:14px;background:#E8F5E9;box-shadow:3px 3px 0 var(--dark);margin-bottom:12px}
+.autostart-card ol{padding-left:18px;font-size:0.85rem;line-height:1.7}
+.autostart-card ol li{margin-bottom:4px}
+
+/* ===== Feature: PWA install hint ===== */
+.pwa-install-hint{background:var(--lemon);border:2px solid var(--dark);border-radius:10px;padding:8px 12px;font-size:0.8rem;font-weight:700;margin-bottom:8px;box-shadow:2px 2px 0 var(--dark)}
+
+/* ===== Focus Mode ===== */
+.focus-timer{font-size:3.4rem;font-weight:800;letter-spacing:2px;line-height:1;font-variant-numeric:tabular-nums;text-align:center}
+.focus-timer.paused{opacity:0.45}
+.hourglass-wrap{display:flex;justify-content:center;margin:10px auto;transition:transform 0.8s cubic-bezier(0.68,-0.55,0.27,1.55)}
+.hourglass-wrap.flip{transform:rotate(180deg)}
+.focus-current-task{font-weight:800;font-size:1.05rem;text-align:center;margin-bottom:6px}
+.focus-break-banner{background:var(--mint);border:3px solid var(--dark);border-radius:14px;padding:14px 16px;box-shadow:3px 3px 0 var(--dark);text-align:center;margin-bottom:16px;font-weight:700;position:relative;z-index:1}
+.focus-break-banner .fb-big{font-size:1.15rem;font-weight:800}
+.focus-break-banner .fb-sub{font-size:0.82rem;opacity:0.85;margin-top:2px}
+.focus-goal-row{display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;font-weight:700;margin-bottom:6px}
+.focus-mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.focus-mini-stat{border:2px solid var(--dark);border-radius:12px;padding:10px 6px;text-align:center;background:#FFFDE7;box-shadow:2px 2px 0 var(--dark)}
+.focus-mini-stat .fm-num{font-size:1.3rem;font-weight:800}
+.focus-mini-stat .fm-label{font-size:0.68rem;font-weight:700;opacity:0.7;margin-top:2px}
+.session-item{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:2px solid var(--dark);border-radius:12px;margin-bottom:6px;background:#fff;box-shadow:2px 2px 0 var(--dark);font-size:0.85rem;font-weight:700}
+.session-item .si-time{opacity:0.65;font-size:0.72rem;font-weight:600}
+.session-item .si-min{background:var(--lemon);border:2px solid var(--dark);border-radius:10px;padding:2px 10px;font-weight:800;flex-shrink:0}
+.focus-btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.task-btn.focus{background:var(--mint);font-size:0.7rem;width:auto;min-width:32px;padding:0 8px;border-radius:50px}
+
+/* ===== 倒计时看板 ===== */
+.board-summary-row {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.board-stat {border:2px solid var(--dark);border-radius:12px;padding:6px 14px;font-weight:700;font-size:0.85rem;background:#fff;box-shadow:2px 2px 0 var(--dark);display:flex;align-items:center;gap:6px}
+.board-stat .num {font-size:1.2rem;font-weight:800;color:#E53935}
+.board-stat.total-stat .num {color:var(--dark)}
+.board-stat.pct-stat {background:var(--lemon)}
+.board-stat.pct-stat .num {color:var(--dark)}
+.board-months {display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px;margin-top:14px}
+.board-month {border:3px solid var(--dark);border-radius:14px;background:#fff;padding:10px 12px;box-shadow:3px 3px 0 var(--dark)}
+.board-month-title {font-weight:800;font-size:0.88rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.board-month-pct {font-size:0.72rem;font-weight:700;background:var(--lemon);border:2px solid var(--dark);border-radius:50px;padding:1px 8px}
+.board-grid {display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.board-cell {width:100%;aspect-ratio:1/1;border-radius:3px;min-width:8px}
+.board-cell.past {background:#E53935}
+.board-cell.future {background:rgba(229,57,53,0.16)}
+.board-cell.today {background:#E53935;outline:2px solid var(--dark);outline-offset:1px;animation:boardPulse 1.5s ease-in-out infinite}
+.board-cell.exam {background:var(--lemon);border:1.5px solid var(--dark);position:relative}
+.board-cell.exam::after {content:'\2605';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:var(--dark);line-height:1}
+/* ===== Feature: 日期标注（每天待办） ===== */
+.board-cell {cursor:pointer;position:relative;transition:transform 0.12s}
+.board-cell:hover {outline:2px solid var(--coral);outline-offset:1px;z-index:2}
+.board-cell .nb {position:absolute;right:1px;bottom:1px;width:6px;height:6px;border-radius:50%;background:var(--dark);box-shadow:0 0 0 1px #fff}
+.board-hint {font-size:0.8rem;font-weight:700;opacity:0.7;margin-top:8px;display:flex;align-items:center;gap:6px}
+.dn-dot {width:10px;height:10px;border-radius:50%;background:var(--dark);display:inline-block;flex-shrink:0}
+.daynote-list {list-style:none;margin:10px 0 0}
+.daynote-item {display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid var(--dark);border-radius:14px;margin-bottom:8px;background:var(--card-bg);box-shadow:3px 3px 0 var(--dark)}
+.daynote-check {width:28px;height:28px;border:3px solid var(--dark);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;background:#fff;box-shadow:2px 2px 0 var(--dark);flex-shrink:0}
+.daynote-check.checked {background:var(--mint)}
+.daynote-text {flex:1;font-size:0.95rem;font-weight:700;word-break:break-word}
+.daynote-item.done .daynote-text {text-decoration:line-through;opacity:0.6}
+.daynote-del {width:30px;height:30px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--card-bg);box-shadow:2px 2px 0 var(--dark);font-size:0.8rem;flex-shrink:0}
+.daynote-del:hover {background:var(--coral);color:#fff}
+.daynote-empty {text-align:center;opacity:0.6;padding:16px 0;font-size:0.9rem}
+.daynote-count {font-size:0.8rem;font-weight:700;opacity:0.7;margin-top:8px}
+@keyframes boardPulse {0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.board-legend {display:flex;flex-wrap:wrap;gap:14px;font-size:0.78rem;font-weight:700;opacity:0.85;margin-top:16px;align-items:center}
+.board-legend .lg-cell {display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+/* ===== 时政速览 ===== */
+.sz-chips {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+.sz-chips .memphis-tag {cursor:pointer}
+.sz-card {border:3px solid var(--dark);border-radius:16px;background:#fff;padding:13px 16px;box-shadow:4px 4px 0 var(--dark);transition:transform 0.18s,box-shadow 0.18s;margin-bottom:12px}
+.sz-card:nth-child(even) {transform:rotate(0.35deg)}
+.sz-card:nth-child(odd) {transform:rotate(-0.3deg)}
+.sz-card.has-link {cursor:pointer}
+.sz-card.has-link:hover {transform:translateY(-3px) scale(1.01);box-shadow:6px 6px 0 var(--dark)}
+.sz-card.has-link:active {transform:translateY(1px);box-shadow:2px 2px 0 var(--dark)}
+.sz-card.no-link {cursor:default;opacity:0.92}
+.sz-head {display:flex;align-items:flex-start;gap:10px}
+.sz-num {flex-shrink:0;width:26px;height:26px;border:2px solid var(--dark);border-radius:50%;background:#E53935;color:#fff;font-weight:800;font-size:0.82rem;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--dark);margin-top:1px}
+.sz-title {font-weight:800;font-size:0.98rem;line-height:1.45;flex:1}
+.sz-ext {flex-shrink:0;width:24px;height:24px;border:2px solid var(--dark);border-radius:50%;background:var(--lemon);font-size:0.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--dark);margin-top:1px}
+.sz-summary {font-size:0.88rem;margin-top:8px;line-height:1.6}
+.sz-reason {font-size:0.82rem;margin-top:8px;line-height:1.55;background:var(--lemon);border:2px solid var(--dark);border-radius:10px;padding:6px 10px}
+.sz-meta {font-size:0.8rem;font-weight:700;opacity:0.7;margin-bottom:12px}
+.sz-empty {text-align:center;padding:26px 10px;font-size:0.9rem;opacity:0.75;border:3px dashed var(--dark);border-radius:16px;line-height:1.8}
+@media (max-width:767px) {
+.board-months {grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.board-month {padding:8px 9px}
+.board-stat {padding:5px 10px;font-size:0.78rem}
+.sz-card {padding:11px 13px}
+}
+
+/* ===== Mobile refinement (compact header / fab / cards) ===== */
+@media (max-width:767px){
+  html,body{overflow-x:hidden}
+  .container{padding:12px 12px 176px}
+  .header{flex-direction:row;align-items:center;gap:10px;margin-bottom:12px}
+  .header-logo{width:44px;height:44px}
+  .header-info{min-width:0}
+  .header-title{font-size:1.1rem;white-space:nowrap;letter-spacing:0}
+  .header-sub{font-size:0.72rem}
+  .header .memphis-tag{font-size:0.68rem;padding:2px 8px}
+  .header-countdown{display:flex;flex-direction:row;align-items:baseline;justify-content:center;gap:8px;padding:8px 14px;border-radius:12px;box-shadow:3px 3px 0 var(--dark)}
+  .countdown-num{font-size:1.5rem}
+  .countdown-label{margin-top:0;font-size:0.72rem}
+  .quote-bar{padding:8px 12px;font-size:0.85rem;margin-bottom:12px;border-radius:12px;box-shadow:3px 3px 0 var(--dark)}
+  .memphis-card{padding:14px;border-radius:14px}
+  .section-title{font-size:1.1rem;margin-bottom:10px}
+  .modal-content{padding:16px;border-radius:16px}
+  .widget-toggle{width:40px;height:40px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));font-size:1.05rem}
+  .wallpaper-toggle{width:40px;height:40px;left:auto;right:12px;bottom:calc(128px + env(safe-area-inset-bottom));font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="wave-line" style="top:80px; left:0; width:100%; height:40px"><svg preserveAspectRatio="none" viewBox="0 0 800 40"><path d="M0,20 Q50,0 100,20 T200,20 T300,20 T400,20 T500,20 T600,20 T700,20 T800,20" fill="none" stroke="#FF8A65" stroke-linecap="round" stroke-width="4"/></svg></div>
+<div class="wave-line" style="top:300px; left:0; width:100%; height:30px"><svg preserveAspectRatio="none" viewBox="0 0 800 30"><path d="M0,15 Q40,30 80,15 T160,15 T240,15 T320,15 T400,15 T480,15 T560,15 T640,15 T720,15 T800,15" fill="none" stroke="#B39DDB" stroke-linecap="round" stroke-width="4"/></svg></div>
+<nav class="sidebar-nav" id="sidebarNav">
+<div style="display:flex; align-items:center; gap:10px; padding:0 8px 16px"><div class="header-logo"><img alt="土豆" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAdMklEQVR4nO3dvc4lWXUG4GprIluWJhtzBWNN0IG5AQdkZE64gUkIAImQCyBEmiFwwg1MQuaMwJJjO+gAmSvAkyEhOx0H3V/P93fOqTq1f9Ze63kkSxY03VX77NrvW7vOz7YBAAAAAAAAAAAAAAAAAAAAAAAAAOO8mX0AwP2++8sfv5v577/59AtrCCzKxQvBzA71XpQFiMUFCYNlDfizFAQYywUHnQj6NhQD6MOFBScJ+jkUAzjHBQQHCPvYlALYz8UCVwj8tSkEcJmLAx4R+LkpBPA9FwOlCfzaFAIqM/kpReBzjUJAJSY76Ql97qEMkJ0JTkpCn5aUATIyqUlD6DOCMkAWJjJLE/rMpAywMpOX5Qh9IlIGWI0JyxKEPitRBliBSUpogp+VKQJEZnISjtAnI2WAaExIwhD8VKAIEIWJyFRCn8qUAWYy+ZhC8MP3FAFmMOkYSvDDZYoAI5lsdCf04ThlgN5MMLoR/HCeIkAvJhbNCX5oTxGgNROKZgQ/9KcI0IqJxGmCH8ZTBDjLBOJugh/mUwS4l4nDYYIf4lEEOMqEYTfBD/EpAuxlonCT4If1KALc8jezD4DYhD+sybXLLRoir7J4QB52A3iNScETgh/yUgR4zCMAPhL+kJtrnMe0QSwKUJDdAEyAwgQ/oAjU5RFAUcIf2DZrQWWaXzEuduASuwG1eLGLEPzAXopADR4BFCD8gSOsGTVoeYm5iIGz7AbkZQcgKeEPtGAtyUuzS8bFCvRiNyAXOwCJCH+gJ2tMLgpAEi5MYARrTR62cxbnYgRm8UhgbXYAFib8gZmsQWtTABblwgMisBaty/bNYlxsQFQeCazFDsBChD8QmTVqLQrAIlxYwAqsVeuwXROciwlYlUcCsdkBCEz4AyuzhsWmAATlwgEysJbFpQAE5IIBMrGmxeT5TCAuEiA77wuIww5AEMIfqMBaF4cCEIALAqjEmheDAjCZCwGoyNo3nwIwkQsAqMwaOJc3Y0xg0gM85c2B49kBGEz4A7xkbRxPARjIBAe4zBo5lgIwiIkNcJu1chwFYAATGmA/a+YYCkBnJjLAcdbO/hSAjkxggPtZQ/tSADoxcQHOs5b2owB0YMICtGNN7UMBaMxEBWjP2tqeAtCQCQrQjzW2LQWgERMToD9rbTsKQAMmJMA41tw2FICTTESA8ay95ykAJ5iAAPNYg89RAO5k4gHMZy2+nwJwBxMOIA5r8n0UgINMNIB4rM3HKQAHmGAAcVmjj1EAdjKxAOKzVu+nAOxgQgGsw5q9jwJwg4kEsB5r920KwBUmEMC6rOHXKQAAUJACcIHmCLA+a/llCsArTBiAPKzpr1MAnjFRAPKxtr+kADxiggDkZY1/SgH4wMQAyM9a/z0FAAAKUgA2jRCgEmv+e+ULgIkAUI+1v3gBMAEA6qqeAWULQPUXHoDaWVC2AABAZSULQOXGB8BTVTOhXAGo+kIDcFnFbChVACq+wADsUy0jShUAAOC9MgWgWrMD4LhKWVGiAFR6QQE4p0pmpC8AVV5IANqpkB3pCwAA8FLqAlChwQHQR/YMSVsAsr9wAPSXOUtSFoDMLxgAY2XNlJQFAAC4Ll0ByNrUAJgnY7akKgAZXyAAYsiWMakKAACwT5oCkK2ZARBPpqxJUQAyvSAAxJYlc1IUAADgmOULQJYmBsA6MmTP8gUAADhu6QKQoYEBsKbVM2jZArD6wAOwvpWzaNkCAADcb8kCsHLjAiCXVTNpyQIAAJyzXAFYtWkBkNeK2bRUAVhxgAGoYbWM+mT2AQCM8rP/+vXh/81v/+lXHY4E5nsz+wD2Wq1ZAXPdE/Z7KQVc8+bTL5bI1iUOctsUAOC2nqF/iTLAcwpAQ8IfuGZG8D+nCPDYCiUg/AEKf+CSCMH/nCLAg+glIPTBbZsCALwUMfifUwRQAE4Q/sBjKwT/c4pAbZFLwFLfAwDUtWL4b9u6x01+YQuAu3/gweohuvrxc7/IWRZ2ayLyoAFjZAxOjwTqifoYIOQOgPAHMob/tuU9Ly6LmmkhCwBQW/aQzH5+rCFcAYjalIAxqoRjlfPkvYjZFq4AAAD9hSoAERsSME61u+Jq51tdtIwLVQCAuqqGYdXzZr4wBSBaMwLGqR6C1c+/kkhZF6YAAADjhCgAkRoRMJa73/eMQx1RMi9EAQAAxpr+9YRRmhAs608/n/Pvfv716b/CXe9Lviq4jtlfEfzJzH8cuGBWqB9x5BgblAWgLTsAMMMKAd/Zz/73H2YfQlh2AWoovQMg/ElP0AMXfPeXP343swR4BACtCHtgIdMKgLt/libsgQZm7gJM23pQAFiKwG/K8//bvA+gjlkFYMoOgPAnPIEPDDJrF8B7AOCB0AcKUQCoS+ADhQ0vALb/mUroAwHNeAxgB4D8hD7AC0MLgLt/hhH6wGJG7wLYASAPoQ+wmwLA+gQ/wGHDCoDtf5oS+kBCIx8DDHvWoADQhOBPw7cBXuZbAGsbVQCG7AAIf04R+kAho3YBvAeAuAQ/QDcKAPEIfoDuum8x2P5nN8FfjvcBvOT5Pw96PwawA8B8gh9gODsAzCP42ewCPObun8eW3gEQ/rxK8APc1PvTAF3bhQLAE4KfC+wCbNtv/+5/3v8/n38990AIpWcB8B4A+hP8sN/D9aII0Fm3ZuHuH8HPEZV3AT7e/b9GESiv1y7A3/T4S0H4c9TVEEzs5nm7lujEDgBtWaw4qdJOwOHSYzegpF47AF3eAyD8CxL80J/3B5TU69MAHgFwnvCnoSqPAk6dp2uOBrpsK9gBKMIiREeZHwU0LTl2A0rosQPQ/C8U/gUIfgbJWAK67XAoAum1LgEKAMcIfybIUASGPNpQAlJTAJhD8DPZyiVg+PsaFIGUWheApm8CFP5JCX8CWPXNgVOO2zWbUuuMbdomFIBkLCIEtcJuQJjCYjcglZa7AAoArxP+LCBiEQgT/I8pAWkoAPQl/FlMhCIQMvgfUwJSCFkAhH8Cgp/FzSgC4YP/OUVgea1KgALAe8KfZHqWgeVC/zklYGkKAO0If4q4pxQsH/aXKAHLUgBoQ/hDXUrAkkIVAOG/IMEPPFAEltOiBPg1wIqEP/CYNaEkBaAaFzrwGmtDOQpAJS5w4BprRCmnC4Dn/4twYQN7WCuW0CJ77QBU4IIGjrBmlHD6XYR2AAJzEQNn+YRAWGc/CWAHICvhD7RgLUnrVAFw9x+UCxZoyZoS0tkMtgOQjQsV6MHako4CkIkLFOjJGpOKApCFCxMYwVqThgKQgQsSGMmak8LdBcAbAINwIQIzWHtCOJPFdgBW5gIEZrIGLU0BWJULD4jAWrQsBWBFLjggEmvSkhQAAChIAViNpg1EZG1azl0/JOATAJO4wHb5v2//fPG/+9vPfjDwSF56++W3u//su9991vFIYto7PhXHZhl+PGiKe34YSAFYhfC/6VrwPzeqCBwJ/Fsyhl6r8ck4NktTAoZTALIS/jcdCf8HvUpAy9C/ZOXA6z0+K49NKkrAUApARsL/pnvC/0HLEjAi+J9bKexGj89KY5OWEjDMPQXgkx4HAqOcCf+H//3ZEjAj+J//25HDbtb4rDA2MJNPAUTm7v+qs+Hf4u+ZGf6PRTmO5yIcV4RjKMsaFtrhLQPb/4O4cG5qVQC27fijgMihEuGON+r4RBibkjwKGOLoYwA7ABEJ/5tahv/Rvy9quD2YfXyz//1rIh9bata0kBSAaFwooa0SILOfu0e2wjGmZG0LRwGAnVYLjtHHu9L4rHSs0IsCEImGHNaqgTHquFccnxWPeXnWuFAUgChcGGGtHhS9j3/l8Vn52JdlrQtDAYArsgREr/PIMD4ZzgHuoQBEoBEDlVjzQjhUAHwHQAcuhLu0/h7/1/6+bHeGrc8n0/hkOpdlWPuaO5rRdgDgFVkDodV5ZRyfjOcE1ygAM2nAp7TaBRj108DAM9bAqRSAWUz8Js6Gd4Wt/+fOnl/m8cl8bmFZC6dRAFjevSXAnT9QmQIwg8bb3NEwv/Tnq9wB3nueFcanwjmGY02c4pPZB1COid7NQ6hf+2GfkXf97969e/GfvX37dti/H93z8ak+NlHm7TR/+rlfDRxMASCd2Yvla8H//L+rHHaXxqfq2Oz5JcqHPzN7bpOLRwAjufsPrcXW77Xwv+fP9XT0fEeNz4pjc6+jP2vd+meww7FGDqUAQCNHgytC0I105HwrjM29YZ6+BDCMAjCKZgt8cDbEU5cAa+UwuwuArwGGy+69Y61wp7tt951n1rFpFd6pSwB3O5LVdgBG0GjDq/rRr73nXXF8Kp5zGNbMIRQAOOnsnWrWO90HZ84v+9jATApAb5os8EHrbfvUjwGsnd0pAABQkALQkwYLcD9raFcKAAAUpAD0orkCnGct7UYBAICCFIAeNFbgFa1/zKfMjwNZU7tQAOCks79el/3X786cX/axgZkUANi27d3vPpt9CFPsPe+K41PxnKlFAWgt+VbV/33754v/V9m9d6pV7nDvOc+sY9Nq277M9v+D5GvrDAoAu+wJeUUA9jkb3uXCny4UgJYSNtR7Qr1qETh6x5r1DveSI+dbYWzuDfHS4Z9wjZ1JAeCiar9Z3uKZ797gihBwR8931PisODb3OhrmpcOf5j6ZfQDE1PI3y6stWg8B9tov2UUIt9kujU/VsXm4Pq5dc9WuIcZQAFpJtDXV4xfLKi5gVQNtL+PzVMVr5C5/+vm2ff717KNIwSMAnui1bb/K44AqH/269zwrjE+Fc4RtUwAAoCQFoIUk2/+979LtAsRw9vwyj0/mc0slyZo7mwIAAAUpAGzbNu7u3C7AXK3OK+P4ZDwnuEYBOMtWVFrZAqH1+WQan0znUoa19zQFAAAKUgDgiix3hr3OI8P4ZDgHuIcCADesHhC9j3/l8Vn52OEsBeAMz6DKWDUoRh33iuOz4jHzjDX4FAUAdlotMEYf70rjs9KxQi8KABywSnDMOs4VxmeFY4QRFAC2bRv3QyQZfvAkeoDMPr7Z//41kY8NRnuz9w9+95c/ftfzQJaT8NnTiC/pyVAAHnv75bezD+GjiOEWZXwijg0N+XXAJ958+sWubN+9A7D3L2RdvcM5W/hvW5xgiXIcz0U4rgjHAKMcyepPeh4IVPAQMDPudlcIt1njs8LYwEwKAE/87Wc/6PIoIOPd/3Mjg27FcBs1PiuODcygAPBC6xJQIfwfexxALcMuS7D1GJ8sYwMjHXqu742AHyR8A+BrWpSAauF/y5HAqxhqe8en4thwgzcCbtvmPQA0cnYnQPi/JLiuMz4wjgLAVQ8hfqQICH6A+BQAdtlTBAQ/wDoUAA4R8gA5+CpgAChIAQCAgg4VAF8HDAAxHc1oOwBHFfkOAIClWJsPUwAAoCCfAqCe//yXfzv053/4+x93OhJ68jrDVQoAuR0Ngb1/x4CwmPHrgqt699Ofdnmd3/7rv6YuBb55sbbDb+or/3sAnjOtoUXw79G4CAj9Y5oE/w7Zi8C2JSkDxX8P4OibABWAoxSA2EYF/3Mni4DgP2ZU8D+nCASnACgAXSkAMc0K/ucOFgHBf8ys4H9OEQhKAej7MUDfBUA4UcJ/2w4di/A/Jkr4b1usY+nF/FzLPdl8V5iX3gWwAxBLpPB/7MZOwN7F9UfffNXkcFb3m3//75Cv8y//+R+X3Qn4w09+sevPLbUTUHgHQAEYQQGII2r4P7hQAm6Fv9B/Kmr4P1i5BDy4VQaWKQEKwCE+BggDXQt/wc8sD3PvUhF4++W365QAdvNNgKwp+t3/tr04RuF/XPS7/21b4xj3ujYPvScgHwUABri0eP7om6+EP6EoAXXcVQB8EgAgL6V0Lfdmsh0A6Oza3T9EdWl+2gXIQwFgTSv8cMuVYxT+L/3hJ7948Sa0Fd5hv8Ix3ss8zc2nAKAjd0v7PA7+x/+/AIrJpwJysAPAuiLvAtw4tr1fwlLBrbEIfYf9w9//+Dd//fXso+hKCctLAWBtEUtAxGNaXMgS8Oh1zl4CyOnuAuCTAIQRKXAfHcut7X+7ANfH4PmdZ6gS8Mqcq1YCPN6K4UwWnwrxkl8J7KuAYwv0c8BHFshq26y3ys+t8Zj25Ts7yuYv//5XI45kuNdes3DvAyj4VcBnCoBHAEcVnGBL+eHvfzx0R6DRv1dpN+Bs+G/bh92AoK9ztZ2AMKzNh/kUADk9LNa9dgQ6hM9DMGbdDdhTcvae+8eQDfo6/+avv067E0AeCgC5vbaAHw2LhmH/o2++uhmE2YrA3t2Nw+H/WLDXeduUAOI7/UY+7wOA1732HoBbv7p2yWploNf5rbi9nqUEhH8PQMFHAGffjG8HACbYsxPw2ApfjnPv+xgyh/+22QkgLgUAJrl3N+D5n59VCM6+cfHIca8a/g+UACJSAGCyo7sBz13637YqBj0+oRB1FwMqOV0A3nz6xZuS7wOAhu7dDbgm4kcL7wn+1e/+H9gFoKUWX8bX5Nv8ShYAbwRkh+dvBDwSgBED/B5n7vazhP9jq5aA0G8C9AbAu3gEAEH12BUYyTY/xKYAQEfvfvfZ6e9Mfx6kUQtB68DPePe/bR4FEEeTAuB9ADBOlELgDh/maPVjfHYAoLMWuwDXXAriVsVgRtBnvft/YBeACJr9pG/JHQBvBOSAt19+6655h+zh/9hKJSDsmwC9AfBufg0QAApqVgBaNRIA4HUts9YOAAwSYrs0uErb/9tW73yJRQE4o+CzJ4AwrMGnKAAwkDu+y6qOTdXzZr6mBcD7AACgj9YZawcAAApSAM7yDIqDbPm+VH1Mqp//Xay9pzUvAB4DAEBbPbLVDgAAFKQAtGArioNs+X7PWLxnHA6w5jbRpQB4DAAAbfTKVDsAAFCQAtCKLSkOsuVrDJ4zHjtYa5vpVgA8BgCAc3pmqR0AAChIAWjJ1hRAP9bYproWAI8BAOA+vTPUDkBrGioHVH7TV+Vzv8a4XGBtbU4BAICCuhcAjwEA4JgR2WkHoAdbVQDtWFO7UAAAoKAhBaDkYwCNFeC8gmvpqMy0AwAABQ0rAHYB4HUVP/ZV8ZyPMD4fFFxDR2alHQAAKEgB6K1ggwU4zdrZ3dACUPIxAADsMDoj7QCMoMkC7GfNHGJ4AbALAABPzchGOwCjaLQAt1krh1EAAKCgKQWg7GMAzRbgsqJr5KxMtAMAAAVNKwB2AQD4qOjaODML7QDMUHSiA7zKmjjF1AJQdhcAgPJmZ6AdgFk0XgBr4UQKwEwmPlCZNXCq6QVg9hYIAIwWIfumF4DyNGCgImvfdCEKQIQmNJULAaik+JoXJfNCFACo7Jd//6vZhzBcxXM+wvgwQpgCEKURTVO8EQNFFF/rImVdmALAVv7CAJKzxoUSqgBEakYA0FK0jAtVANg0ZCAna1s44QpAtIY0hQsFyMSaFjLbwhUAPnDBABlYy8IKWQAiNqUpXDjpVf64V+VzvybVuFjDtm2Lm2khCwAA0FfYAhC1MQ2nQQMrsnZt2xY7y8IWAB5xIQErsWYtIXQBiNychnNBASuwVn0UPcNCFwCecWGlkurNXncyBk8tPx7WqKWELwDRG9RwLjAgImvTEytkV/gCsG1rDCQAbNs6mbVEAeAZTXt5y2/1NmQs3lt6HKxJS1qmAKzSqIZxwQERWIueWCmrlikAvMKFB8xkDVraUgVgpWY1jAtwOUtv9XZSfUyqn38Wq2XUUgVg29Yb4CGUAICpVsym5QoAFygBABywZAFYsWkNoQSEZ6v3sqpjU/W8M1k1k5YsAFyhBACww7IFYNXGNYQSENLbL7+dfQjhVbsbrna+Ga2cRcsWgG1be+C7UwIAulo9g5YuANzw+deKAACvWr4ArN7AhlACprP9v1+VbfEq55lVhuxZvgCwkxIwjfA/Lns4Zj8/1pCiAGRoYkMoAQCnZcmcFAVg2/K8IN0pAUO5+79f1rvkrOdVRaasSVMAOEAJACgvVQHI1My68wmB7tz9n5ftbjnb+VSTLWNSFYBty/cCdacEEFyW0MxyHlVlzJZ0BYA7KAEA5aQsABmbWndKAIGtfve8+vFXlzVTUhaAbcv7gnXlfQEEtmqIrnrcvJc5S9IWgG3L/cJ1pQQQ1Gphutrx8lT2DEldADhBCSCoVUJ1leOkrvQFIHuD68ojAYKKHq7Rj4/bKmRH+gKwbTVeyK6UAAKKGrJRj4v9qmRGiQKwbXVe0G7sBhBQtLCNdjwcVykryhQAGlECCCZK6EY5DtirVAGo1Oy6shtAMLPDd/a/TxvVMqJUAdi2ei9wV4oAgcwKYeGfQ8Vs+GT2Aczw5tMv3nz3lz9+N/s40vj86237089nHwV8DOPf/PXXw/4t1lcx/LetaAGgg4edAEWAAHoWAcFPFmULgF2AThQBAmlZBAR/TlXv/retcAHYNiWgK48FCOR5eO8pBAI/v8rhv23FC8C2KQFd2Q0gKOFO9fDftoKfAniNidCZTwsAgVjz31MAGEcRAAhDAfhAIxxIEQAmsdZ/TwF4xMQYrGAR+MNPfjH7EOCw1+btu//4ZsKRnGONf0oBeMYEmSBpEXj3u89mHwLwgbX9JQXgFSbKJEmLADCXNf11CsAFJsxEyYuAxwCsZPX5ai2/TAEgrgRFwGMAMlrx+T8vKQBXaI5BPBSBxcvAY6vfVVHD6vPUGn6dwdnBNwUGtNi3C7798ttX//MfffPV4COBfS6F/yp3/8L/NgO0kxIQ2AJl4FIB2DYlgHiEfw0eAexkQgW2wOOBa+8FWH2blVxWn4/W6v0M1EF2AhYRdFfATgCRXQv/Fe7+hf8xBusOSsBigpWBayVg2xQBxrt11y/8czJgd1ICFhWkDNwqAQ+UAXrZu9Uv/PMyaCcoAYubXAb2lgCYRfjnZuBOUgISmVAIlAAiWiH4t034n2XwGlACEhpcBhQBohD+dRjARpSA5AYVAkWAWVYJ/m0T/q0YxIaUgEIGFAJlgJ5WCvzHhH87BrIxJaCwIJ8wSC/4lz7Rj/Bvy2B2oATwkVJwjrDnA+HfngHtRAngKsXgKUHPFcK/D4PakRLA3bIVBAHPnYR/Pwa2MyWA7maVBaFOZ8K/L4M7gBIAcIzw78/PAQ9gIgPsZ80cQwEYxIQGuM1aOY4CMJCJDXCZNXIsBWAwExzgJWvjeAZ8Im8OBKoT/PPYAZjIxAcqswbOpQBM5gIAKrL2zacABOBCACqx5sWgAAThggAqsNbF4YUIyJsDgWwEfzx2AAJyoQCZWNNiUgCCcsEAGVjL4lIAAnPhACuzhsXmxVmE9wUAqxD8a7ADsAgXFLACa9U6FICFuLCAyKxRa/FiLcojASAKwb8mOwCLcsEBEViL1qUALMyFB8xkDVqbFy8JjwSAUQR/DnYAknBBAiNYa/JQABJxYQI9WWNy8WIm5ZEA0Irgz8kOQFIuWKAFa0leXtgC7AYARwn+/OwAFOBCBo6wZtTgRS7GbgBwieCvxYtdlCIAPBD8NXkEUJQLHtg2a0FlXnjsBkBBgh8TgI8UAchP8PPAIwA+sjBAbq5xHjMZeJXdAMhD8PMak4KrFAFYl+DnGo8AuMoCAmty7XKLCcJudgMgPsHPXiYKhykCEI/g5ygThrspAjCf4OdeJg6nKQIwnuDnLBOIZhQB6E/w04qJRHOKALQn+GnNhKIbRQDOE/z0YmLRnSIAxwl+ejPBGEoZgMuEPiOZbEyhCMD3BD8zmHRMpQhQmeBnJpOPMJQBKhD6RGEiEo4iQEaCn2hMSEJTBliZ0Ccyk5MlKAKsRPCzApOU5SgDRCT0WY0Jy9KUAWYS+qzM5CUNZYARhD5ZmMikpAzQktAnI5Oa9JQB7iH0yc4EpxRlgGuEPpWY7JSmENQm8KnM5IdHFILcBD58z8UAVygEaxP4cJmLAw5QCGIT+LCfiwVOUgrmEPZwjgsIOlEM2hD00IcLCwZTDF4n6GEsFxwEk7UgCHiIxQUJC5tdFoQ6AAAAAAAAAAAAAAAAAAAAAAAAAADs8f+3CBUnDHZRcwAAAABJRU5ErkJggg=="></div><div style="font-weight:800; font-size:1.1rem">考研土豆</div></div>
+<div class="sidebar-nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')"><div class="bottom-nav-icon">&#127968;</div> 总览</div>
+<div class="sidebar-nav-item" data-tab="schedule" onclick="switchTab('schedule')"><div class="bottom-nav-icon">&#9200;</div> 每日作息</div>
+<div class="sidebar-nav-item" data-tab="phase" onclick="switchTab('phase')"><div class="bottom-nav-icon">&#127919;</div> 阶段时间轴</div>
+<div class="sidebar-nav-item" data-tab="board" onclick="switchTab('board')"><div class="bottom-nav-icon">&#9635;</div> 备考看板</div>
+<div class="sidebar-nav-item" data-tab="tasks" onclick="switchTab('tasks')"><div class="bottom-nav-icon">&#128221;</div> 任务管理</div>
+<div class="sidebar-nav-item" data-tab="focus" onclick="switchTab('focus')"><div class="bottom-nav-icon">&#9201;</div> 专注模式</div>
+<div class="sidebar-nav-item" data-tab="stats" onclick="switchTab('stats')"><div class="bottom-nav-icon">&#128202;</div> 刷题统计</div>
+<div class="sidebar-nav-item" data-tab="ocr" onclick="switchTab('ocr')"><div class="bottom-nav-icon">&#128247;</div> OCR识别</div>
+<div class="sidebar-nav-item" data-tab="tools" onclick="switchTab('tools')"><div class="bottom-nav-icon">&#128295;</div> 进阶工具</div>
+<div class="sidebar-nav-item" data-tab="settings" onclick="switchTab('settings')"><div class="bottom-nav-icon">&#9881;</div> 设置</div>
+</nav>
+<div class="container">
+<div class="header">
+<div class="header-logo float-anim"><img alt="土豆" src="data:image/png;base64,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"></div>
+<div class="header-info">
+<div class="header-title" id="headerDate">加载中...</div>
+<div class="header-sub"><span class="memphis-tag tag-mint" id="currentPhaseTag">阶段加载中</span><span class="memphis-tag tag-lavender" id="dayOfWeek">星期</span><span id="syncIndicator" style="display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; color:#888; margin-left:6px"><span id="syncDot" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#FBC02D"></span><span id="syncStatusText">同步中</span></span></div>
+</div>
+<div class="header-countdown"><div class="countdown-num" id="countdownNum">--</div><div class="countdown-label">考研倒计时</div></div>
+</div>
+<div class="quote-bar" id="quoteBar">"星光不问赶路人，时光不负有心人。"</div>
+<div class="tab-content active" id="tab-dashboard">
+<div class="today-alert" id="todayAlert"><div class="today-alert-title">&#128276; 今天要处理</div><ul class="today-list" id="todayList"><li>加载中...</li></ul></div>
+<div class="memphis-card rot-1" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#9200;</div> 今日作息</div><div id="schedulePreview"></div><div style="text-align:center; margin-top:10px"><button class="memphis-btn mint" onclick="switchTab('schedule')">查看完整作息</button></div></div>
+<div class="memphis-card rot-2" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#127919;</div> 当前阶段进度</div><div id="phaseProgress"></div></div>
+<div class="memphis-card rot-3" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#128202;</div> 本周刷题</div><div class="stats-grid" id="quickStats"></div></div>
+</div>
+<div class="tab-content" id="tab-schedule"><div class="memphis-card rot-1"><div class="section-title"><div class="icon">&#9200;</div> 每日固定作息</div><div class="tpl-bar" id="tplBar"></div><div id="scheduleFull"></div><div class="tpl-bar" id="schedEditBar"></div></div></div>
+<div class="tab-content" id="tab-phase"><div class="memphis-card rot-2"><div class="section-title"><div class="icon">&#127919;</div> 备考阶段时间轴</div><div class="phase-timeline" id="phaseTimeline"></div><div style="display:flex;gap:8px;margin:10px 0;flex-wrap:wrap"><button class="memphis-btn mint" style="font-size:0.85rem;padding:7px 14px" onclick="openPhaseAdd()">＋ 添加节点</button><button class="memphis-btn lavender" style="font-size:0.85rem;padding:7px 14px" onclick="resetPhaseNodes()">↺ 恢复默认</button></div><div style="margin-top:16px"><div class="section-title" style="margin-bottom:8px"><div class="icon">&#128203;</div> 当前阶段任务</div><div id="phaseTasks"></div></div></div></div>
+<div class="tab-content" id="tab-tasks"><div class="memphis-card rot-3"><div class="section-title"><div class="icon">&#128221;</div> 任务管理</div><div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="openTaskModal()">+ 添加任务</button><button class="memphis-btn" onclick="filterTasks('all')">全部</button><button class="memphis-btn lavender" onclick="filterTasks('today')">今天</button><button class="memphis-btn coral" onclick="filterTasks('overdue')">逾期</button><button class="memphis-btn pink" onclick="filterTasks('done')">已完成</button></div><div id="taskList"></div></div></div>
+<div class="tab-content" id="tab-focus">
+<div class="memphis-card rot-1" id="focusActiveCard" style="display:none; margin-bottom:16px"><div class="focus-current-task" id="focusCurrentTask">任务加载中</div><div style="text-align:center; margin-bottom:4px"><span class="memphis-tag tag-mint" id="focusCurrentSubject">科目</span></div><div class="hourglass-wrap" id="hourglassWrap"><svg height="215" viewBox="0 0 200 300" width="150"><defs><clipPath id="topGlass"><path d="M44,44 L156,44 L104,148 L96,148 Z"/></clipPath><clipPath id="bottomGlass"><path d="M96,152 L104,152 L156,256 L44,256 Z"/></clipPath></defs><rect clip-path="url(#topGlass)" fill="#FFC944" height="104" id="topSand" width="112" x="44" y="44"/><rect clip-path="url(#bottomGlass)" fill="#FFC944" height="104" id="bottomSand" width="112" x="44" y="152"/><rect fill="#FFC944" height="110" id="sandFlow" width="7" x="96.5" y="146" style="display:none"/><path d="M44,44 L156,44 L104,148 L96,148 L44,44" fill="none" stroke="#2D2D2D" stroke-linejoin="round" stroke-width="7"/><path d="M96,152 L104,152 L156,256 L44,256 L96,152" fill="none" stroke="#2D2D2D" stroke-linejoin="round" stroke-width="7"/><rect fill="#71D6BE" height="14" rx="7" stroke="#2D2D2D" stroke-width="4" width="136" x="32" y="24"/><rect fill="#71D6BE" height="14" rx="7" stroke="#2D2D2D" stroke-width="4" width="136" x="32" y="262"/></svg></div><div class="focus-timer" id="focusTimer">00:00:00</div><div style="text-align:center; font-size:0.8rem; font-weight:700; opacity:0.6; margin-top:4px">&#9201; 正计时 · 专注中勿扰</div><div style="margin-top:14px"><div class="focus-goal-row"><span>&#127919; 每日目标进度</span><span id="focusGoalPct">0%</span></div><div class="memphis-progress"><div class="memphis-progress-fill" id="focusGoalFill" style="width:0%; background:var(--coral)"></div></div><div id="focusGoalText" style="text-align:center; font-size:0.82rem; font-weight:700; opacity:0.75; margin-top:6px">今日 0 / 360 分钟</div></div><div class="focus-btn-row"><button class="memphis-btn" id="focusPauseBtn" onclick="focusSession.paused?resumeFocus():pauseFocus()">&#9208; 暂停</button><button class="memphis-btn coral" onclick="endFocus()">&#127937; 结束并记录</button></div></div>
+<div class="focus-break-banner" id="focusBreakBanner" style="display:none"><div class="fb-big">&#127807; 该休息啦！</div><div class="fb-sub" id="focusBreakSub">起来走走，喝口水，看看远方～（计时已自动暂停）</div><button class="memphis-btn mint" onclick="resumeAfterBreak()" style="margin-top:10px">休息好了，翻转沙漏继续</button></div>
+<div class="memphis-card rot-2" id="focusSelectCard" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#9201;</div> 开始专注</div><div style="margin-bottom:10px"><label style="font-weight:700; display:block; margin-bottom:4px; font-size:0.9rem">选择任务</label><select class="memphis-select" id="focusTaskSelect" onchange="onFocusTaskChange(this.value)"></select><input class="memphis-input" id="focusCustomInput" placeholder="输入自定义专注内容…" type="text" style="display:none; margin-top:8px"><select class="memphis-select" id="focusCustomSubject" style="display:none; margin-top:8px"></select></div><button class="memphis-btn mint" onclick="beginFocus()" style="width:100%">&#9654; 开始专注（正计时）</button><div style="margin-top:14px; border-top:2px dashed #ddd; padding-top:12px"><div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px"><div><label style="font-size:0.82rem; font-weight:700; display:block; margin-bottom:4px">每日目标（分钟）</label><input class="memphis-input" id="focusGoalInput" max="900" min="30" type="number" value="360"></div><div><label style="font-size:0.82rem; font-weight:700; display:block; margin-bottom:4px">休息提醒间隔（分钟）</label><input class="memphis-input" id="breakIntervalInput" max="120" min="20" type="number" value="50"></div></div><div style="display:flex; align-items:center; gap:8px"><div class="reminder-toggle on" id="breakEnabledToggle" onclick="toggleBreakEnabled()"></div><span style="font-size:0.85rem; font-weight:700">每到间隔自动提醒休息（计时暂停）</span></div><button class="memphis-btn" onclick="updateFocusGoalSettings()" style="margin-top:10px; font-size:0.85rem; padding:8px 18px">保存专注设置</button></div></div>
+<div class="memphis-card rot-3" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#127942;</div> 今日专注</div><div class="focus-mini-stats"><div class="focus-mini-stat"><div class="fm-num" id="fmTodayMin">0</div><div class="fm-label">今日专注(分钟)</div></div><div class="focus-mini-stat"><div class="fm-num" id="fmTodayCount">0</div><div class="fm-label">专注次数</div></div><div class="focus-mini-stat"><div class="fm-num" id="fmLongest">0</div><div class="fm-label">最长一次(分钟)</div></div></div><div id="todaySessions" style="margin-top:12px"></div></div>
+<div class="memphis-card rot-4"><div class="section-title"><div class="icon">&#128200;</div> 近7天学习节奏</div><div id="focusChart" style="height:220px"></div></div>
+</div>
+<div class="tab-content" id="tab-stats"><div class="memphis-card rot-4"><div class="section-title"><div class="icon">&#128202;</div> 刷题统计</div><div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="openStatModal()">+ 记录刷题</button></div><div class="stats-grid" id="statsGrid"></div><div style="margin-top:16px"><div class="section-title" style="margin-bottom:8px"><div class="icon">&#128200;</div> 近7天刷题趋势</div><div id="trendChart" style="height:200px"></div></div></div></div>
+<div class="tab-content" id="tab-ocr"><div class="memphis-card rot-5"><div class="section-title"><div class="icon">&#128247;</div> OCR 文字识别</div><p style="font-size:0.9rem; margin-bottom:12px; opacity:0.8">上传图片（笔记、试卷、教材），自动识别文字，方便整理到错题本或笔记中。</p><div class="ocr-dropzone" id="ocrDropzone" onclick="document.getElementById('ocrFile').click()"><div style="font-size:2.5rem; margin-bottom:8px">&#128248;</div><div style="font-weight:800; font-size:1.1rem">点击或拖拽图片到这里</div><div style="font-size:0.85rem; opacity:0.7; margin-top:4px">支持 JPG / PNG / 截图</div></div><input accept="image/*" id="ocrFile" onchange="handleOCR(this)" type="file"><img alt="预览" class="ocr-preview" id="ocrPreview"><div class="ocr-result" id="ocrResult"></div><div id="ocrLoading" style="display:none; text-align:center; margin-top:12px"><div style="font-size:1.5rem; animation:float 1s ease-in-out infinite">&#128269; 识别中...</div></div></div></div>
+
+<div class="tab-content" id="tab-board">
+<div class="memphis-card rot-1" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#9635;</div> 备考倒计时看板</div><p style="font-size:0.85rem; opacity:0.8; margin-bottom:12px">每个方块是一天：<b style="color:#E53935">实心红</b>是已度过的日子，<b>半透明</b>是还没到的日子。时间在一格格被消耗，也在一格格走向初试。</p><div id="boardSummary"></div><div class="board-months" id="boardMonths"></div><div class="board-legend" id="boardLegend"></div></div>
+<div class="memphis-card rot-3"><div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px"><div class="section-title" style="margin-bottom:0"><div class="icon">&#128240;</div> 时事政治速览</div><button class="memphis-btn mint" onclick="showSzModal()" style="font-size:0.82rem; padding:7px 14px">&#128260; 更新时政</button></div><div class="sz-chips" id="szChips"></div><div id="szList"></div></div>
+</div>
+<div class="tab-content" id="tab-tools">
+<div class="memphis-card rot-1" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#128221;</div> TXT 模板批量导入</div><p style="font-size:0.85rem; margin-bottom:12px; opacity:0.8">通过 TXT 文本批量导入任务和每日日程，省去逐条添加的麻烦。</p><div class="txt-import-area"><textarea id="txtImportArea2" placeholder="在此粘贴 TXT 内容，或点击下方按钮上传 TXT 文件&#10;&#10;格式示例：&#10;---任务---&#10;专业课一|完成第三章习题|2026-08-26|高&#10;专业课二|教材第3章框架笔记|2026-08-26|中&#10;---日程---&#10;09:00-11:30|上午整块学习|专业课一&#10;14:00-17:00|下午整块学习|专业课二"></textarea><div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="parseTxtImport(true)">&#9989; 解析并导入</button><button class="memphis-btn lavender" onclick="document.getElementById('txtFile2').click()">&#128193; 上传TXT文件</button><input accept=".txt" id="txtFile2" onchange="handleTxtFile(this,true)" type="file"><button class="memphis-btn" onclick="downloadTxtTemplate()">&#128190; 下载模板</button></div><div class="txt-format-hint">格式说明：&#10;任务行格式：科目|任务内容|截止日期|优先级(高/中/低)&#10;日程行格式：时间段|名称|科目&#10;用 ---任务--- 和 ---日程--- 分隔两个区块，或只写一个区块&#10;日期留空则默认今天</div></div></div>
+
+<div class="memphis-card rot-2" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#128241;</div> 桌面小组件</div><p style="font-size:0.85rem; margin-bottom:12px; opacity:0.8">点击右下角悬浮按钮，随时查看考研倒计时、当前阶段和今日待办。</p><button class="memphis-btn mint" onclick="showWidget()">&#128241; 打开小组件</button></div>
+
+<div class="memphis-card rot-3" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#128260;</div> 半透明壁纸模式</div><p style="font-size:0.85rem; margin-bottom:12px; opacity:0.8">页面半透明，搭配桌面壁纸使用，学习时也能看到喜欢的桌面背景。</p><div style="display:flex; gap:8px; align-items:center; margin-bottom:10px"><div class="reminder-toggle" id="wallpaperToggle2" onclick="toggleWallpaper()"></div><span class="reminder-status" id="wallpaperStatus2">未开启</span></div><label style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:4px">透明度调节</label><input id="wallpaperOpacity2" max="95" min="30" oninput="setWallpaperOpacity(this.value)" type="range" value="72" style="width:100%"><span id="opacityLabel2" style="font-size:0.8rem">72%</span></div>
+
+<div class="memphis-card rot-4" style="margin-bottom:16px"><div class="section-title"><div class="icon">&#9203;</div> 每日复盘提醒</div><div class="reminder-card"><div class="reminder-time-row"><span style="font-weight:700; font-size:0.9rem">每日复盘时间</span><input id="reviewTime2" type="time" value="22:30"><div class="reminder-toggle on" id="reminderToggle2" onclick="toggleReminder()"></div></div><div class="reminder-status" id="reminderStatus2">已开启 - 每天 22:30 提醒复盘今日学习</div><div style="margin-top:8px"><label style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:4px">自定义复盘提醒内容</label><input class="memphis-input" id="reviewMessage2" placeholder="该复盘今日学习啦！记得整理错题本~" type="text" style="font-size:0.9rem"></div><div style="margin-top:8px"><button class="memphis-btn mint" onclick="testReminder()">&#128276; 测试提醒</button><button class="memphis-btn" onclick="enableNotify()" style="font-size:0.85rem; padding:6px 14px">开启通知权限</button></div></div></div>
+
+<div class="memphis-card rot-5"><div class="section-title"><div class="icon">&#128242;</div> 开机自启增强使用率</div><div class="autostart-card"><p style="font-size:0.85rem; margin-bottom:8px">作为已安装的 PWA 应用，可设置为开机/打开设备即启动：</p><ol><li><b>电脑 Chrome</b>：地址栏右侧安装图标 &rarr; 安装此应用 &rarr; 安装后右键固定到任务栏/设为开机启动项</li><li><b>iPad/iPhone</b>：Safari &rarr; 分享 &rarr; 添加到主屏幕 &rarr; 长按图标可设为开机展示</li><li><b>安卓 Chrome</b>：菜单 &rarr; 添加到主屏幕 &rarr; 设置 &rarr; 应用 &rarr; 设为自启动</li><li><b>桌面快捷方式</b>：安装后从开始菜单拖到"启动"文件夹（Windows）或登录项（Mac）</li></ol><button class="memphis-btn mint" onclick="installPWA()" style="margin-top:6px">&#128229; 安装为应用</button></div></div>
+</div>
+<div class="tab-content" id="tab-settings"><div class="memphis-card rot-6"><div class="section-title"><div class="icon">&#9881;</div> 设置</div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">考试日期（初试）</label><input class="memphis-input" id="examDate" type="date"></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">看板起始日期（备考开始日）</label><input class="memphis-input" id="boardStartDate" type="date"><div style="font-size:0.85rem; opacity:0.7; margin-top:6px">倒计时方块矩阵从这一天开始画到初试日</div></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">阶段日期配置</label><div style="font-size:0.85rem; opacity:0.7; margin-bottom:8px">系统根据当前日期自动切换阶段任务模板</div><div style="display:grid; gap:8px"><div><label style="font-size:0.85rem; font-weight:700">基础启动期结束</label><input class="memphis-input" id="phase1End" type="date"></div><div><label style="font-size:0.85rem; font-weight:700">基础强化期结束</label><input class="memphis-input" id="phase2End" type="date"></div><div><label style="font-size:0.85rem; font-weight:700">黄金强化期结束</label><input class="memphis-input" id="phase3End" type="date"></div><div><label style="font-size:0.85rem; font-weight:700">冲刺前期结束</label><input class="memphis-input" id="phase4End" type="date"></div></div></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">📚 我的科目</label><div style="font-size:0.85rem; opacity:0.7; margin-bottom:8px">改名后，已有任务 / 刷题 / 专注记录会跟着一起改；点圆点换颜色</div><div id="subjectManager"></div><div style="display:flex; gap:8px; flex-wrap:wrap"><input class="memphis-input" id="newSubjectName" placeholder="输入新科目，如：口腔综合" style="flex:1;min-width:150px"><button class="memphis-btn mint" onclick="addSubject()">＋ 添加</button></div></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">&#128241; 设备同步（手机 / 平板）</label><div style="font-size:0.85rem; opacity:0.7; margin-bottom:8px">在每台设备填入同一个「同步码」，数据就自动互通。换设备、清缓存都不会丢。</div><div style="display:flex; gap:8px; flex-wrap:wrap"><input class="memphis-input" id="syncCodeInput" placeholder="输入同步码" style="flex:1;min-width:140px;text-transform:uppercase"><button class="memphis-btn mint" onclick="connectSyncCode()">连接</button><button class="memphis-btn lavender" onclick="genSyncCode()">生成新码</button><button class="memphis-btn" onclick="syncNow()">立即同步</button></div><div id="syncCodeState" style="font-size:0.85rem; margin-top:8px; opacity:0.85">未设置（数据只存在本机）</div></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">数据备份</label><div style="display:flex; gap:8px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="exportData()">&#128229; 导出 JSON 备份</button><button class="memphis-btn lavender" onclick="document.getElementById('importFile').click()">&#128228; 导入恢复</button><input accept=".json" id="importFile" onchange="importData(this)" type="file"><button class="memphis-btn coral" onclick="clearAllData()">&#128465; 清空所有数据</button></div></div><div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">示例数据</label><button class="memphis-btn" id="clearDemoBtn" onclick="clearDemoData()">清空示例数据</button></div>
+
+<div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">&#128221; TXT 模板批量导入</label><div class="txt-import-area"><textarea id="txtImportArea" placeholder="在此粘贴 TXT 内容，或点击下方按钮上传 TXT 文件&#10;&#10;格式示例：&#10;---任务---&#10;专业课一|完成第三章习题|2026-08-26|高&#10;专业课二|教材第3章框架笔记|2026-08-26|中&#10;---日程---&#10;09:00-11:30|上午整块学习|专业课一&#10;14:00-17:00|下午整块学习|专业课二"></textarea><div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="parseTxtImport()">&#9989; 解析并导入</button><button class="memphis-btn lavender" onclick="document.getElementById('txtFile').click()">&#128193; 上传TXT文件</button><input accept=".txt" id="txtFile" onchange="handleTxtFile(this)" type="file"><button class="memphis-btn" onclick="downloadTxtTemplate()">&#128190; 下载模板</button></div><div class="txt-format-hint">格式说明：&#10;任务行格式：科目|任务内容|截止日期|优先级(高/中/低)&#10;日程行格式：时间段|名称|科目&#10;用 ---任务--- 和 ---日程--- 分隔两个区块，或只写一个区块</div></div></div>
+
+<div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">&#9203; 每日复盘提醒</label><div class="reminder-card"><div class="reminder-time-row"><span style="font-weight:700; font-size:0.9rem">每日复盘时间</span><input id="reviewTime" type="time" value="22:30"><div class="reminder-toggle on" id="reminderToggle" onclick="toggleReminder()"></div></div><div class="reminder-status" id="reminderStatus">已开启 - 每天 22:30 提醒复盘今日学习</div><div style="margin-top:8px"><label style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:4px">自定义复盘提醒内容</label><input class="memphis-input" id="reviewMessage" placeholder="该复盘今日学习啦！记得整理错题本~" type="text" style="font-size:0.9rem"></div><div style="margin-top:8px"><button class="memphis-btn mint" onclick="testReminder()">&#128276; 测试提醒</button><button class="memphis-btn" onclick="enableNotify()" style="font-size:0.85rem; padding:6px 14px">开启通知权限</button></div></div></div>
+
+<div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">&#128260; 半透明壁纸模式</label><div class="reminder-card"><p style="font-size:0.85rem; margin-bottom:10px">开启后页面变为半透明，可作为桌面壁纸背景使用。配合"开机自启"效果更佳。</p><div style="display:flex; gap:8px; align-items:center"><div class="reminder-toggle" id="wallpaperToggle" onclick="toggleWallpaper()"></div><span class="reminder-status" id="wallpaperStatus">未开启</span></div><div style="margin-top:8px"><label style="font-size:0.85rem; font-weight:700; display:block; margin-bottom:4px">透明度调节</label><input id="wallpaperOpacity" max="95" min="30" oninput="setWallpaperOpacity(this.value)" type="range" value="72" style="width:100%"><span id="opacityLabel" style="font-size:0.8rem">72%</span></div></div></div>
+
+<div style="margin-bottom:16px"><label style="font-weight:700; display:block; margin-bottom:6px">&#128242; 开机自启增强使用率</label><div class="autostart-card"><p style="font-size:0.85rem; margin-bottom:8px">作为已安装的 PWA 应用，可设置为开机/打开设备即启动：</p><ol><li><b>电脑 Chrome</b>：地址栏右侧安装图标 &rarr; 安装此应用 &rarr; 安装后右键固定到任务栏/设为开机启动项</li><li><b>iPad/iPhone</b>：Safari &rarr; 分享 &rarr; 添加到主屏幕 &rarr; 长按图标可设为开机展示</li><li><b>安卓 Chrome</b>：菜单 &rarr; 添加到主屏幕 &rarr; 设置 &rarr; 应用 &rarr; 设为自启动</li><li><b>桌面快捷方式</b>：安装后从开始菜单拖到"启动"文件夹（Windows）或登录项（Mac）</li></ol><button class="memphis-btn mint" onclick="installPWA()" style="margin-top:6px">&#128229; 安装为应用</button></div></div>
+
+<div><label style="font-weight:700; display:block; margin-bottom:6px">关于</label><p style="font-size:0.85rem; opacity:0.7">考研土豆工作台 v3.1 | 孟菲斯风格设计<br>在「设置 → 设备同步」里，给手机和平板填入同一个同步码，数据就会自动互通；也可以随时导出 JSON 备份。完成的任务会归档留存，随时可查。<br>iPad 添加到主屏幕：Safari &rarr; 分享 &rarr; 添加到主屏幕；安卓：浏览器菜单 &rarr; 添加到主屏幕</p></div></div></div>
+</div>
+<nav class="bottom-nav" id="bottomNav">
+<div class="bottom-nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')"><div class="bottom-nav-icon">&#127968;</div><div class="bottom-nav-label">总览</div></div>
+<div class="bottom-nav-item" data-tab="schedule" onclick="switchTab('schedule')"><div class="bottom-nav-icon">&#9200;</div><div class="bottom-nav-label">作息</div></div>
+<div class="bottom-nav-item" data-tab="phase" onclick="switchTab('phase')"><div class="bottom-nav-icon">&#127919;</div><div class="bottom-nav-label">阶段</div></div>
+<div class="bottom-nav-item" data-tab="tasks" onclick="switchTab('tasks')"><div class="bottom-nav-icon">&#128221;</div><div class="bottom-nav-label">任务</div></div>
+<div class="bottom-nav-item" data-tab="focus" onclick="switchTab('focus')"><div class="bottom-nav-icon">&#9201;</div><div class="bottom-nav-label">专注</div></div>
+<div class="bottom-nav-item" data-tab="more" onclick="showMoreMenu()"><div class="bottom-nav-icon">&#8943;</div><div class="bottom-nav-label">更多</div></div>
+</nav>
+<div class="modal-overlay" id="moreModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('moreModal')">&times;</div><div class="modal-title">更多功能</div><div style="display:flex; flex-direction:column; gap:10px"><button class="memphis-btn lavender" onclick="closeModal('moreModal');switchTab('board')" style="justify-content:flex-start">&#9635; 备考看板</button><button class="memphis-btn mint" onclick="closeModal('moreModal');switchTab('stats')" style="justify-content:flex-start">&#128202; 刷题统计</button><button class="memphis-btn pink" onclick="closeModal('moreModal');switchTab('ocr')" style="justify-content:flex-start">&#128247; OCR 文字识别</button><button class="memphis-btn pink" onclick="closeModal('moreModal');switchTab('tools')" style="justify-content:flex-start">&#128295; 进阶工具</button><button class="memphis-btn lavender" onclick="closeModal('moreModal');switchTab('settings')" style="justify-content:flex-start">&#9881; 设置</button></div></div></div>
+<div class="modal-overlay" id="taskModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('taskModal')">&times;</div><div class="modal-title">添加任务</div><div style="display:flex; flex-direction:column; gap:12px"><div><label style="font-weight:700; display:block; margin-bottom:4px">任务内容</label><input class="memphis-input" id="taskInput" placeholder="例如：完成高代第3章习题" type="text"></div><div><label style="font-weight:700; display:block; margin-bottom:4px">科目</label><select class="memphis-select" id="taskSubject"></select></div><div><label style="font-weight:700; display:block; margin-bottom:4px">截止日期</label><input class="memphis-input" id="taskDeadline" type="date"></div><div><label style="font-weight:700; display:block; margin-bottom:4px">优先级</label><select class="memphis-select" id="taskPriority"><option value="high">高</option><option selected value="medium">中</option><option value="low">低</option></select></div><button class="memphis-btn mint" onclick="addTask()">&#9989; 确认添加</button></div></div></div>
+<div class="modal-overlay" id="statModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('statModal')">&times;</div><div class="modal-title">记录刷题</div><div style="display:flex; flex-direction:column; gap:12px"><div><label style="font-weight:700; display:block; margin-bottom:4px">科目</label><select class="memphis-select" id="statSubject"></select></div><div><label style="font-weight:700; display:block; margin-bottom:4px">今日做题数</label><input class="memphis-input" id="statCount" min="0" placeholder="例如：20" type="number"></div><div><label style="font-weight:700; display:block; margin-bottom:4px">正确数</label><input class="memphis-input" id="statCorrect" min="0" placeholder="例如：15" type="number"></div><button class="memphis-btn mint" onclick="addStat()">&#9989; 确认记录</button></div></div></div>
+<div class="modal-overlay" id="szModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('szModal')">&times;</div><div class="modal-title">更新时政速览</div><p style="font-size:0.85rem; opacity:0.8; margin-bottom:10px; line-height:1.6">把每日时政 MD 底稿<b>整段粘贴</b>到下面，自动解析「标题 / 一句话摘要 / 为什么值得读 / 文章链接」。同一天的内容会覆盖，最多保留 10 期。</p><textarea class="memphis-input" id="szImportArea" placeholder="## 1. 时政标题&#10;- **一句话摘要**：...&#10;- **为什么值得读**：...&#10;- **文章链接**：[标题](https://...)" style="height:230px; resize:vertical; font-size:0.85rem; line-height:1.65"></textarea><div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap"><button class="memphis-btn mint" onclick="submitShizheng()">&#9989; 解析并保存</button><button class="memphis-btn coral" id="szClearBtn" onclick="clearShizheng(this)">&#128465; 清空时政</button></div></div></div>
+<div class="modal-overlay" id="clearModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('clearModal')">&times;</div><div class="modal-title" style="color:#E53935">&#9888; 确认清空</div><p style="margin-bottom:16px">这将删除所有数据（任务、刷题记录、作息打卡），且无法恢复！建议先导出备份。</p><div style="display:flex; gap:10px"><button class="memphis-btn" onclick="closeModal('clearModal')">取消</button><button class="memphis-btn coral" onclick="confirmClear()">确认清空</button></div></div></div>
+<div class="modal-overlay" id="scheduleEditModal"><div class="modal-content"><div class="modal-close" onclick="closeScheduleEdit()">×</div><div class="modal-title">编辑每日作息</div><div id="scheduleEditRows"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="memphis-btn" onclick="addScheduleRow()">＋ 添加一条</button><button class="memphis-btn mint" onclick="saveScheduleEdit()">保存</button><button class="memphis-btn coral" onclick="closeScheduleEdit()">取消</button></div></div></div><div class="modal-overlay" id="phaseNodeModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('phaseNodeModal')">×</div><div class="modal-title">&#9998; 编辑时间节点</div><input type="hidden" id="pnIndex"><div style="display:flex;flex-direction:column;gap:10px"><div><label style="font-weight:700;font-size:0.9rem">日期</label><input class="memphis-input" id="pnDate" type="date"></div><div><label style="font-weight:700;font-size:0.9rem">标题</label><input class="memphis-input" id="pnTitle" type="text"></div><div><label style="font-weight:700;font-size:0.9rem">说明</label><input class="memphis-input" id="pnDesc" type="text"></div></div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="memphis-btn mint" onclick="savePhaseNode()">✔ 保存</button><button class="memphis-btn coral" onclick="deletePhaseNode()">🗑 删除</button><button class="memphis-btn" onclick="closeModal('phaseNodeModal')">取消</button></div></div></div><div class="modal-overlay" id="dayNoteModal"><div class="modal-content"><div class="modal-close" onclick="closeModal('dayNoteModal')">×</div><div class="modal-title">📌 日期标注 · 每日待办</div><div id="dayNoteDate" style="font-weight:800; font-size:1.05rem; margin-bottom:2px">日期</div><div class="daynote-count" id="dayNoteCount"></div><div style="display:flex; gap:8px; margin-top:10px"><input class="memphis-input" id="dayNoteInput" onkeydown="if(event.key==='Enter')addDayNote()" placeholder="这天要做什么？例如：专业课 全套模拟考" type="text"><button class="memphis-btn mint" onclick="addDayNote()" style="flex-shrink:0">添加</button></div><ul class="daynote-list" id="dayNoteList"></ul><p style="font-size:0.75rem; opacity:0.6; margin-top:12px; line-height:1.5">提示：标注保存在本设备浏览器中（与看板其它数据一样有本地缓存）。点击看板里的任意一天，即可随时回来查看或编辑。</p></div></div>
+<div class="widget-toggle" onclick="showWidget()" title="桌面小组件">&#128241;</div>
+<div class="wallpaper-toggle" id="wallpaperBtn" onclick="toggleWallpaper()" title="半透明壁纸模式">&#128260;</div>
+<div class="widget-overlay" id="widgetOverlay"><div class="widget-card"><div class="widget-close" onclick="closeModal('widgetOverlay')">&times;</div><div class="widget-potato"><img alt id="widgetPotatoImg"></div><div style="font-weight:800; font-size:1.1rem; margin-bottom:4px">考研倒计时</div><div class="widget-countdown" id="widgetCountdown">--</div><div class="widget-phase"><span class="memphis-tag tag-mint" id="widgetPhase">阶段</span></div><div id="widgetDate" style="font-size:0.8rem; font-weight:700; opacity:0.7; margin-bottom:6px">日期</div><div class="widget-tasks" id="widgetTasks"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="./wb-cloud-sdk.js"></script>
+<script>
+var WB_CFG={
+  endpoint:'YOUR_ENDPOINT',
+  oauthRelayBaseUrl:'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
+  publishableKey:'YOUR_PUBLISHABLE_KEY'
+};
+try{
+  if(!WB_CFG.endpoint||WB_CFG.endpoint.indexOf('YOUR_')===0||!WB_CFG.publishableKey||WB_CFG.publishableKey.indexOf('YOUR_')===0){
+    window.__wbCloud=null;
+    console.info('[cloud] 未配置云端，使用本机存储模式');
+  }else{
+    window.__wbCloud=WorkBuddyCloud.createWorkBuddyCloud(WB_CFG);
+  }
+}catch(e){console.error('[cloud] init failed',e);window.__wbCloud=null}
+</script>
+<script>
+const LS_KEY='wb_kaoyan_';
+const BOARD_START_DEFAULT='';
+const EXAM_DATE_DEFAULT='';
+const PHASE_CONFIG={phase1End:'',phase2End:'',phase3End:'',phase4End:''};
+const QUOTES=["星光不问赶路人，时光不负有心人。","你背不下来的书，总有人能背下来。","考研就像在黑屋子里洗衣服，你不知道洗干净没有。","那些看似不起波澜的日复一日，会突然在某一天让人看到坚持的意义。","愿你以渺小启程，以伟大结束。","从来不是让你把一次考试当成人生成败的赌注，只是想让你在足够年轻的时候体会一次全力以赴。","没有醒不来的早晨，没有熬不过的迷茫。","愿你合上笔盖的那一刻，有战士收刀入鞘的骄傲。","所有的努力都不会白费，所有的坚持都会有回报。","乾坤未定，你我皆是黑马。","今天的计划完成了吗？先做完，再谈状态。","慢一点没关系，别停下来。","把今天该做的事做完，剩下的交给时间。","进度落后不可怕，停下来才可怕。"];
+const SCHEDULE=[{id:"s0",time:"07:00-07:40",label:"晨间记忆（单词 / 背诵）",subject:""},{id:"s1",time:"08:30-11:30",label:"上午整块学习（主科攻坚）",subject:""},{id:"s2",time:"12:00-13:00",label:"午饭 + 午休",subject:""},{id:"s3",time:"14:00-17:00",label:"下午整块学习（专业课 / 主科）",subject:""},{id:"s4",time:"18:30-21:00",label:"晚间学习（做题 + 错题整理）",subject:""},{id:"s5",time:"21:00-22:00",label:"机动补漏（按当日计划）",subject:""},{id:"s6",time:"22:00-22:30",label:"当日复盘（错题本 + 明日计划）",subject:""}];
+const SCHEDULE_TEMPLATES={
+school:{name:"在校版",desc:"上课间隙穿插复习，白天有整块时间",items:[
+{id:"s0",time:"07:00-07:40",label:"晨间记忆（单词 / 背诵）",subject:""},
+{id:"s1",time:"08:30-11:30",label:"上午整块学习（主科攻坚）",subject:""},
+{id:"s2",time:"12:00-13:00",label:"午饭 + 午休",subject:""},
+{id:"s3",time:"14:00-17:00",label:"下午整块学习（专业课 / 主科）",subject:""},
+{id:"s4",time:"18:30-21:00",label:"晚间学习（做题 + 错题整理）",subject:""},
+{id:"s5",time:"21:00-22:00",label:"机动补漏（按当日计划）",subject:""},
+{id:"s6",time:"22:00-22:30",label:"当日复盘（错题本 + 明日计划）",subject:""}]},
+work:{name:"在职版",desc:"工作日靠早晚与午休碎片，周末集中攻坚",items:[
+{id:"w0",time:"07:00-07:45",label:"晨间记忆（通勤 / 单词）",subject:""},
+{id:"w1",time:"12:30-13:10",label:"午间碎片（小题 / 笔记回顾）",subject:""},
+{id:"w2",time:"19:30-21:00",label:"晚间第一块（主科系统学习）",subject:""},
+{id:"w3",time:"21:00-22:20",label:"晚间第二块（专业课 / 弱项专攻）",subject:""},
+{id:"w4",time:"22:20-22:50",label:"当日复盘（错题 + 明日计划）",subject:""},
+{id:"w5",time:"周末 09:00-11:30",label:"上午整块学习（主科）",subject:""},
+{id:"w6",time:"周末 14:30-17:30",label:"下午整块学习 + 周测",subject:""}]},
+full:{name:"全职备考版",desc:"全天备考，三段整块学习 + 复盘",items:[
+{id:"f0",time:"07:30-08:00",label:"起床 + 晨间启动",subject:""},
+{id:"f1",time:"08:00-08:40",label:"晨读背诵",subject:""},
+{id:"f2",time:"09:00-11:30",label:"上午整块学习（主科一）",subject:""},
+{id:"f3",time:"11:30-14:00",label:"午饭 + 午休",subject:""},
+{id:"f4",time:"14:00-16:30",label:"下午整块学习（主科二）",subject:""},
+{id:"f5",time:"16:30-18:00",label:"运动 + 晚饭",subject:""},
+{id:"f6",time:"19:00-21:30",label:"晚间做题 + 错题整理",subject:""},
+{id:"f7",time:"21:30-22:10",label:"机动补漏",subject:""},
+{id:"f8",time:"22:10-22:40",label:"当日复盘 + 明日计划",subject:""}]}};
+const DEFAULT_SCHEDULE_TPL='school';
+const PHASE_MILESTONES=[{offset:-450,type:"milestone",title:"确定目标与资料收集",desc:"确定目标院校与专业，搜集历年真题、指定参考书与经验帖"},{offset:-360,type:"start",title:"基础阶段启动",desc:"公共课建立知识框架，外语启动每日记忆与长句训练"},{offset:-270,type:"milestone",title:"公共课一轮完成",desc:"完成公共课第一轮教材通读与基础习题，建立错题本"},{offset:-210,type:"milestone",title:"专业课一轮完成",desc:"指定教材通读一遍，整理章节知识框架"},{offset:-150,type:"start",title:"强化阶段启动",desc:"真题训练启动，按题型分类整理解题方法"},{offset:-120,type:"milestone",title:"关注招生简章与考试大纲",desc:"核对考试科目、参考书目与招生人数是否有变动"},{offset:-90,type:"milestone",title:"预报名",desc:"填写报名信息，核对报考点要求"},{offset:-70,type:"milestone",title:"正式报名",desc:"确认报名信息并完成缴费"},{offset:-45,type:"milestone",title:"网上确认",desc:"按要求提交照片与材料，确认报名有效"},{offset:-30,type:"start",title:"冲刺阶段启动",desc:"全科目模拟卷限时训练，背诵材料滚动复习"},{offset:-7,type:"milestone",title:"打印准考证 + 踩点考场",desc:"打印准考证，确认考场路线与交通用时"},{offset:0,type:"exam",title:"初试",desc:"保持作息，轻装上阵"}];
+const PHASE_TASKS={foundation:[{id:"f1",text:"公共课：建立知识框架，完成第一轮教材通读",subject:"通用",priority:"high"},{id:"f2",text:"外语：启动每日单词与长句训练，保持语感",subject:"通用",priority:"high"},{id:"f3",text:"专业课：指定教材通读第一遍，整理章节框架",subject:"通用",priority:"high"},{id:"f4",text:"制定并执行每周学习计划，固定每日作息",subject:"通用",priority:"medium"}],strengthen1:[{id:"s11",text:"公共课：完成第一轮习题，建立并维护错题本",subject:"通用",priority:"high"},{id:"s12",text:"外语：真题阅读精做，逐句翻译复盘",subject:"通用",priority:"high"},{id:"s13",text:"专业课：二轮精读 + 课后习题巩固",subject:"通用",priority:"high"},{id:"s14",text:"每月复盘一次进度，动态调整计划",subject:"通用",priority:"medium"}],strengthen2:[{id:"s21",text:"公共课：真题套卷限时训练，总结答题节奏",subject:"通用",priority:"high"},{id:"s22",text:"外语：作文模板整理与每周练笔",subject:"通用",priority:"high"},{id:"s23",text:"专业课：真题研究 + 背诵材料启动",subject:"通用",priority:"high"},{id:"s24",text:"建立答题规范与时间分配策略",subject:"通用",priority:"medium"}],sprint1:[{id:"p11",text:"全科目模拟卷开刷，严格计时",subject:"通用",priority:"high"},{id:"p12",text:"背诵材料滚动复习，覆盖全部核心考点",subject:"通用",priority:"high"},{id:"p13",text:"错题本二刷，消灭重复性错误",subject:"通用",priority:"high"},{id:"p14",text:"关注考纲与招生信息的变动",subject:"通用",priority:"medium"}],sprint2:[{id:"p21",text:"每周 2-3 套完整模拟，按真实考试时间执行",subject:"通用",priority:"high"},{id:"p22",text:"核心考点最后一轮速记",subject:"通用",priority:"high"},{id:"p23",text:"调整作息与饮食，保持稳定状态",subject:"通用",priority:"medium"},{id:"p24",text:"准备考试用品、证件与出行方案",subject:"通用",priority:"medium"}]};
+/* ============ 云同步数据层（同步码分区 + localStorage 离线兜底） ============ */
+const SYNC_CODE_LS=LS_KEY+'synccode';
+const SYNC_KEYS=['tasks','stats','scheduleCheck','focusSessions','settings','shizheng','customSchedule','subjects','lastReminderDate','v3Migrated','dayNotes'];
+const _cache={};const _dirty={};
+let _syncTimer=null,_syncing=false,_failCount=0,_pullTimer=null;
+function _client(){return (typeof window!=='undefined'&&window.__wbCloud)?window.__wbCloud:null}
+function getSyncCode(){try{return (localStorage.getItem(SYNC_CODE_LS)||'').trim().toUpperCase()}catch(e){return ''}}
+function setSyncCode(v){try{const c=(v||'').trim().toUpperCase();if(c)localStorage.setItem(SYNC_CODE_LS,c);else localStorage.removeItem(SYNC_CODE_LS)}catch(e){}}
+function newSyncCode(){const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<12;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
+function mirrorLocal(key,val){try{if(val===undefined||val===null)localStorage.removeItem(LS_KEY+key);else localStorage.setItem(LS_KEY+key,JSON.stringify(val))}catch(e){}}
+function loadData(key,defaultVal){if(Object.prototype.hasOwnProperty.call(_cache,key))return _cache[key];try{const raw=localStorage.getItem(LS_KEY+key);return raw!=null?JSON.parse(raw):defaultVal}catch(e){return defaultVal}}
+function saveData(key,val){_cache[key]=val;mirrorLocal(key,val);if(SYNC_KEYS.indexOf(key)>=0){_dirty[key]=true;scheduleSync()}}
+function scheduleSync(){if(_syncTimer)return;_syncTimer=setTimeout(flushSync,1200)}
+function updateSyncUI(){const inp=document.getElementById('syncCodeInput');if(inp&&!inp.value)inp.value=getSyncCode();const st=document.getElementById('syncCodeState');if(st)st.textContent=getSyncCode()?('当前同步码：'+getSyncCode()):'未设置（数据只存在本机）'}
+function setSyncStatus(status){const dot=document.getElementById('syncDot');if(dot){const colors={synced:'#71D6BE',syncing:'#FBC02D',offline:'#BDBDBD',error:'#E24B4A',local:'#BDBDBD'};dot.style.background=colors[status]||'#BDBDBD'}const txt=document.getElementById('syncStatusText');if(txt){const labels={synced:'已同步',syncing:'同步中',offline:'未连云端',error:'同步失败',local:'仅本机'};txt.textContent=labels[status]||'仅本机'}try{updateSyncUI()}catch(e){}}
+function markLocalDirty(){SYNC_KEYS.forEach(function(k){if(Object.prototype.hasOwnProperty.call(_cache,k)){_dirty[k]=true;return}try{const raw=localStorage.getItem(LS_KEY+k);if(raw!=null){_cache[k]=JSON.parse(raw);_dirty[k]=true}}catch(e){}})}
+function _applyRemote(remote){let changed=false;SYNC_KEYS.forEach(function(k){if(_dirty[k])return;if(!Object.prototype.hasOwnProperty.call(remote,k))return;const rv=remote[k];if(rv===null)return;if(JSON.stringify(_cache[k])!==JSON.stringify(rv)){_cache[k]=rv;mirrorLocal(k,rv);changed=true}});return changed}
+function flushSync(){_syncTimer=null;const cli=_client(),code=getSyncCode(),keys=Object.keys(_dirty);if(!code){setSyncStatus('local');return}if(!cli){setSyncStatus('offline');return}if(!keys.length){setSyncStatus('synced');return}const payload={};keys.forEach(function(k){payload[k]=_cache[k]===undefined?null:_cache[k]});keys.forEach(function(k){delete _dirty[k]});_syncing=true;setSyncStatus('syncing');cli.database.rpc('wb_save',{raw_code:code,payload:payload}).then(function(res){_syncing=false;if(res&&res.error)throw res.error;_failCount=0;setSyncStatus('synced')}).catch(function(err){_syncing=false;_failCount++;console.error('[sync] 上传失败',err);keys.forEach(function(k){_dirty[k]=true});setSyncStatus('error');if(_failCount<5)scheduleSync()})}
+function pullCloud(quiet){const cli=_client(),code=getSyncCode();if(!code||!cli){setSyncStatus(code?'offline':'local');return Promise.resolve(false)}if(!quiet)setSyncStatus('syncing');return cli.database.rpc('wb_load',{raw_code:code}).then(function(res){if(res&&res.error)throw res.error;const remote=(res&&res.data&&typeof res.data==='object')?res.data:{};const changed=_applyRemote(remote);_failCount=0;setSyncStatus('synced');if(changed){try{renderAll()}catch(e){}}return changed}).catch(function(err){console.error('[sync] 拉取失败',err);_failCount++;setSyncStatus('error');return false})}
+function applySyncCode(raw){const code=String(raw||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length<4){showToast('同步码至少 4 位');return Promise.resolve(false)}const cli=_client();if(!cli){showToast('云端暂时连不上，请检查网络');return Promise.resolve(false)}setSyncCode(code);return cli.database.rpc('wb_load',{raw_code:code}).then(function(res){if(res&&res.error)throw res.error;const remote=(res&&res.data&&typeof res.data==='object')?res.data:{};const hasRemote=SYNC_KEYS.some(function(k){return remote[k]!==undefined&&remote[k]!==null});if(hasRemote){_applyRemote(remote);setSyncStatus('synced');try{renderAll()}catch(e){}showToast('已连接，云端数据已载入本机')}else{markLocalDirty();if(Object.keys(_dirty).length)flushSync();else setSyncStatus('synced');showToast('同步码已生效，本机数据已上传')}updateSyncUI();return true}).catch(function(err){console.error('[sync] 连接失败',err);setSyncStatus('error');showToast('连接失败，请稍后重试');return false})}
+function connectSyncCode(){const el=document.getElementById('syncCodeInput');applySyncCode(el?el.value:'')}
+function genSyncCode(){const c=newSyncCode();const el=document.getElementById('syncCodeInput');if(el)el.value=c;applySyncCode(c)}
+function syncNow(){if(!getSyncCode()){showToast('请先设置同步码');return}if(!_client()){showToast('云端暂时连不上，请检查网络');return}setSyncStatus('syncing');pullCloud(true).then(function(){if(Object.keys(_dirty).length)flushSync();else showToast('已是最新数据')})}
+function initCloud(done){const cli=_client();let settled=false;const finish=function(){if(settled)return;settled=true;try{done()}catch(e){console.error(e)}};const code=getSyncCode();if(!cli){setSyncStatus(code?'offline':'local');setTimeout(finish,0);return}if(!code){setSyncStatus('local');setTimeout(finish,0);return}const guard=setTimeout(finish,3000);cli.database.rpc('wb_load',{raw_code:code}).then(function(res){if(res&&res.error)throw res.error;const remote=(res&&res.data&&typeof res.data==='object')?res.data:{};const hasRemote=SYNC_KEYS.some(function(k){return remote[k]!==undefined&&remote[k]!==null});if(hasRemote){_applyRemote(remote)}else{markLocalDirty();if(Object.keys(_dirty).length)flushSync()}setSyncStatus('synced')}).catch(function(err){console.error('[sync] 初始化失败',err);setSyncStatus('error')}).then(function(){clearTimeout(guard);finish()});_pullTimer=setInterval(function(){if(document.visibilityState==='visible')pullCloud(true)},60000);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')pullCloud(true)})}
+/* ============ 云同步数据层 END ============ */
+function getTasks(){return loadData('tasks',[])}
+function setTasks(tasks){saveData('tasks',tasks)}
+function getStats(){return loadData('stats',{})}
+function setStats(stats){saveData('stats',stats)}
+function getScheduleCheck(){return loadData('scheduleCheck',{})}
+function setScheduleCheck(sc){saveData('scheduleCheck',sc)}
+function getSettings(){return loadData('settings',{examDate:EXAM_DATE_DEFAULT,phase1End:PHASE_CONFIG.phase1End,phase2End:PHASE_CONFIG.phase2End,phase3End:PHASE_CONFIG.phase3End,phase4End:PHASE_CONFIG.phase4End,demoCleared:false,reviewEnabled:true,reviewTime:'22:30',reviewMessage:'',wallpaperMode:false,wallpaperOpacity:72,focusGoal:360,breakInterval:50,breakEnabled:true,boardStart:BOARD_START_DEFAULT})}
+function setSettings(s){saveData('settings',s)}
+function initDemoData(){return}
+function clearDemoData(){setTasks([]);setStats({});setScheduleCheck({});const s=getSettings();s.demoCleared=true;setSettings(s);showToast("示例数据已清空");renderAll()}
+function genId(){return't'+Date.now()+Math.random().toString(36).slice(2,8)}
+function formatDate(d){const date=d instanceof Date?d:new Date(d);const y=date.getFullYear();const m=String(date.getMonth()+1).padStart(2,'0');const day=String(date.getDate()).padStart(2,'0');return y+'-'+m+'-'+day}
+function parseDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function daysBetween(a,b){const da=parseDate(a);const db=parseDate(b);return Math.round((db-da)/86400000)}
+function getWeekDay(d){const days=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];return days[new Date(d).getDay()]}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+function updateHeader(){const now=new Date();const today=formatDate(now);const settings=getSettings();const examDate=settings.examDate||EXAM_DATE_DEFAULT;const daysLeft=daysBetween(today,examDate);document.getElementById('headerDate').textContent=today+' '+getWeekDay(today);document.getElementById('dayOfWeek').textContent=getWeekDay(today);document.getElementById('countdownNum').textContent=(!examDate||isNaN(daysLeft))?'--':(daysLeft>0?daysLeft:0);const phase=detectPhase(today,settings);document.getElementById('currentPhaseTag').textContent=examDate?phase.name:'待设置';const quoteIndex=Math.abs(hashCode(today))%QUOTES.length;document.getElementById('quoteBar').textContent='"'+QUOTES[quoteIndex]+'"'}
+function hashCode(str){let h=0;for(let i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h|=0}return h}
+function isD(x){return !!(x&&!isNaN(x.getTime()))}
+function detectPhase(today,settings){const t=parseDate(today);const ed=settings.examDate||'';const p1=parseDate(settings.phase1End||shiftDate(ed,-360));const p2=parseDate(settings.phase2End||shiftDate(ed,-180));const p3=parseDate(settings.phase3End||shiftDate(ed,-90));const p4=parseDate(settings.phase4End||shiftDate(ed,-30));if(!isD(p1)&&!isD(p2)&&!isD(p3)&&!isD(p4))return{name:'未设置',key:'none'};if(isD(p1)&&t<=p1)return{name:'基础启动期',key:'foundation'};if(isD(p2)&&t<=p2)return{name:'基础强化期',key:'strengthen1'};if(isD(p3)&&t<=p3)return{name:'黄金强化期',key:'strengthen2'};if(isD(p4)&&t<=p4)return{name:'冲刺前期',key:'sprint1'};return{name:'最后冲刺',key:'sprint2'}}
+function renderTodayAlert(){const tasks=getTasks();const today=formatDate(new Date());const overdue=tasks.filter(t=>!t.done&&t.deadline<today);const todayTasks=tasks.filter(t=>!t.done&&t.deadline===today);const list=document.getElementById('todayList');if(overdue.length===0&&todayTasks.length===0){list.innerHTML='<li class="today-normal">今天没有待处理任务，继续保持！</li>';return}let html='';overdue.forEach(t=>{html+='<li class="overdue">'+t.subject+'：'+t.text+'（逾期 '+daysBetween(t.deadline,today)+' 天）<button class="memphis-btn" style="padding:4px 10px;font-size:0.75rem;margin-left:auto" onclick="quickDone(\''+t.id+'\')">完成</button></li>'});todayTasks.forEach(t=>{html+='<li class="today-normal">'+t.subject+'：'+t.text+'<button class="memphis-btn mint" style="padding:4px 10px;font-size:0.75rem;margin-left:auto" onclick="quickDone(\''+t.id+'\')">完成</button></li>'});list.innerHTML=html}
+function quickDone(id){let tasks=getTasks();const t=tasks.find(x=>x.id===id);if(t){t.done=true;t.doneAt=formatDate(new Date());setTasks(tasks);showToast('任务已完成！');renderAll()}}
+function renderSchedule(preview){const sc=getScheduleCheck();const today=formatDate(new Date());const checked=sc[today]||{};const container=preview?document.getElementById('schedulePreview'):document.getElementById('scheduleFull');const scheduleList=getSchedule();let html='';scheduleList.forEach(function(item){const sid=item.id;const isDone=!!checked[sid];const cls=isDone?'done':'';const check=isDone?'\2713':'';html+='<div class="schedule-item '+cls+'" onclick="toggleSchedule(\''+sid+'\')"><div class="schedule-time">'+item.time+'</div><div class="schedule-text">'+item.label+'</div><div class="schedule-check '+(isDone?'checked':'')+'">'+check+'</div></div>'});container.innerHTML=html}
+function toggleSchedule(sid){const sc=getScheduleCheck();const today=formatDate(new Date());if(!sc[today])sc[today]={};sc[today][sid]=!sc[today][sid];setScheduleCheck(sc);renderAll();const list=getSchedule();let item=null;for(let i=0;i<list.length;i++){if(list[i].id===sid){item=list[i];break}}if(!item)return;showToast(sc[today][sid]?'\2705 '+item.label+' 已打卡':'\21A9 '+item.label+' 取消打卡')}
+function shiftDate(base,n){if(!base)return '';const b=parseDate(base);if(!isD(b))return '';return formatDate(new Date(b.getTime()+n*86400000))}
+function buildPhases(examDate){if(!examDate)return[];const today=formatDate(new Date());const span=daysBetween(today,examDate);if(span<=0)return PHASE_MILESTONES.map(function(m){return{date:shiftDate(examDate,m.offset),title:m.title,desc:m.desc,type:m.type}});const first=PHASE_MILESTONES[0].offset;if(span>=Math.abs(first))return PHASE_MILESTONES.map(function(m){return{date:shiftDate(examDate,m.offset),title:m.title,desc:m.desc,type:m.type}});return PHASE_MILESTONES.map(function(m){const t=(m.offset-first)/(0-first);const off=Math.round(-span*(1-t));return{date:shiftDate(examDate,off),title:m.title,desc:m.desc,type:m.type}})}
+function getPhases(){const s=getSettings();if(Array.isArray(s.phaseNodes)&&s.phaseNodes.length)return s.phaseNodes.slice().sort(function(a,b){return (a.date||'')<(b.date||'')?-1:1});return buildPhases(s.examDate)}
+function ensurePhaseNodes(){const s=getSettings();if(!Array.isArray(s.phaseNodes)){s.phaseNodes=getPhases();setSettings(s)}}
+function openPhaseEdit(i){const list=getPhases();const p=list[i];if(!p)return;ensurePhaseNodes();const gi=getPhases().indexOf(p);document.getElementById('pnIndex').value=gi<0?i:gi;document.getElementById('pnDate').value=p.date||'';document.getElementById('pnTitle').value=p.title||'';document.getElementById('pnDesc').value=p.desc||'';document.getElementById('phaseNodeModal').classList.add('show')}
+function savePhaseNode(){const s=getSettings();const i=Number(document.getElementById('pnIndex').value)||0;s.phaseNodes=s.phaseNodes||getPhases();s.phaseNodes[i]={date:document.getElementById('pnDate').value,title:(document.getElementById('pnTitle').value||'').trim()||'未命名节点',desc:(document.getElementById('pnDesc').value||'').trim(),type:'milestone'};setSettings(s);closeModal('phaseNodeModal');showToast('节点已保存');renderAll()}
+function deletePhaseNode(){const s=getSettings();const i=Number(document.getElementById('pnIndex').value)||0;(s.phaseNodes||[]).splice(i,1);setSettings(s);closeModal('phaseNodeModal');showToast('节点已删除');renderAll()}
+function openPhaseAdd(){const s=getSettings();ensurePhaseNodes();s.phaseNodes.push({date:formatDate(new Date()),title:'新节点',desc:'',type:'milestone'});setSettings(s);openPhaseEdit(s.phaseNodes.length-1)}
+function resetPhaseNodes(){if(!confirm('恢复为按考试日期自动生成的默认节点？'))return;const s=getSettings();delete s.phaseNodes;setSettings(s);showToast('已恢复默认时间轴');renderAll()}
+function renderPhase(){const settings=getSettings();const today=formatDate(new Date());const container=document.getElementById('phaseTimeline');const tasksContainer=document.getElementById('phaseTasks');const phases=getPhases();let html='';
+if(!phases.length){html='<div style="padding:14px;text-align:center;font-weight:700;opacity:.75">请先在「设置」中填写考试日期<br>系统将自动倒推生成 12 个备考节点</div><div style="text-align:center;padding-bottom:10px"><button class="memphis-btn mint" onclick="switchTab(\'settings\')">去设置考试日期</button></div>'}
+else{phases.forEach(function(p,pi){const d=p.date||'';const isPast=d&&d<today;const isToday=d===today;let cls='';if(isPast)cls='past';if(isToday)cls='active';const badge=isToday?'<div class="phase-current-badge">今天</div>':'';html+='<div class="phase-node '+cls+'">'+badge+'<div class="phase-date">'+d+'</div><div class="phase-title">'+p.title+'</div><div class="phase-desc">'+p.desc+'</div><div style="text-align:right;margin-top:6px"><span class="memphis-tag tag-lemon" style="cursor:pointer;font-size:0.72rem" onclick="openPhaseEdit('+pi+')">&#9998; 编辑</span></div></div>'})}
+container.innerHTML=html;
+const phase=detectPhase(today,settings);const phaseTasks=PHASE_TASKS[phase.key]||[];const tasks=getTasks();const pe={foundation:settings.phase1End,strengthen1:settings.phase2End,strengthen2:settings.phase3End,sprint1:settings.phase4End,sprint2:settings.examDate};const dl=pe[phase.key]||'';let thtml='';
+if(!phaseTasks.length){thtml='<div style="padding:12px;font-weight:700;opacity:.7">'+(phase.key==='none'?'填写考试日期后，这里会显示当前阶段的建议任务':'当前阶段暂无建议任务')+'</div>'}
+else{phaseTasks.forEach(function(pt){const existing=tasks.find(t=>t.text===pt.text);const isDone=existing&&existing.done;const isOverdue=existing&&!existing.done&&dl&&dl<today;const cls=isOverdue?'overdue':'';const status=isDone?'<span class="memphis-tag tag-mint">已完成</span>':isOverdue?'<span class="memphis-tag tag-coral">已逾期</span>':existing?'<span class="memphis-tag tag-lemon">进行中</span>':'<span class="memphis-tag tag-lavender">未开始</span>';thtml+='<div class="task-item '+cls+'"><div class="task-body"><div class="task-title">'+pt.text+'</div><div class="task-meta">'+pt.subject+' | 截止 '+(dl||'待定')+' | '+status+'</div></div></div>'})}
+tasksContainer.innerHTML=thtml;
+const progressContainer=document.getElementById('phaseProgress');const total=phaseTasks.length;const done=phaseTasks.filter(function(pt){const existing=tasks.find(t=>t.text===pt.text);return existing&&existing.done}).length;const pct=total>0?Math.round((done/total)*100):0;const color=pct>=80?'var(--mint)':pct>=50?'var(--lemon)':'var(--coral)';progressContainer.innerHTML='<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-weight:700">'+phase.name+'</span><span style="font-weight:800">'+done+'/'+total+' ('+pct+'%)</span></div><div class="memphis-progress"><div class="memphis-progress-fill" style="width:'+pct+'%;background:'+color+'"></div></div>'}
+let taskFilter='all';
+function renderTasks(){const tasks=getTasks();const today=formatDate(new Date());const container=document.getElementById('taskList');let filtered=tasks.filter(t=>!t.done);if(taskFilter==='today')filtered=tasks.filter(t=>t.deadline===today&&!t.done);if(taskFilter==='overdue')filtered=tasks.filter(t=>t.deadline<today&&!t.done);if(taskFilter==='done')filtered=tasks.filter(t=>t.done);const archived=tasks.filter(t=>t.done).length;let hint='';if(taskFilter!=='done'&&archived>0)hint='<div style="text-align:center;opacity:0.55;padding:8px 12px;font-size:0.75rem;margin-top:10px;border-top:2px dashed rgba(0,0,0,0.08)">已归档 '+archived+' 项完成记录（底表永久留存，点「已完成」可查看）</div>';if(filtered.length===0){container.innerHTML='<p style="text-align:center;opacity:0.6;padding:20px">暂无任务</p>'+hint;return}let html='';filtered.forEach(t=>{const isOverdue=!t.done&&t.deadline<today;const cls=isOverdue?'overdue':'';const check=t.done?'\2713':'';const priorityColor=t.priority==='high'?'var(--coral)':t.priority==='medium'?'var(--lemon)':'var(--mint)';html+='<div class="task-item '+cls+'"><div class="task-check '+(t.done?'checked':'')+'" onclick="toggleTask(\''+t.id+'\')">'+check+'</div><div class="task-body"><div class="task-title">'+t.text+'</div><div class="task-meta"><span class="memphis-tag" style="background:'+priorityColor+';font-size:0.7rem;padding:2px 8px">'+(t.priority==='high'?'高':t.priority==='medium'?'中':'低')+'</span> '+t.subject+' | 截止 '+t.deadline+(t.done&&t.doneAt?' | 完成 '+t.doneAt:'')+(isOverdue?' | 逾期 '+daysBetween(t.deadline,today)+'天':'')+'</div></div><div class="task-actions">'+(t.done?'':'<div class="task-btn focus" onclick="startFocusFromTask(\''+t.id+'\')" title="开始专注">&#9654;</div>')+'<div class="task-btn" onclick="deleteTask(\''+t.id+'\')" title="删除">\ud83d\uddd1</div></div></div>'});container.innerHTML=html+hint}
+function filterTasks(f){taskFilter=f;renderTasks()}
+function toggleTask(id){let tasks=getTasks();const t=tasks.find(x=>x.id===id);if(t){t.done=!t.done;if(t.done)t.doneAt=formatDate(new Date());setTasks(tasks);showToast(t.done?'任务已完成！':'任务已恢复');renderAll()}}
+function deleteTask(id){if(!confirm('确定删除这个任务吗？'))return;let tasks=getTasks().filter(t=>t.id!==id);setTasks(tasks);showToast('任务已删除');renderAll()}
+function openTaskModal(){document.getElementById('taskInput').value='';document.getElementById('taskDeadline').value=formatDate(new Date());document.getElementById('taskModal').classList.add('show')}
+function addTask(){const text=document.getElementById('taskInput').value.trim();if(!text){showToast('请输入任务内容');return}const subject=document.getElementById('taskSubject').value;const deadline=document.getElementById('taskDeadline').value;const priority=document.getElementById('taskPriority').value;let tasks=getTasks();tasks.push({id:genId(),text:text,subject:subject,deadline:deadline,priority:priority,done:false,created:formatDate(new Date())});setTasks(tasks);closeModal('taskModal');showToast('任务添加成功！');renderAll()}
+const SUBJECT_COLORS=['#FF8A65','#71D6BE','#B39DDB','#F48FB1','#FBC02D','#4DD0E1','#AED581','#FFB74D','#BA68C8','#4DB6AC'];
+const DEFAULT_SUBJECTS=[{name:'政治',color:'#FF8A65'},{name:'英语',color:'#71D6BE'},{name:'专业课一',color:'#B39DDB'},{name:'专业课二',color:'#F48FB1'},{name:'其他',color:'#FBC02D'}];
+function getSubjects(){const a=loadData('subjects',null);return (Array.isArray(a)&&a.length)?a:DEFAULT_SUBJECTS}
+function setSubjects(a){saveData('subjects',a)}
+function getSubjectNames(){return getSubjects().map(function(x){return x.name})}
+function subjectColor(n){const l=getSubjects();for(let i=0;i<l.length;i++){if(l[i].name===n)return l[i].color||SUBJECT_COLORS[i%SUBJECT_COLORS.length]}return '#BDBDBD'}
+function fillSubjectSelects(){const names=getSubjectNames();['taskSubject','statSubject','focusCustomSubject'].forEach(function(id){const el=document.getElementById(id);if(!el)return;const prev=el.value;el.innerHTML=names.map(function(n){return '<option value="'+escHtml(n)+'">'+escHtml(n)+'</option>'}).join('');el.value=names.indexOf(prev)>=0?prev:names[0]})}
+function addSubject(){const el=document.getElementById('newSubjectName');if(!el)return;const n=(el.value||'').trim();if(!n){showToast('请输入科目名称');return}const list=getSubjects();if(list.some(function(x){return x.name===n})){showToast('科目已存在');return}list.push({name:n,color:SUBJECT_COLORS[list.length%SUBJECT_COLORS.length]});setSubjects(list);el.value='';fillSubjectSelects();renderSubjectManager();renderAll();showToast('已添加科目')}
+function removeSubject(i){const list=getSubjects();const n=list[i]&&list[i].name;if(list.length<=1){showToast('至少保留一个科目');return}if(!confirm('移除科目「'+n+'」？\n已有该科目的任务与刷题记录会保留，但不再出现在选项与统计中。'))return;list.splice(i,1);setSubjects(list);fillSubjectSelects();renderSubjectManager();renderAll();showToast('已移除')}
+function renameSubject(i,newName){newName=(newName||'').trim();const list=getSubjects();const old=list[i]&&list[i].name;if(!newName||!old||newName===old){renderSubjectManager();return}if(list.some(function(x,ix){return ix!==i&&x.name===newName})){showToast('科目名称重复');renderSubjectManager();return}
+if(!confirm('把已有数据中的「'+old+'」一并改为「'+newName+'」？\n（任务 / 刷题记录 / 专注记录 / 作息）')){renderSubjectManager();return}
+const tasks=getTasks();tasks.forEach(function(t){if(t.subject===old)t.subject=newName});setTasks(tasks);
+const stats=getStats();Object.keys(stats).forEach(function(d){const day=stats[d];if(!day[old])return;if(day[newName]){day[newName].count=(day[newName].count||0)+(day[old].count||0);day[newName].correct=(day[newName].correct||0)+(day[old].correct||0)}else{day[newName]=day[old]}delete day[old]});setStats(stats);
+const fs=getFocusSessions();fs.forEach(function(x){if(x.subject===old)x.subject=newName});setFocusSessions(fs);
+const c=loadData('customSchedule',null);if(c&&!Array.isArray(c)&&c.items)c.items.forEach(function(it){if(it.subject===old)it.subject=newName});if(c)saveData('customSchedule',c);applyCustomSchedule();
+list[i].name=newName;setSubjects(list);fillSubjectSelects();renderSubjectManager();renderAll();showToast('已重命名并同步历史数据')}
+function cycleSubjectColor(i){const list=getSubjects();const j=SUBJECT_COLORS.indexOf(list[i].color);list[i].color=SUBJECT_COLORS[(j+1)%SUBJECT_COLORS.length];setSubjects(list);renderSubjectManager();renderStats()}
+function renderSubjectManager(){const box=document.getElementById('subjectManager');if(!box)return;const list=getSubjects();
+box.innerHTML=list.map(function(x,i){return '<div class="subj-row"><div class="subj-dot" style="background:'+x.color+'" onclick="cycleSubjectColor('+i+')" title="点击换色"></div><input class="memphis-input" style="padding:8px 12px;font-size:0.9rem" value="'+escHtml(x.name)+'" onchange="renameSubject('+i+',this.value)"><button class="memphis-btn coral" style="padding:8px 14px;font-size:0.85rem" onclick="removeSubject('+i+')">🗑</button></div>'}).join('')}
+function renderStats(){const stats=getStats();const today=formatDate(new Date());const subjects=getSubjectNames();const todayStats=stats[today]||{};let totalToday=0,correctToday=0;subjects.forEach(sub=>{if(todayStats[sub]){totalToday+=todayStats[sub].count;correctToday+=todayStats[sub].correct}});let weekly={};subjects.forEach(sub=>weekly[sub]={count:0,correct:0});for(let i=0;i<7;i++){const d=formatDate(new Date(Date.now()-i*86400000));const dayStats=stats[d]||{};subjects.forEach(sub=>{if(dayStats[sub]){weekly[sub].count+=dayStats[sub].count;weekly[sub].correct+=dayStats[sub].correct}})}const grid=document.getElementById('statsGrid');const quickGrid=document.getElementById('quickStats');let html='';subjects.forEach(sub=>{const w=weekly[sub];const rate=w.count>0?Math.round((w.correct/w.count)*100):0;const color=rate>=80?'var(--mint)':rate>=60?'var(--lemon)':'var(--coral)';html+='<div class="stat-card"><div class="stat-num" style="color:'+color+'">'+w.count+'</div><div class="stat-label">'+sub+' (本周)</div><div style="font-size:0.75rem;margin-top:4px;font-weight:700">正确率 '+rate+'%</div></div>'});html+='<div class="stat-card" style="background:var(--lemon)"><div class="stat-num">'+totalToday+'</div><div class="stat-label">今日做题</div></div><div class="stat-card" style="background:var(--mint)"><div class="stat-num">'+correctToday+'</div><div class="stat-label">今日正确</div></div>';grid.innerHTML=html;if(quickGrid)quickGrid.innerHTML=html;renderTrendChart(stats,subjects)}
+function renderTrendChart(stats,subjects){const chart=document.getElementById('trendChart');if(!chart)return;const days=[];for(let i=6;i>=0;i--){days.push(formatDate(new Date(Date.now()-i*86400000)))}const cmap={};getSubjects().forEach(function(x){cmap[x.name]=x.color||'#BDBDBD'});const maxVal=Math.max(1,...days.map(d=>{const s=stats[d]||{};return Object.values(s).reduce((a,b)=>a+(b.count||0),0)}));const w=700,h=200,pad=40;const bw=(w-pad*2)/days.length;let svg='<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;height:100%">';for(let i=0;i<=4;i++){const y=pad+(h-pad*2)*(i/4);svg+='<line x1="'+pad+'" y1="'+y+'" x2="'+(w-pad)+'" y2="'+y+'" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>';svg+='<text x="'+(pad-5)+'" y="'+(y+4)+'" font-size="10" text-anchor="end" fill="#999">'+Math.round(maxVal*(1-i/4))+'</text>'}days.forEach((d,i)=>{const dayStats=stats[d]||{};let offset=0;subjects.forEach(sub=>{const val=(dayStats[sub]&&dayStats[sub].count)||0;const barH=(val/maxVal)*(h-pad*2);const x=pad+i*bw+4;const y=h-pad-barH-offset;const barW=bw-8;svg+='<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" fill="'+(cmap[sub]||'#BDBDBD')+'" rx="4"/>';offset+=barH});const label=d.slice(5);svg+='<text x="'+(pad+i*bw+bw/2)+'" y="'+(h-10)+'" font-size="10" text-anchor="middle" fill="#666">'+label+'</text>'});let lx=w-Math.min(w-30,subjects.length*64+20);subjects.forEach(sub=>{svg+='<rect x="'+lx+'" y="10" width="10" height="10" fill="'+(cmap[sub]||'#BDBDBD')+'" rx="2"/>';svg+='<text x="'+(lx+14)+'" y="19" font-size="10" fill="#333">'+sub+'</text>';lx+=50});svg+='</svg>';chart.innerHTML=svg}
+function openStatModal(){document.getElementById('statCount').value='';document.getElementById('statCorrect').value='';document.getElementById('statModal').classList.add('show')}
+function addStat(){const subject=document.getElementById('statSubject').value;const count=parseInt(document.getElementById('statCount').value)||0;const correct=parseInt(document.getElementById('statCorrect').value)||0;if(count<=0){showToast('请输入做题数量');return}const today=formatDate(new Date());let stats=getStats();if(!stats[today])stats[today]={};if(!stats[today][subject])stats[today][subject]={count:0,correct:0};stats[today][subject].count+=count;stats[today][subject].correct+=correct;setStats(stats);closeModal('statModal');showToast('已记录 '+subject+' '+count+' 题');renderAll()}
+let _tessLoading=null;
+function loadTesseract(){
+if(typeof Tesseract!=='undefined')return Promise.resolve();
+if(_tessLoading)return _tessLoading;
+const sources=['https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js','https://unpkg.com/tesseract.js@4/dist/tesseract.min.js','https://fastly.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'];
+_tessLoading=new Promise((resolve,reject)=>{
+let idx=0;
+function tryNext(){
+if(idx>=sources.length){_tessLoading=null;reject(new Error('所有CDN源均无法加载'));return}
+const s=document.createElement('script');
+s.src=sources[idx];
+const timer=setTimeout(()=>{s.remove();idx++;tryNext()},12000);
+s.onload=()=>{clearTimeout(timer);resolve()};
+s.onerror=()=>{clearTimeout(timer);s.remove();idx++;tryNext()};
+document.head.appendChild(s)}
+tryNext()});
+return _tessLoading}
+function handleOCR(input){const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(e){const img=document.getElementById('ocrPreview');img.src=e.target.result;img.style.display='block';const loading=document.getElementById('ocrLoading');const result=document.getElementById('ocrResult');loading.style.display='block';loading.innerHTML='<div style="font-size:1.5rem;animation:float 1s ease-in-out infinite">&#128269; 加载OCR引擎中...</div>';result.style.display='none';loadTesseract().then(()=>{loading.innerHTML='<div style="font-size:1.5rem;animation:float 1s ease-in-out infinite">&#128269; 识别中...</div>';return Tesseract.recognize(e.target.result,'chi_sim+eng',{logger:m=>{if(m.status==='recognizing text'&&m.progress){loading.innerHTML='<div style="font-size:1.3rem;animation:float 1s ease-in-out infinite">&#128269; 识别中 '+Math.round(m.progress*100)+'%</div>'}}})}).then(({data:{text}})=>{loading.style.display='none';loading.innerHTML='<div style="font-size:1.5rem;animation:float 1s ease-in-out infinite">&#128269; 识别中...</div>';result.textContent=text||'未识别到文字';result.style.display='block';showToast('识别完成！')}).catch(err=>{loading.style.display='none';loading.innerHTML='<div style="font-size:1.5rem;animation:float 1s ease-in-out infinite">&#128269; 识别中...</div>';result.textContent='OCR引擎加载失败：'+err.message+'\n\n可能原因：网络无法访问CDN（jsdelivr/unpkg）。\nOCR功能需要联网，其余功能不受影响。';result.style.display='block'})};reader.readAsDataURL(file)}
+const dropzone=document.getElementById('ocrDropzone');if(dropzone){dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('dragover')});dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('dragover'));dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('dragover');const files=e.dataTransfer.files;if(files.length>0){const input=document.getElementById('ocrFile');input.files=files;handleOCR(input)}})}
+function exportData(){const data={exportDate:formatDate(new Date()),appVersion:'v3-cloud'};SYNC_KEYS.forEach(function(k){const v=loadData(k,null);if(v!==null&&v!==undefined)data[k]=v});const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='考研土豆备份_'+formatDate(new Date())+'.json';a.click();URL.revokeObjectURL(url);showToast('备份已导出（含科目与作息模板）')}
+function syncSettingsInputs(){const st=getSettings();const g=function(id){return document.getElementById(id)};if(g('examDate'))g('examDate').value=st.examDate||EXAM_DATE_DEFAULT;if(g('boardStartDate'))g('boardStartDate').value=st.boardStart||BOARD_START_DEFAULT;if(g('phase1End'))g('phase1End').value=st.phase1End||PHASE_CONFIG.phase1End;if(g('phase2End'))g('phase2End').value=st.phase2End||PHASE_CONFIG.phase2End;if(g('phase3End'))g('phase3End').value=st.phase3End||PHASE_CONFIG.phase3End;if(g('phase4End'))g('phase4End').value=st.phase4End||PHASE_CONFIG.phase4End}
+function importData(input){const file=input.files&&input.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(e){try{const data=JSON.parse(e.target.result);SYNC_KEYS.forEach(function(k){if(Object.prototype.hasOwnProperty.call(data,k)&&data[k]!==undefined&&data[k]!==null){_cache[k]=data[k];mirrorLocal(k,data[k]);_dirty[k]=true}});scheduleSync();showToast('数据恢复成功！');renderAll();syncSettingsInputs();updateSyncUI()}catch(err){console.error(err);showToast('导入失败：文件格式错误')}};reader.readAsText(file);input.value=''}
+function clearAllData(){document.getElementById('clearModal').classList.add('show')}
+function confirmClear(){setTasks([]);setStats({});setScheduleCheck({});saveData('customSchedule',null);saveData('lastReminderDate','');saveData('focusSessions',[]);window.SCHEDULE_OVERRIDE=null;const s=getSettings();s.demoCleared=true;s.reviewEnabled=true;s.reviewTime='22:30';s.reviewMessage='';s.wallpaperMode=false;s.wallpaperOpacity=72;setSettings(s);closeModal('clearModal');showToast('所有数据已清空');document.body.classList.remove('wallpaper-mode');updateReminderUI();renderAll()}
+function saveSettings(){const s=getSettings();s.examDate=document.getElementById('examDate').value;s.phase1End=document.getElementById('phase1End').value;s.phase2End=document.getElementById('phase2End').value;s.phase3End=document.getElementById('phase3End').value;s.phase4End=document.getElementById('phase4End').value;s.boardStart=document.getElementById('boardStartDate').value||BOARD_START_DEFAULT;setSettings(s);showToast('设置已保存');renderAll()}
+['examDate','boardStartDate','phase1End','phase2End','phase3End','phase4End'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',saveSettings)});
+function switchTab(tab){document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.bottom-nav-item').forEach(el=>el.classList.remove('active'));document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));const content=document.getElementById('tab-'+tab);if(content)content.classList.add('active');document.querySelectorAll('[data-tab="'+tab+'"]').forEach(el=>el.classList.add('active'));window.scrollTo({top:0,behavior:'smooth'})}
+function showMoreMenu(){document.getElementById('moreModal').classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+document.querySelectorAll('.modal-overlay').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('show')})});
+
+/* ===== Feature 1: TXT Template Import ===== */
+function parseTxtImport(fromTools){
+const ta=document.getElementById(fromTools?'txtImportArea2':'txtImportArea');
+const text=ta.value.trim();
+if(!text){showToast('请粘贴或上传TXT内容');return}
+let taskCount=0,scheduleCount=0;
+let mode='';
+const lines=text.split('\n');
+let tasks=getTasks();
+const today=formatDate(new Date());
+let customSchedule=[];
+lines.forEach(line=>{
+line=line.trim();
+if(!line)return;
+if(line.startsWith('---')&&line.endsWith('---')){
+mode=line.replace(/---/g,'').trim();
+if(mode==='任务'||mode==='tasks'||mode==='task')mode='task';
+else if(mode==='日程'||mode==='schedule')mode='schedule';
+return}
+const parts=line.split('|').map(p=>p.trim());
+if(mode==='task'||(mode===''&&parts.length>=3&&parts[0].match(/^\d{4}-/))){
+if(parts.length<2)return;
+const subject=parts[0]||'其他';
+const taskText=parts[1]||'';
+let deadline=parts[2]||today;
+if(deadline&&!deadline.match(/^\d{4}-\d{2}-\d{2}$/))deadline=today;
+const priority=parts[3]==='高'?'high':parts[3]==='低'?'low':'medium';
+tasks.push({id:genId(),text:taskText,subject:subject,deadline:deadline,priority:priority,done:false,created:today});
+taskCount++}
+else if(mode==='schedule'){
+if(parts.length<2)return;
+customSchedule.push({time:parts[0],label:parts[1],subject:parts[2]||'其他'});
+scheduleCount++}});
+if(taskCount>0){setTasks(tasks)}
+if(scheduleCount>0){saveData('customSchedule',customSchedule);applyCustomSchedule()}
+const msg='导入完成：'+taskCount+'条任务'+(scheduleCount>0?'，'+scheduleCount+'条日程':'');
+showToast(msg);
+renderAll()}
+function handleTxtFile(input,fromTools){
+const file=input.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=function(e){const ta=document.getElementById(fromTools?'txtImportArea2':'txtImportArea');ta.value=e.target.result;showToast('文件已加载，点击解析导入')};
+reader.readAsText(file,'UTF-8')}
+function downloadTxtTemplate(){
+const template='---任务---\n专业课一|完成第三章习题|2026-08-26|高\n专业课二|教材第3章框架笔记|2026-08-26|中\n英语|真题阅读精做一篇|2026-08-26|中\n政治|马原基础课第2节|2026-08-27|低\n\n---日程---\n09:15-09:30|晨间启动（单词打卡 + 当日计划）|英语\n09:00-11:30|上午整块学习|专业课一\n12:00-14:30|午饭+午休|休息\n14:00-17:00|下午整块学习|专业课二\n17:30-20:30|晚饭+运动休整|休息\n20:30-21:30|英语（单词 + 阅读）|英语\n21:30-22:15|机动补漏|其他\n22:15-22:30|当日复盘|复盘';
+const blob=new Blob([template],{type:'text/plain;charset=utf-8'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='考研土豆导入模板.txt';a.click();URL.revokeObjectURL(url);
+showToast('模板已下载！')}
+function applyCustomSchedule(){
+const c=loadData('customSchedule',null);
+if(!c){window.SCHEDULE_OVERRIDE=null;return}
+let items=Array.isArray(c)?c.slice():(c.items||[]).slice();
+if(!items.length){window.SCHEDULE_OVERRIDE=null;return}
+items=items.map(function(it,i){return{id:it.id||('u'+i+'_'+Math.random().toString(36).slice(2,6)),time:it.time||'',label:it.label||'',subject:it.subject||''}});
+if(Array.isArray(c)){saveData('customSchedule',{tpl:'custom',items:items})}else{c.items=items}
+window.SCHEDULE_OVERRIDE=items}
+function getSchedule(){
+const c=loadData('customSchedule',null);
+if(c&&!Array.isArray(c)&&c.items&&c.items.length)return c.items;
+const o=window.SCHEDULE_OVERRIDE;
+if(o&&o.length)return o;
+return SCHEDULE_TEMPLATES[DEFAULT_SCHEDULE_TPL].items}
+function getCurrentTplId(){const c=loadData('customSchedule',null);
+if(!c)return DEFAULT_SCHEDULE_TPL;
+return (!Array.isArray(c)&&SCHEDULE_TEMPLATES[c.tpl])?c.tpl:'custom'}
+function migrateScheduleCheck(){
+const s=getSettings();if(s.schedIdMigrated)return;
+const list=getSchedule();const sc=getScheduleCheck();let changed=false;
+Object.keys(sc).forEach(function(d){const day=sc[d];if(!day||typeof day!=='object')return;const nd={};
+Object.keys(day).forEach(function(k){if(!/^\d+$/.test(k)){nd[k]=day[k];return}
+const it=list[Number(k)];nd[it?it.id:('legacy'+k)]=day[k];changed=true});sc[d]=nd});
+if(changed)setScheduleCheck(sc);
+s.schedIdMigrated=true;setSettings(s)}
+function applyScheduleTemplate(tplId){
+const t=SCHEDULE_TEMPLATES[tplId];if(!t)return;
+if(!confirm('切换到「'+t.name+'」将替换当前作息条目，已打卡记录按条目保留。继续？'))return;
+saveData('customSchedule',{tpl:tplId,items:t.items.map(function(x){return{id:x.id,time:x.time,label:x.label,subject:x.subject||''}})});
+applyCustomSchedule();showToast('已切换为「'+t.name+'」');renderAll()}
+function resetScheduleTpl(){const cur=getCurrentTplId();applyScheduleTemplate(cur==='custom'?DEFAULT_SCHEDULE_TPL:cur)}
+applyCustomSchedule();
+
+/* ===== Feature 2: Desktop Widget ===== */
+function showWidget(){
+const today=formatDate(new Date());
+const settings=getSettings();
+const examDate=settings.examDate||EXAM_DATE_DEFAULT;
+const daysLeft=daysBetween(today,examDate);
+const phase=detectPhase(today,settings);
+document.getElementById('widgetCountdown').textContent=daysLeft>0?daysLeft:0;
+document.getElementById('widgetPhase').textContent=phase.name;
+document.getElementById('widgetDate').textContent=today+' '+getWeekDay(today);
+const tasks=getTasks();
+const overdue=tasks.filter(t=>!t.done&&t.deadline<today);
+const todayTasks=tasks.filter(t=>!t.done&&t.deadline===today);
+let html='';
+overdue.forEach(t=>{html+='<div class="wt-item wt-overdue">⚠ '+t.subject+'：'+t.text+'（逾期'+daysBetween(t.deadline,today)+'天）</div>'});
+todayTasks.forEach(t=>{html+='<div class="wt-item">&#128203; '+t.subject+'：'+t.text+'</div>'});
+if(!html)html='<div class="wt-item" style="text-align:center;opacity:0.6">今日无待办，继续加油！</div>';
+document.getElementById('widgetTasks').innerHTML=html;
+document.getElementById('widgetOverlay').classList.add('show')}
+
+/* ===== Feature 3: Wallpaper Mode ===== */
+function toggleWallpaper(){
+const body=document.body;
+body.classList.toggle('wallpaper-mode');
+const on=body.classList.contains('wallpaper-mode');
+const t1=document.getElementById('wallpaperToggle');
+const t2=document.getElementById('wallpaperToggle2');
+const wb=document.getElementById('wallpaperBtn');
+if(t1)t1.classList.toggle('on',on);
+if(t2)t2.classList.toggle('on',on);
+if(wb)wb.classList.toggle('active',on);
+const s1=document.getElementById('wallpaperStatus');
+const s2=document.getElementById('wallpaperStatus2');
+if(s1)s1.textContent=on?'已开启':'未开启';
+if(s2)s2.textContent=on?'已开启':'未开启';
+const s=getSettings();s.wallpaperMode=on;setSettings(s);
+showToast(on?'半透明壁纸模式已开启':'壁纸模式已关闭')}
+function setWallpaperOpacity(val){
+document.documentElement.style.setProperty('--wallpaper-opacity',val/100);
+const l1=document.getElementById('opacityLabel');
+const l2=document.getElementById('opacityLabel2');
+if(l1)l1.textContent=val+'%';
+if(l2)l2.textContent=val+'%';
+const s=getSettings();s.wallpaperOpacity=parseInt(val);setSettings(s)}
+
+/* ===== Feature 4: PWA Install / Autostart ===== */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});
+function installPWA(){
+if(deferredPrompt){
+deferredPrompt.prompt();
+deferredPrompt.userChoice.then(()=>{deferredPrompt=null});
+showToast('正在启动安装...')}else{
+showToast('请通过浏览器菜单"安装/添加到主屏幕"')}}
+
+/* ===== Feature 5: Review Reminder ===== */
+function toggleReminder(){
+const s=getSettings();
+s.reviewEnabled=!s.reviewEnabled;
+setSettings(s);
+updateReminderUI();
+showToast(s.reviewEnabled?'复盘提醒已开启':'复盘提醒已关闭')}
+function updateReminderUI(){
+const s=getSettings();
+const on=s.reviewEnabled;
+['reminderToggle','reminderToggle2'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('on',on)});
+['reviewTime','reviewTime2'].forEach(id=>{const el=document.getElementById(id);if(el&&s.reviewTime)el.value=s.reviewTime});
+['reviewMessage','reviewMessage2'].forEach(id=>{const el=document.getElementById(id);if(el&&s.reviewMessage)el.value=s.reviewMessage});
+const time=s.reviewTime||'22:30';
+['reminderStatus','reminderStatus2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=on?'已开启 - 每天 '+time+' 提醒复盘今日学习':'未开启'})}
+function testReminder(){
+const s=getSettings();
+const msg=s.reviewMessage||'该复盘今日学习啦！记得整理错题本~';
+if('Notification'in window&&Notification.permission==='granted'){
+new Notification('考研复盘提醒',{body:msg});
+showToast('测试提醒已发送！')}else if('Notification'in window&&Notification.permission!=='denied'){
+Notification.requestPermission().then(p=>{if(p==='granted'){new Notification('考研复盘提醒',{body:msg});showToast('测试提醒已发送！')}else{showToast('请先开启通知权限')}})}else{
+showToast(msg);setTimeout(()=>alert('考研复盘提醒\n\n'+msg),300)}}
+function enableNotify(){
+if(!('Notification'in window)){showToast('当前浏览器不支持通知');return}
+if(Notification.permission==='granted'){showToast('通知权限已开启');return}
+Notification.requestPermission().then(p=>{showToast(p==='granted'?'通知权限已开启':'通知权限被拒绝')})}
+function checkReminder(){
+const s=getSettings();
+if(!s.reviewEnabled)return;
+const now=new Date();
+const hh=String(now.getHours()).padStart(2,'0');
+const mm=String(now.getMinutes()).padStart(2,'0');
+const currentTime=hh+':'+mm;
+const reviewTime=s.reviewTime||'22:30';
+if(currentTime===reviewTime){
+const today=formatDate(now);
+const lastTrigger=loadData('lastReminderDate','');
+if(lastTrigger!==today){
+saveData('lastReminderDate',today);
+const msg=s.reviewMessage||'该复盘今日学习啦！记得整理错题本~';
+if('Notification'in window&&Notification.permission==='granted'){
+new Notification('考研复盘提醒',{body:msg})}else{
+showToast(msg)}
+const sc=getScheduleCheck();
+if(!sc[today])sc[today]={};
+const total=getSchedule();
+const doneCount=total.filter(function(it){return sc[today]&&sc[today][it.id]}).length;
+if(doneCount<total.length){
+showToast('今日还有'+(total.length-doneCount)+'项作息未打卡，记得完成！')}}}}
+/* ===== Focus Mode (正计时+沙漏) ===== */
+let focusSession={running:false,paused:false,taskId:null,text:'',subject:'',startISO:null,accumSec:0,resumeAt:null,timerId:null,breakCount:0};
+function getFocusSessions(){return loadData('focusSessions',[])}
+function setFocusSessions(s){saveData('focusSessions',s)}
+function refreshFocusTaskOptions(){const sel=document.getElementById('focusTaskSelect');if(!sel)return;const prev=sel.value;const tasks=getTasks().filter(t=>!t.done);const today=formatDate(new Date());const sorted=tasks.slice().sort((a,b)=>((a.deadline===today?0:1)-(b.deadline===today?0:1)));let html='<option value="">-- 选择今日任务（或自定义）--</option>';sorted.forEach(t=>{html+='<option value="'+t.id+'">'+(t.deadline<today?'[逾期] ':'')+t.subject+'：'+t.text+'</option>'});html+='<option value="custom">✎ 自定义专注内容…</option>';sel.innerHTML=html;if(prev&&Array.from(sel.options).some(o=>o.value===prev))sel.value=prev;onFocusTaskChange(sel.value)}
+function onFocusTaskChange(v){const customInput=document.getElementById('focusCustomInput');const subjSel=document.getElementById('focusCustomSubject');if(!customInput)return;if(v==='custom'){customInput.style.display='block';if(subjSel)subjSel.style.display='block'}else{customInput.style.display='none';if(subjSel)subjSel.style.display='none'}}
+function startFocusFromTask(id){const t=getTasks().find(x=>x.id===id);if(!t)return;switchTab('focus');setTimeout(()=>{refreshFocusTaskOptions();const sel=document.getElementById('focusTaskSelect');if(sel)sel.value=id;beginFocus()},60)}
+function beginFocus(){if(focusSession.running){showToast('已在专注中');return}const sel=document.getElementById('focusTaskSelect');let taskId=null,text='',subject=getSubjectNames()[0];if(sel&&sel.value&&sel.value!=='custom'){const t=getTasks().find(x=>x.id===sel.value);if(t){taskId=t.id;text=t.text;subject=t.subject}}else{const ci=document.getElementById('focusCustomInput');const cs=document.getElementById('focusCustomSubject');text=(ci&&ci.value.trim())||'自由专注';subject=(cs&&cs.value)||getSubjectNames()[0]}focusSession={running:true,paused:false,taskId:taskId,text:text,subject:subject,startISO:new Date().toISOString(),accumSec:0,resumeAt:Date.now(),timerId:null,breakCount:0};focusSession.timerId=setInterval(focusTick,1000);updateFocusUI();showToast('专注开始！冲！🥔')}
+function focusElapsedSec(){if(!focusSession.running)return 0;if(focusSession.paused)return focusSession.accumSec;return focusSession.accumSec+(Date.now()-focusSession.resumeAt)/1000}
+function focusTick(){if(!focusSession.running||focusSession.paused)return;updateFocusUI();const s=getSettings();if(s.breakEnabled){const interval=(s.breakInterval||50)*60;const elapsed=focusElapsedSec();if(elapsed>=(focusSession.breakCount+1)*interval){focusSession.breakCount++;triggerBreak()}}}
+function triggerBreak(){pauseFocus(false);const banner=document.getElementById('focusBreakBanner');if(banner)banner.style.display='block';const mins=focusSession.breakCount*(getSettings().breakInterval||50);const msg='已专注 '+mins+' 分钟，起来走走喝口水～';if('Notification'in window&&Notification.permission==='granted'){try{new Notification('休息提醒 🌿',{body:msg})}catch(e){}}showToast(msg)}
+function resumeAfterBreak(){const banner=document.getElementById('focusBreakBanner');if(banner)banner.style.display='none';const wrap=document.getElementById('hourglassWrap');if(wrap){wrap.classList.add('flip');setTimeout(()=>{wrap.classList.remove('flip')},850)}resumeFocus()}
+function pauseFocus(showMsg){if(!focusSession.running||focusSession.paused)return;focusSession.accumSec+=(Date.now()-focusSession.resumeAt)/1000;focusSession.paused=true;if(focusSession.timerId)clearInterval(focusSession.timerId);updateFocusUI();if(showMsg!==false)showToast('已暂停')}
+function resumeFocus(){if(!focusSession.running||!focusSession.paused)return;focusSession.resumeAt=Date.now();focusSession.paused=false;if(focusSession.timerId)clearInterval(focusSession.timerId);focusSession.timerId=setInterval(focusTick,1000);updateFocusUI();showToast('继续专注！')}
+function endFocus(force){if(!focusSession.running)return;const elapsed=focusElapsedSec();const minutes=Math.floor(elapsed/60);if(minutes<1&&!force){showToast('专注不足1分钟，再坚持一下！');return}if(focusSession.timerId)clearInterval(focusSession.timerId);const sessions=getFocusSessions();sessions.push({id:genId(),taskId:focusSession.taskId,text:focusSession.text,subject:focusSession.subject,start:focusSession.startISO,end:new Date().toISOString(),minutes:Math.max(1,minutes),date:formatDate(new Date())});setFocusSessions(sessions);const wasTask=focusSession.taskId;const hadMinutes=minutes>=1;focusSession={running:false,paused:false,taskId:null,text:'',subject:'',startISO:null,accumSec:0,resumeAt:null,timerId:null,breakCount:0};updateFocusUI();renderAll();if(wasTask&&hadMinutes&&!force){setTimeout(()=>{if(confirm('本次专注 '+minutes+' 分钟已记录！\n\n是否将该任务标记为完成？')){quickDone(wasTask)}},150)}else if(hadMinutes){showToast('已记录专注 '+minutes+' 分钟')}}
+function fmtHMS(sec){sec=Math.floor(sec);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s2).padStart(2,'0')}
+function updateHourglass(elapsed){const s=getSettings();const interval=(s.breakInterval||50)*60;const progress=(elapsed%interval)/interval;const topSand=document.getElementById('topSand');const bottomSand=document.getElementById('bottomSand');const flow=document.getElementById('sandFlow');if(!topSand||!bottomSand)return;const TOP_Y=44,TOP_H=104,BOT_Y=152,BOT_H=104;const th=TOP_H*(1-progress);topSand.setAttribute('y',TOP_Y+(TOP_H-th));topSand.setAttribute('height',Math.max(0,th));const bh=BOT_H*progress;bottomSand.setAttribute('y',BOT_Y+BOT_H-bh);bottomSand.setAttribute('height',Math.max(0,bh));if(flow)flow.style.display=(focusSession.running&&!focusSession.paused)?'block':'none'}
+function updateFocusUI(){const activeCard=document.getElementById('focusActiveCard');const selectCard=document.getElementById('focusSelectCard');if(!activeCard||!selectCard)return;if(focusSession.running){activeCard.style.display='block';selectCard.style.display='none';const elapsed=focusElapsedSec();const timer=document.getElementById('focusTimer');if(timer){timer.textContent=fmtHMS(elapsed);timer.classList.toggle('paused',focusSession.paused)}const ct=document.getElementById('focusCurrentTask');if(ct)ct.textContent=focusSession.text;const cs=document.getElementById('focusCurrentSubject');if(cs)cs.textContent=focusSession.subject;updateHourglass(elapsed);const btn=document.getElementById('focusPauseBtn');if(btn)btn.innerHTML=focusSession.paused?'&#9654; 继续专注':'&#9208; 暂停';const s=getSettings();const todayMin=getTodayFocusMinutes()+Math.floor(elapsed/60);const goal=s.focusGoal||360;const pct=Math.min(100,Math.round(todayMin/goal*100));const goalText=document.getElementById('focusGoalText');if(goalText)goalText.textContent='今日 '+todayMin+' / '+goal+' 分钟';const fill=document.getElementById('focusGoalFill');if(fill){fill.style.width=pct+'%';fill.style.background=pct>=100?'var(--mint)':pct>=50?'var(--lemon)':'var(--coral)'}const pctText=document.getElementById('focusGoalPct');if(pctText)pctText.textContent=pct+'%'}else{activeCard.style.display='none';selectCard.style.display='block'}}
+function getTodayFocusMinutes(){const today=formatDate(new Date());return getFocusSessions().filter(x=>x.date===today).reduce((a,b)=>a+(b.minutes||0),0)}
+function renderFocusOverview(){refreshFocusTaskOptions();updateFocusUI();renderFocusChart();renderTodaySessions();const today=formatDate(new Date());const list=getFocusSessions().filter(x=>x.date===today);const e1=document.getElementById('fmTodayMin');if(e1)e1.textContent=list.reduce((a,b)=>a+(b.minutes||0),0);const e2=document.getElementById('fmTodayCount');if(e2)e2.textContent=list.length;const e3=document.getElementById('fmLongest');if(e3)e3.textContent=list.length?Math.max.apply(null,list.map(x=>x.minutes||0)):0;const s=getSettings();const gi=document.getElementById('focusGoalInput');if(gi&&document.activeElement!==gi)gi.value=s.focusGoal||360;const bi=document.getElementById('breakIntervalInput');if(bi&&document.activeElement!==bi)bi.value=s.breakInterval||50;const bt=document.getElementById('breakEnabledToggle');if(bt)bt.classList.toggle('on',s.breakEnabled!==false)}
+function renderFocusChart(){const chart=document.getElementById('focusChart');if(!chart)return;const s=getSettings();const goal=s.focusGoal||360;const days=[];for(let i=6;i>=0;i--)days.push(formatDate(new Date(Date.now()-i*86400000)));const data=days.map(d=>getFocusSessions().filter(x=>x.date===d).reduce((a,b)=>a+(b.minutes||0),0));const maxVal=Math.max(goal*1.2,Math.max.apply(null,data.concat([60])));const w=700,h=220,pad=46;const bw=(w-pad*2)/days.length;let svg='<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;height:100%">';const gy=h-pad-(goal/maxVal)*(h-pad*2);svg+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="#FF8A65" stroke-width="2.5" stroke-dasharray="8,5"/>';svg+='<text x="'+(w-pad)+'" y="'+(gy-6)+'" font-size="11" text-anchor="end" fill="#FF8A65" font-weight="bold">目标 '+goal+'min</text>';for(let i=0;i<=4;i++){const y=pad+(h-pad*2)*(i/4);svg+='<line x1="'+pad+'" y1="'+y+'" x2="'+(w-pad)+'" y2="'+y+'" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>';svg+='<text x="'+(pad-6)+'" y="'+(y+4)+'" font-size="10" text-anchor="end" fill="#999">'+Math.round(maxVal*(1-i/4))+'</text>'}days.forEach((d,i)=>{const val=data[i];const barH=val>0?(val/maxVal)*(h-pad*2):2;const x=pad+i*bw+10;const y=h-pad-barH;const barW=bw-20;const color=val>=goal?'#71D6BE':val>0?'#FFF176':'#E0E0E0';svg+='<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" fill="'+color+'" rx="6"'+(val>0?' stroke="#2D2D2D" stroke-width="2"':'')+'/>';if(val>0)svg+='<text x="'+(x+barW/2)+'" y="'+(y-6)+'" font-size="10" text-anchor="middle" fill="#666" font-weight="bold">'+val+'</text>';const wd='日一二三四五六'[new Date(d).getDay()];svg+='<text x="'+(x+barW/2)+'" y="'+(h-12)+'" font-size="10" text-anchor="middle" fill="#666">'+d.slice(5)+' 周'+wd+'</text>';if(d===formatDate(new Date()))svg+='<rect x="'+(x-2)+'" y="'+(h-pad+2)+'" width="'+(barW+4)+'" height="3" fill="#FF8A65" rx="2"/>'});svg+='</svg>';chart.innerHTML=svg}
+function renderTodaySessions(){const wrap=document.getElementById('todaySessions');if(!wrap)return;const today=formatDate(new Date());const list=getFocusSessions().filter(x=>x.date===today).slice().reverse().slice(0,6);if(list.length===0){wrap.innerHTML='<p style="text-align:center;opacity:0.55;padding:14px;font-size:0.85rem">今天还没有专注记录，选个任务开始吧！</p>';return}let html='';list.forEach(x=>{html+='<div class="session-item"><div><div>'+x.text+'</div><div class="si-time">'+x.subject+' · '+String(x.start).slice(11,16)+'-'+String(x.end).slice(11,16)+'</div></div><div class="si-min">'+x.minutes+' min</div></div>'});wrap.innerHTML=html}
+function updateFocusGoalSettings(){const s=getSettings();const g=parseInt(document.getElementById('focusGoalInput').value)||360;const b=parseInt(document.getElementById('breakIntervalInput').value)||50;s.focusGoal=Math.max(30,Math.min(900,g));s.breakInterval=Math.max(20,Math.min(120,b));const be=document.getElementById('breakEnabledToggle');if(be)s.breakEnabled=be.classList.contains('on');setSettings(s);showToast('专注设置已保存');renderFocusOverview()}
+function toggleBreakEnabled(){const el=document.getElementById('breakEnabledToggle');if(el){el.classList.toggle('on');updateFocusGoalSettings()}}
+window.addEventListener('beforeunload',e=>{if(focusSession.running&&focusElapsedSec()>60){endFocus(true);e.preventDefault();e.returnValue=''}});
+
+const DEMO_SHIZHENG=[];
+let currentSzDate=null,currentSzItems=[];
+function escHtml(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function renderBoard(){
+const wrap=document.getElementById('boardMonths');if(!wrap)return;
+const s=getSettings();const examDate=s.examDate||EXAM_DATE_DEFAULT;const notes=getDayNotes();
+const today=formatDate(new Date());
+const start=s.boardStart||BOARD_START_DEFAULT||today;
+if(!examDate){wrap.innerHTML='<div class="sz-empty">请先在「设置」里填写考试日期，看板会自动从今天画到初试日</div>';document.getElementById('boardSummary').innerHTML='';return}
+const total=Math.max(0,daysBetween(start,examDate)+1);
+let past=daysBetween(start,today)+1;if(past<0)past=0;if(past>total)past=total;
+const left=total-past;const pct=total>0?Math.round(past/total*100):0;
+const fill=pct>=100?'var(--mint)':(pct>=50?'var(--lemon)':'#E53935');
+document.getElementById('boardSummary').innerHTML='<div class="board-summary-row"><div class="board-stat">已度过 <span class="num">'+past+'</span> 天</div><div class="board-stat">还剩 <span class="num">'+left+'</span> 天</div><div class="board-stat total-stat">总计 <span class="num">'+total+'</span> 天</div><div class="board-stat pct-stat">时间已消耗 <span class="num">'+pct+'%</span></div></div><div class="memphis-progress"><div class="memphis-progress-fill" style="width:'+pct+'%;background:'+fill+'"></div></div><div class="board-hint"><span class="dn-dot"></span>点击任意一天，给那一天写下待办 📌</div>';
+if(start>examDate){wrap.innerHTML='<div class="sz-empty">起始日期晚于初试日期，请到「设置」里检查日期配置</div>';return}
+let html='';let y=+start.slice(0,4),m=+start.slice(5,7)-1;const ey=+examDate.slice(0,4),em=+examDate.slice(5,7)-1;
+while(true){
+const dim=new Date(y,m+1,0).getDate();const offset=(new Date(y,m,1).getDay()+6)%7;
+let cells='',shown=0,done=0;
+for(let i=0;i<offset;i++)cells+='<div></div>';
+for(let d=1;d<=dim;d++){
+const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+if(ds<start||ds>examDate)continue;
+shown++;if(ds<=today)done++;
+let cls=ds<today?'past':(ds>today?'future':'today');if(ds===examDate)cls='exam';
+const tip=ds===examDate?(ds+' · 初试日'):(ds===today?(ds+' · 今天'):ds);
+const dn=notes[ds];
+const noteCls=dn&&dn.length?' has-note':'';
+const dot=noteCls?'<span class="nb"></span>':'';
+cells+='<div class="board-cell '+cls+noteCls+'" title="'+tip+'" onclick="openDayNote(\''+ds+'\')">'+dot+'</div>';
+}
+if(shown>0)html+='<div class="board-month"><div class="board-month-title"><span>'+y+'年'+(m+1)+'月</span><span class="board-month-pct">'+Math.round(done/shown*100)+'%</span></div><div class="board-grid">'+cells+'</div></div>';
+if(y===ey&&m===em)break;
+m++;if(m>11){m=0;y++}
+}
+wrap.innerHTML=html;
+const lg=document.getElementById('boardLegend');
+if(lg)lg.innerHTML='<span><span class="lg-cell" style="background:#E53935"></span>已度过</span><span><span class="lg-cell" style="background:rgba(229,57,53,0.16)"></span>还没到</span><span><span class="lg-cell" style="background:#E53935;outline:2px solid var(--dark);outline-offset:1px"></span>今天</span><span><span class="lg-cell" style="background:var(--lemon);border:1.5px solid var(--dark)"></span>初试日</span>';
+}
+function parseShizhengMd(text){
+const lines=String(text||'').split(/\r?\n/);const items=[];let cur=null,date='';
+for(let i=0;i<lines.length;i++){
+const line=lines[i].trim();if(!line)continue;
+let m;
+if(m=line.match(/^#\s+(.+)$/)){
+const dm=m[1].match(/(\d{4})[-/年.](\d{1,2})[-/月.](\d{1,2})/);
+if(dm)date=dm[1]+'-'+String(dm[2]).padStart(2,'0')+'-'+String(dm[3]).padStart(2,'0');
+continue;
+}
+if(m=line.match(/^#{2,}\s*(?:\d+[.、\)]\s*)?(.+)$/)){
+if(cur&&cur.title)items.push(cur);
+cur={title:m[1].trim(),summary:'',reason:'',url:''};continue;
+}
+if(!cur)continue;
+if(m=line.match(/^[-*]\s*\*{0,2}一句话(?:摘要|速览)\*{0,2}\s*[：:]\s*(.+)$/))cur.summary=m[1].replace(/\*{2}/g,'').trim();
+else if(m=line.match(/^[-*]\s*\*{0,2}为什么值得读\*{0,2}\s*[：:]\s*(.+)$/))cur.reason=m[1].replace(/\*{2}/g,'').trim();
+else if(m=line.match(/^[-*]\s*\*{0,2}(?:文章)?(?:链接|原文)\*{0,2}\s*[：:]\s*(.+)$/)){
+const lm=m[1].match(/\[[^\]]*\]\((https?:\/\/[^)\s]+)\)/)||m[1].match(/\((https?:\/\/[^)\s]+)\)/)||m[1].match(/(https?:\/\/\S+)/);
+if(lm)cur.url=lm[1].replace(/[).,]+$/,'');
+}
+}
+if(cur&&cur.title)items.push(cur);
+return {date:date||formatDate(new Date()),items:items.filter(it=>it.title)};
+}
+function switchSzDate(d){currentSzDate=d;renderShizheng()}
+function openSz(i){const it=currentSzItems[i];if(it&&it.url)window.open(it.url,'_blank');else showToast('该条目没有附链接')}
+function renderShizheng(){
+const wrap=document.getElementById('szList');if(!wrap)return;
+const chips=document.getElementById('szChips');
+const list=loadData('shizheng',[]);
+if(!list.length){chips.innerHTML='';wrap.innerHTML='<div class="sz-empty">还没有时政内容<br>点击右上角「更新时政」，把每日时政 MD 底稿整段粘贴进来</div>';return}
+if(!currentSzDate||!list.some(x=>x.date===currentSzDate))currentSzDate=list[0].date;
+chips.innerHTML='<span style="font-size:0.8rem;font-weight:800;opacity:0.7">日期：</span>'+list.map(x=>'<span class="memphis-tag '+(x.date===currentSzDate?'tag-coral':'tag-lemon')+'" onclick="switchSzDate(\''+x.date+'\')">'+x.date.slice(5).replace('-','/')+'</span>').join('');
+const issue=list.find(x=>x.date===currentSzDate);if(!issue)return;
+currentSzItems=issue.items;
+wrap.innerHTML='<div class="sz-meta">'+escHtml(issue.date)+' · 共 '+issue.items.length+' 条 · 点击卡片跳转原文</div>'+issue.items.map(function(it,i){
+return '<div class="sz-card '+(it.url?'has-link':'no-link')+'" '+(it.url?'onclick="openSz('+i+')"':'')+'><div class="sz-head"><span class="sz-num">'+(i+1)+'</span><span class="sz-title">'+escHtml(it.title)+'</span>'+(it.url?'<span class="sz-ext">&#8599;</span>':'')+'</div>'+(it.summary?'<div class="sz-summary">'+escHtml(it.summary)+'</div>':'')+(it.reason?'<div class="sz-reason"><b>为什么值得读：</b>'+escHtml(it.reason)+'</div>':'')+'</div>';
+}).join('');
+}
+function showSzModal(){document.getElementById('szModal').classList.add('show');document.getElementById('szImportArea').value=''}
+function submitShizheng(){
+const ta=document.getElementById('szImportArea');
+const parsed=parseShizhengMd(ta.value);
+if(!parsed.items.length){showToast('未解析到条目，请检查格式（## 标题 + - **一句话摘要**…）');return}
+const list=loadData('shizheng',[]);
+const idx=list.findIndex(function(x){return x.date===parsed.date});
+if(idx>=0)list[idx]=parsed;else list.push(parsed);
+list.sort(function(a,b){return a.date<b.date?1:-1});
+while(list.length>10)list.pop();
+saveData('shizheng',list);
+currentSzDate=parsed.date;closeModal('szModal');
+showToast('时政已更新：'+parsed.date+' · '+parsed.items.length+' 条');
+renderShizheng();
+}
+function clearShizheng(btn){
+if(!btn._arm){btn._arm=true;btn.innerHTML='&#9888; 再点一次确认清空';btn.style.background='#E53935';setTimeout(function(){btn._arm=false;btn.innerHTML='&#128465; 清空时政';btn.style.background=''},3000);return}
+saveData('shizheng',[]);currentSzDate=null;renderShizheng();closeModal('szModal');showToast('时政内容已清空');
+}
+
+let _schedDraft=null;
+function renderTemplateBar(){
+const bar=document.getElementById('tplBar');if(!bar)return;
+const cur=getCurrentTplId();
+bar.innerHTML=Object.keys(SCHEDULE_TEMPLATES).map(function(k){const t=SCHEDULE_TEMPLATES[k];
+return '<button class="memphis-btn '+(k===cur?'mint active':'')+'" title="'+escHtml(t.desc)+'" onclick="applyTemplate(\''+k+'\')">'+escHtml(t.name)+'</button>'}).join('')+'<span style="font-size:0.8rem;opacity:0.65">选一套作息，之后可逐条改</span>';
+const eb=document.getElementById('schedEditBar');if(eb)eb.innerHTML='<button class="memphis-btn lavender" onclick="openScheduleEdit()">✎ 自定义作息条目</button>';
+}
+function applyTemplate(k){
+if(!SCHEDULE_TEMPLATES[k])return;
+if(!confirm('切换到「'+SCHEDULE_TEMPLATES[k].name+'」？\n当前作息条目会被这套模板替换。'))return;
+saveData('customSchedule',{tpl:k,items:SCHEDULE_TEMPLATES[k].items.map(function(x){return {id:x.id,time:x.time,label:x.label,subject:x.subject||''}})});
+_schedDraft=null;renderTemplateBar();renderAll();showToast('已切换：'+SCHEDULE_TEMPLATES[k].name)}
+function openScheduleEdit(){
+_schedDraft=getSchedule().map(function(x){return {id:x.id,time:x.time,label:x.label,subject:x.subject||''}});
+renderScheduleEditRows();const m=document.getElementById('scheduleEditModal');if(m)m.classList.add('show')}
+function closeScheduleEdit(){const m=document.getElementById('scheduleEditModal');if(m)m.classList.remove('show');_schedDraft=null}
+function renderScheduleEditRows(){
+const box=document.getElementById('scheduleEditRows');if(!box||!_schedDraft)return;
+box.innerHTML=_schedDraft.map(function(x,i){
+return '<div class="sched-edit-row">'
++'<input class="memphis-input" style="max-width:160px" value="'+escHtml(x.time)+'" placeholder="时间段" data-si="'+i+'" data-sf="time">'
++'<input class="memphis-input" value="'+escHtml(x.label)+'" placeholder="做什么" data-si="'+i+'" data-sf="label">'
++'<button class="memphis-btn coral" style="padding:8px 12px" data-sdel="'+i+'">🗑</button></div>'}).join('');
+box.querySelectorAll('input').forEach(function(el){el.addEventListener('input',function(){
+const i=+el.getAttribute('data-si');const f=el.getAttribute('data-sf');if(_schedDraft[i])_schedDraft[i][f]=el.value})});
+box.querySelectorAll('[data-sdel]').forEach(function(el){el.addEventListener('click',function(){delScheduleRow(+el.getAttribute('data-sdel'))})});
+}
+function delScheduleRow(i){if(!_schedDraft)return;_schedDraft.splice(i,1);renderScheduleEditRows()}
+function addScheduleRow(){if(!_schedDraft)_schedDraft=[];_schedDraft.push({id:'c'+Date.now()+'_'+Math.floor(Math.random()*1000),time:'',label:'',subject:''});renderScheduleEditRows()}
+function saveScheduleEdit(){
+if(!_schedDraft)return;
+const rows=_schedDraft.filter(function(x){return (x.time||'').trim()||(x.label||'').trim()});
+if(!rows.length){showToast('至少保留一条作息');return}
+rows.forEach(function(x,i){if(!x.id)x.id='c'+i+'_'+Date.now()});
+saveData('customSchedule',{tpl:'custom',items:rows});
+_schedDraft=null;closeScheduleEdit();renderTemplateBar();renderAll();showToast('作息已保存')}
+function renderAll(){fillSubjectSelects();updateHeader();renderTodayAlert();renderTemplateBar();renderSubjectManager();renderSchedule(true);renderSchedule(false);renderPhase();renderTasks();renderStats();renderFocusOverview();renderBoard();renderShizheng();const wo=document.getElementById('widgetOverlay');if(wo&&wo.classList.contains('show'))showWidget()}
+
+/* ===== Feature: 日期标注（每天待办） ===== */
+let currentDayNoteDate='';
+function getDayNotes(){return loadData('dayNotes',{})}
+function setDayNotes(o){saveData('dayNotes',o)}
+function openDayNote(ds){currentDayNoteDate=ds;const dt=document.getElementById('dayNoteDate');if(dt)dt.textContent=ds+' '+getWeekDay(ds);const inp=document.getElementById('dayNoteInput');if(inp)inp.value='';renderDayNoteModal();const m=document.getElementById('dayNoteModal');if(m)m.classList.add('show')}
+function renderDayNoteModal(){const notes=getDayNotes();const list=(notes[currentDayNoteDate]||[]);const wrap=document.getElementById('dayNoteList');if(!wrap)return;if(!list.length){wrap.innerHTML='<div class="daynote-empty">这一天还没有标注待办<br>在上方输入框写下你这天要做的事吧～</div>'}else{let html='';list.forEach(function(it){html+='<li class="daynote-item'+(it.done?' done':'')+'"><div class="daynote-check'+(it.done?' checked':'')+'" onclick="toggleDayNote(\''+it.id+'\')">'+(it.done?'✓':'')+'</div><div class="daynote-text">'+escHtml(it.text)+'</div><div class="daynote-del" onclick="deleteDayNote(\''+it.id+'\')">🗑</div></li>'});wrap.innerHTML=html}
+const done=list.filter(function(i){return i.done}).length;const cnt=document.getElementById('dayNoteCount');if(cnt)cnt.textContent='共 '+list.length+' 项'+(list.length?('，已完成 '+done+' 项'):'')}
+function addDayNote(){const inp=document.getElementById('dayNoteInput');if(!inp)return;const text=inp.value.trim();if(!text){showToast('请输入待办内容');return}const notes=getDayNotes();if(!notes[currentDayNoteDate])notes[currentDayNoteDate]=[];notes[currentDayNoteDate].push({id:genId(),text:text,done:false});setDayNotes(notes);inp.value='';showToast('已添加到 '+currentDayNoteDate);renderDayNoteModal();renderBoard()}
+function toggleDayNote(id){const notes=getDayNotes();const list=notes[currentDayNoteDate]||[];const it=list.find(function(x){return x.id===id});if(it){it.done=!it.done;setDayNotes(notes);renderDayNoteModal();renderBoard()}}
+function deleteDayNote(id){const notes=getDayNotes();notes[currentDayNoteDate]=(notes[currentDayNoteDate]||[]).filter(function(x){return x.id!==id});if(notes[currentDayNoteDate]&&notes[currentDayNoteDate].length===0)delete notes[currentDayNoteDate];setDayNotes(notes);renderDayNoteModal();renderBoard()}
+function _withTimeout(p,ms){return new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error('db-timeout'))},ms);p.then(function(v){clearTimeout(t);res(v)},function(e){clearTimeout(t);rej(e)})})}
+function init(){var _done=false;function _once(){if(_done)return;_done=true;try{bootstrap()}catch(e){console.error('[boot] 失败',e);try{renderAll()}catch(e2){console.error(e2)}}}var _to=setTimeout(_once,3000);try{initCloud(function(){clearTimeout(_to);_once()})}catch(e){console.error('[init] 异常',e);clearTimeout(_to);_once()}}
+function bootstrap(){let s=getSettings();if(!loadData('v3Migrated',false)){s.examDate=EXAM_DATE_DEFAULT;s.phase1End=PHASE_CONFIG.phase1End;s.phase2End=PHASE_CONFIG.phase2End;s.phase3End=PHASE_CONFIG.phase3End;s.phase4End=PHASE_CONFIG.phase4End;if(!s.demoCleared){setTasks([]);setStats({});setScheduleCheck({})}saveData('v3Migrated',true);setSettings(s);s=getSettings()}document.getElementById('examDate').value=s.examDate||EXAM_DATE_DEFAULT;document.getElementById('boardStartDate').value=s.boardStart||BOARD_START_DEFAULT;document.getElementById('phase1End').value=s.phase1End||PHASE_CONFIG.phase1End;document.getElementById('phase2End').value=s.phase2End||PHASE_CONFIG.phase2End;document.getElementById('phase3End').value=s.phase3End||PHASE_CONFIG.phase3End;document.getElementById('phase4End').value=s.phase4End||PHASE_CONFIG.phase4End;if(loadData('shizheng',null)===null)saveData('shizheng',DEMO_SHIZHENG);initDemoData();migrateScheduleCheck();renderAll();setInterval(()=>{const now=new Date();if(now.getHours()===0&&now.getMinutes()===0)renderAll()},60000);const demoBtn=document.getElementById('clearDemoBtn');if(demoBtn&&s.demoCleared)demoBtn.textContent='示例数据已清空';
+if(!s.reviewEnabled)s.reviewEnabled=true;if(!s.reviewTime)s.reviewTime='22:30';if(!s.reviewMessage)s.reviewMessage='';if(!s.wallpaperOpacity)s.wallpaperOpacity=72;if(!s.wallpaperMode)s.wallpaperMode=false;setSettings(s);
+updateReminderUI();
+['reviewTime','reviewTime2'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',()=>{const sv=getSettings();sv.reviewTime=document.getElementById('reviewTime')?document.getElementById('reviewTime').value:sv.reviewTime;const el2=document.getElementById('reviewTime2');if(el2)sv.reviewTime=el2.value||sv.reviewTime;setSettings(sv);updateReminderUI();showToast('复盘时间已更新')})});
+['reviewMessage','reviewMessage2'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',()=>{const sv=getSettings();const v1=document.getElementById('reviewMessage');const v2=document.getElementById('reviewMessage2');sv.reviewMessage=(v2&&v2.value)||v1.value||'';setSettings(sv);showToast('提醒内容已更新')})});
+if(s.wallpaperMode){document.body.classList.add('wallpaper-mode');const t1=document.getElementById('wallpaperToggle');const t2=document.getElementById('wallpaperToggle2');const wb=document.getElementById('wallpaperBtn');if(t1)t1.classList.add('on');if(t2)t2.classList.add('on');if(wb)wb.classList.add('active');const s1=document.getElementById('wallpaperStatus');const s2=document.getElementById('wallpaperStatus2');if(s1)s1.textContent='已开启';if(s2)s2.textContent='已开启'}
+setWallpaperOpacity(s.wallpaperOpacity);
+['wallpaperOpacity','wallpaperOpacity2'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=s.wallpaperOpacity});
+setInterval(checkReminder,30000);
+checkReminder()}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
+</script>
+</body>
+</html>

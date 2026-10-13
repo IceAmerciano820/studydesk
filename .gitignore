@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 本地数据备份（导出的 JSON 里含个人备考数据，不要提交）
+考研土豆备份_*.json
+*_backup.json
